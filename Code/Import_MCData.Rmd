@@ -152,14 +152,16 @@ TargetFileName
 #filter superfluous rows to simplify later pivot
 TargetData <- TargetData %>%
   filter(str_detect(key, "od-720|od-680|actinic-lights.light"))
+#head(TargetData)
 
 # some files have "V5"  instead of "value" column
 TargetData <- TargetData %>%
   select(key, time, `abs-time`, value, Filename) %>% #, CDateTime
   mutate(Tube = str_extract(key, "-[:digit:]"),
          Tube = as.numeric(str_extract(Tube, "[:digit:]")),
-         abs_time = dmy_hms(`abs-time`)) %>%
+         abs_time = mdy_hms(`abs-time`)) %>%
   select(-`abs-time`)
+
 
 #extract StartHour dynamically from first row of abs_time and display for cross check
 StartHour <- as.numeric(format(TargetData$abs_time[1], format = "%H"))
@@ -196,6 +198,18 @@ TargetData <- TargetData %>%
   filter(grepl("od-", key)) %>%
   ggplot(data = .) +
   geom_point(aes(x = time, y = value, colour = as.factor(str_detect(key, "680"))), size = 0.5) +
+  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
+  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
+  scale_colour_manual(values = c("black", "red")) +
+  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes") +
+  facet_grid(cols = vars(as.factor(Tube))) +
+  theme_bw()
+
+ TargetData %>%
+  filter(grepl("od-", key)) %>%
+  ggplot(data = .) +
+  geom_point(aes(x = time, y = value, colour = as.factor(str_detect(key, "680"))), size = 0.5) +
+   coord_cartesian(ylim = c(-0.1,0.1)) +
   geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
   geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
   scale_colour_manual(values = c("black", "red")) +
@@ -290,7 +304,7 @@ XXX having issues with the left join, need to fix it later XXX
 
 ```{r metadata merge}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
-TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("ExpStartDate", "MC", "Tube"))
+TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
 
 TargetDataMeta
 
@@ -308,13 +322,22 @@ rm(TargetDataWide)
   #scale_x_continuous(breaks=seq(0, 800, by = 125)) +
   #coord_cartesian(xlim = c(-10, 800)) +
   scale_colour_manual(values = MCMIXColours) +
-  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", subtitle = "Growth Light (µE); Strain; SampleID; Tube") +
-  facet_grid(rows = vars(as.factor(O2)), cols = vars(as.factor(Tube), as.factor(Par_ue),Strain, SampleID)) +
-  theme_bw() +  
-  labs(colour = "Actinic PAR (nm)")
+  #labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", subtitle = "Growth Light (µE); Strain; SampleID; Tube") +
+  facet_grid(rows = vars(as.factor(Plastic_Present)), cols = vars(as.factor(Tube), Nutrient_Present, Culture_Present)) +
+  theme_bw()
 
 ```
-
+# Save compressed .Rds of Imported Data from TargetFile
+Look at what you want for filtering
+Fix meta catalog
+do for both of the files
+fix labels
+as a formal practice segregate plastic (but fine for this project)
+remove extra columns from meta
+```{r save Rds of imported data}
+saveRDS(object = TargetDataMeta, file = file.path(DataOut, paste(TargetFileName, "TargetDataMeta.Rds",  sep = "_")), ascii = FALSE, version = NULL,
+        compress = "xz", refhook = NULL)
+```
 
 Run this chunk only for tubes with OD680 and/or OD720 < 0 across the whole growth trajectory. --> -->
 This will keep record of tubes even if they did not grow or had negative growth. These tubes get filtered out later if you do not run this chunk.
@@ -386,10 +409,10 @@ TargetDataMetaFilter %>%
   geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
   geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
   scale_colour_manual(values = MCMIXColours) +
-  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", subtitle = "Growth Light (µE); Strain; SampleID; Tube") +
+  #labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", subtitle = "Growth Light (µE); Strain; SampleID; Tube") +
  facet_grid(rows = vars(as.factor(O2)), cols = vars(as.factor(Tube), as.factor(Par_ue),Strain, SampleID)) +
-  theme_bw() +  
-  labs(colour = "Actinic PAR (nm)")
+  theme_bw()# +  
+  #labs(colour = "Actinic PAR (nm)")
 
 ```
 
@@ -431,34 +454,6 @@ TargetDataMetaFilter %>%
 
 ```
 
-
-```{r DailyPAR}
-TargetDataMetaFilter <- TargetDataMetaFilter %>%
-  mutate(PARPhotonDose_day = case_when(LightShape == 'Sine' ~ Par_ue/2 * 3600 * Photoperiod,
-                                  LightShape == 'Square' ~ Par_ue * 3600 * Photoperiod))
-
-```
-
-# Implement Daily Cumulative PAR for Corrected Actinic by numeric integration
-
-```{r Actinic_parOD}
-#generate corrected values of Actinic_par accounting for OD
-#correction assumes true 100% transmission through Tube + Media + Waterbath;  we could account for the 'background' OD as well if needed
-#correction assumes that OD is attributable solely to change in culture suspension
-#correction does not account for different absorbance of different incident light coloures
-TargetDataMetaFilter <- TargetDataMetaFilter %>%
-  mutate(ActinicMin_parOD680 = Actinic_par * (10^-OD680),
-         ActinicMid_parOD680 = Actinic_par * (10^-(OD680*0.5)),
-         ActinicMin_parOD720 = Actinic_par * (10^-OD720),
-         ActinicMid_parOD720 = Actinic_par * (10^-(OD720*0.5)))
-
-#generate daily photon dose umol photon m-2 d-1 after accounting for attenuation
-TargetDataMetaFilter <- TargetDataMetaFilter %>%
-  group_by(MC, Tube, Day) %>%
-  mutate(ActinicMid_intervalOD720 = ActinicMid_parOD720 * ((time - dplyr::lag(time)) * 3600),
-         ActinicMid_dayOD720 = sum(ActinicMid_intervalOD720, na.rm = TRUE))
-
-``` 
 
 ```{r filterdataplotexpandActinicMid_parOD720}
 #labelling dynamically offset from data traces.
