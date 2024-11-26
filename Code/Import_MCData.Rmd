@@ -358,7 +358,7 @@ data_long<-CultureCatalog%>%
 head(data_long)
 ```
 ```{r}
-ggplot(data_long,aes(x=Tube,y=Weight,fill=Weight_Type))+geom_bar(stat="identity",position="dodge")+scale_fill_manual(values=c("Initial_Weight"="blue","Final_Weight"="red"))+labs(x="Tube",y="Weight(mg)",fill="Weight Type")+theme_minimal()
+ggplot(data_long,aes(x=Tube,y=Weight,fill=Weight_Type))+geom_bar(stat="identity",position="dodge")+scale_fill_manual(values=c("Initial_Plastic_Weight_mg"="blue","Final_Plastic_Weight_mg"="red"))+labs(x="Tube",y="Weight(mg)",fill="Weight Type")+theme_minimal()
 ```
 
 
