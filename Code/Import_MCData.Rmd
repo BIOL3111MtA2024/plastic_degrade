@@ -352,6 +352,14 @@ head(graph_data)
 
 
 ```
+```{r}
+data_long<-CultureCatalog%>%
+  pivot_longer(cols=c(Initial_Plastic_Weight_mg,Final_Plastic_Weight_mg),names_to = "Weight_Type",values_to = "Weight")
+head(data_long)
+```
+```{r}
+ggplot(data_long,aes(x=Tube,y=Weight,fill=Weight_Type))+geom_bar(stat="identity",position="dodge")+scale_fill_manual(values=c("Initial_Weight"="blue","Final_Weight"="red"))+labs(x="Tube",y="Weight(mg)",fill="Weight Type")+theme_minimal()
+```
 
 
 ```{r}
