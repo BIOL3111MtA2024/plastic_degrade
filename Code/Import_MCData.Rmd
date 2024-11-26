@@ -375,10 +375,10 @@ ggplot(graph_data, aes(x = Temperature_C, y = Suspension_RFU, colour = Culture_P
 
 
 
-# Set Target File and read in csv
+# 2nd file
 ```{r set TargetFile and read csv}
 
-TargetFile <- "20240927_Plastic_MCMIX004.csv"
+TargetFile <- "20240927_Plastic_MCMIX006.csv"
 
 
 # This opens a compressed file without decompressing.
@@ -486,9 +486,68 @@ TargetDataWide[1:10,]
 rm(TargetData)
 ```
 
+```{r interpolate and summarize actinic_par by tube}
+#http://publish.illinois.edu/spencer-guerrero/2014/12/11/2-dealing-with-missing-data-in-r-omit-approx-or-spline-part-1/
+
+#https://dplyr.tidyverse.org/dev/articles/colwise.html
+
+#Interpolation causes problems with final rows that repeat last value.
+
+interpolate <- function(x){zoo::na.locf(x, na.rm = FALSE, fromLast = FALSE, type = "l", maxgap = Inf)}
+
+#possible problem with actinic_par for MC data b/c actinic-lights.light1 = NA generates actinic_par of 0 b/c in rowSums na.rm = TRUE, which treats NA as 0.
+#possibly not a big problem but watch for bugs
+#na.rm = FALSE fails to run
+TargetDataWide <- TargetDataWide %>%
+  group_by(Tube) %>%
+  arrange(Filename, MC, Tube, time) %>%
+  mutate(across(.cols = starts_with("actinic-lights.light"), .fns = interpolate)) %>%
+  ungroup() %>%
+  mutate(Actinic_par = rowSums(.[grep("actinic-lights.light", names(.))], na.rm = TRUE)) %>%
+  filter(!is.na(Actinic_par)) %>%
+   select(!contains("actinic-lights.light"))
 
 
+TargetDataWide[1:10,]
+```
 
+```{r consolidate OD}
+TargetDataWide <- TargetDataWide  %>%
+   mutate(OD680 = rowSums(.[grep("od-680", names(.))], na.rm = TRUE),
+          OD720 = rowSums(.[grep("od-720", names(.))], na.rm = TRUE)) %>%
+   select(!contains("od-sensors"))
+
+TargetDataWide[1:10,]
+
+```
+
+# Merge Data with meta data
+
+```{r metadata merge}
+#This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
+TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
+
+TargetDataMeta
+
+rm(TargetDataWide)
+```
+# Prelim plot with culture meta data
+```{r second prelim plot}
+
+  TargetDataMeta %>% ggplot() +
+  geom_point(aes(x = time, y = OD680, colour = as.factor(WL)), size = 0.15) +
+  geom_point(aes(x = time, y = OD720), size = 0.15, colour = "orange") +
+  #geom_point(aes(x = time, y = Actinic_par/1000),  colour = "orange", size = 0.0001) +
+  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
+  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
+  #scale_x_continuous(breaks=seq(0, 800, by = 125)) +
+  #coord_cartesian(xlim = c(-10, 800)) +
+  scale_colour_manual(values = MCMIXColours) +
+  #labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", subtitle = "Growth Light (µE); Strain; SampleID; Tube") +
+  facet_grid(rows = vars(as.factor(Plastic_Present)), cols = vars(as.factor(Tube), Nutrient_Present, Culture_Present)) +
+  theme_bw()
+
+```
 
 
 
