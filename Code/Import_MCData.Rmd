@@ -565,19 +565,32 @@ I will be running an ANOVA (one way) on change in plastic mass data (initial - e
 This will tell us whether the mean '% change in plastic weight' is significantly different between the 15 and 25 degree groups
 
 ```{r}
-onewayanova<-aov((filtered_data$Initial_Plastic_Weight_mg-filtered_data$Final_Plastic_Weight_mg)~filtered_data$Temperature_C)
-summary(onewayanova)
+onewayanova_mass<-aov((filtered_data$Initial_Plastic_Weight_mg-filtered_data$Final_Plastic_Weight_mg)~filtered_data$Temperature_C)
+summary(onewayanova_mass)
 ```
 
 Factorial ANOVA using temperature, culture presence, and nutrient presence as independent variables.
 This will tell us whether any one of these variables or some combination have a statistically significant effect on change in plastic mass.
 ```{r}
 filtered_dataplasticpresent<-CultureCatalog[CultureCatalog$Plastic_Present != 0,]
-factorialanova<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C*filtered_dataplasticpresent$Culture_Present*filtered_dataplasticpresent$Nutrient_Present)
-summary(factorialanova)
+factorialanova_mass<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C*filtered_dataplasticpresent$Culture_Present*filtered_dataplasticpresent$Nutrient_Present)
+summary(factorialanova_mass)
 ```
 
-
+One way ANOVAs for chlorophyll assay readings using temp as independent variable (one ANOVA for wall growth and another for suspension)...
+```{r}
+onewayanova_rfuwall<-aov(CultureCatalog$Wall_Growth_RFU~CultureCatalog$Temperature_C)
+summary(onewayanova_rfuwall)
+onewayanova_rfususpension<-aov(CultureCatalog$Suspension_RFU~CultureCatalog$Temperature_C)
+summary(onewayanova_rfususpension)
+```
+Factorial ANOVAs for chlorophyll assay readings using temp, nutrient presence, plastic presence and culture presence as independent variables...
+```{r}
+factorialanova_rfuwall<-aov(CultureCatalog$Wall_Growth_RFU~CultureCatalog$Temperature_C*CultureCatalog$Culture_Present*CultureCatalog$Nutrient_Present*CultureCatalog$Plastic_Present)
+summary(factorialanova_rfuwall)
+factorialanova_rfususpension<-aov(CultureCatalog$Suspension_RFU~CultureCatalog$Temperature_C*CultureCatalog$Culture_Present*CultureCatalog$Nutrient_Present*CultureCatalog$Plastic_Present)
+summary(factorialanova_rfususpension)
+```
 
 
 
