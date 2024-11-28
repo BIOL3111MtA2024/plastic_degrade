@@ -559,36 +559,24 @@ rm(TargetDataWide)
 
 
 
-I will be running an ANOVA on '% change in plastic weight' data for experimental groups
+I will be running an ANOVA (one way) on change in plastic mass data (initial - end) for experimental groups
 (5 tubes each) in 15 and 25 degrees celsius.
 
 This will tell us whether the mean '% change in plastic weight' is significantly different between the 15 and 25 degree groups
 
-
-Paired t-test...
-
-
 ```{r}
-filtered_data<-CultureCatalog[CultureCatalog$Control_or_Replicate != "Control",]
-
-filtered_data$Temperature_C<-as.factor(filtered_data$Temperature_C)
-
-temp_15<-filtered_data[filtered_data$Temperature_C=="15"]
-temp_25<-filtered_data[filtered_data$Temperature_C==" 25"]
-
-ttest15<-t.test(temp_15$Initial_Plastic_Weight_mg, temp_15$Final_Plastic_Weight_mg, paired = TRUE, na.rm = TRUE)
-ttest25<-t.test(temp_25$Initial_Plastic_Weight_mg, temp_25$Final_Plastic_Weight_mg, paired = TRUE, na.rm = TRUE)
-
-
-print(ttest15)
-print(ttest25)
-
-
-
-
-
-
+onewayanova<-aov((filtered_data$Initial_Plastic_Weight_mg-filtered_data$Final_Plastic_Weight_mg)~filtered_data$Temperature_C)
+summary(onewayanova)
 ```
+
+Factorial ANOVA using temperature, culture presence, and nutrient presence as independent variables.
+This will tell us whether any one of these variables or some combination have a statistically significant effect on change in plastic mass.
+```{r}
+filtered_dataplasticpresent<-CultureCatalog[CultureCatalog$Plastic_Present != 0,]
+factorialanova<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C*filtered_dataplasticpresent$Culture_Present*filtered_dataplasticpresent$Nutrient_Present)
+summary(factorialanova)
+```
+
 
 
 
