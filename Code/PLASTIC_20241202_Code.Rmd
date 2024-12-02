@@ -916,20 +916,14 @@ TukeyHSD(weight_loss_anova)
 ```
 
 ```{r}
-# Two-way ANOVA for Wall_Growth_RFU
-# rfu_anova <- aov(Wall_Growth_RFU ~ Temperature_C * Culture_Present * Nutrient_Present, data = plastic)
-# summary(rfu_anova)
-# 
-# # Linear regression for RFU vs Percent Weight Loss
-# rfu_regression <- lm(Percent_Weight_Loss ~ Wall_Growth_RFU + Suspension_RFU, data = plastic)
-# summary(rfu_regression)
-# 
-# # Scatterplot of RFU vs Percent Weight Loss
-# ggplot(plastic, aes(x = Wall_Growth_RFU, y = Percent_Weight_Loss, color = Temperature_C)) +
-#   geom_point() +
-#   geom_smooth(method = "lm", se = TRUE) +
-#   labs(x = "Wall Growth RFU", y = "Percent Weight Loss")
+#Two-way ANOVA for Wall_Growth_RFU
+rfu_anova <- aov(Wall_Growth_RFU ~ Temperature_C * Culture_Present * Nutrient_Present, data = plastic)
+summary(rfu_anova)
 
+# Linear regression for RFU vs Percent Weight Loss
+rfu_regression <- lm(Percent_Weight_Loss ~ Wall_Growth_RFU + Suspension_RFU, data = plastic)
+summary(rfu_regression)
+# 
 ```
 
 ```{r}
@@ -1003,7 +997,7 @@ negative_mean_data
 
 
 ## Pictures 
-XXX make sure that yvanna cites herself
+XXX make sure that yvanna cites herself for photos and adds photo captions
 
 # Discussion
 
