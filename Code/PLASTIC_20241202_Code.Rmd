@@ -62,8 +62,7 @@ XXX write that this was by the original authors
 
 >This .Rmd Rworkbook imports data in simple .csv long form exported from PSI Multicultivators based upon project specific values for variables set by the user.
 
->It tidies and organizes the data. It uses a pivot_wider and
-interpolation approach to get the Actinic_par and OD values in line rowwise. This requires careful 'arrange' of the rows. It imports a metadata catalog (Data/RawData/"CultureCatalog.Rds") and merges the metadata with the imported data based
+>It tidies and organizes the data. It uses a pivot_wider and interpolation approach to get the Actinic_par and OD values in line rowwise. This requires careful 'arrange' of the rows. It imports a metadata catalog (Data/RawData/"CultureCatalog.Rds") and merges the metadata with the imported data based
 upon shared values for the variables 'MC', 'Tube', and 'Filename' which should unambiguously identify a given growth trajectory measured at OD680 or OD720. OD680 of 0.005 and OD720 of 0.003 were used to replace measured OD values for tubes with OD680 and/or OD720 < 0 across the whole growth trajectory. Assigning these very low OD values acts as a place holder; otherwise data for these tubes get filtered out later and 'no growth' data are lost.
 
 >It generates preliminary data plots. It filters the data for outliers by screening out values distant from the moving average of a window in the stream; this requires careful 'arrange' of the rows so sequential rows represent sequential time steps.
@@ -71,25 +70,33 @@ upon shared values for the variables 'MC', 'Tube', and 'Filename' which should u
 > This works because the OD680 & OD720 data are only episodically, but widely, aberrant when a bubble interrupts the measurement, and if the Multicultivator is running properly these bubble aberration events are rare.
 
 # Materials and Methods
->Sampling
->At the Mount Allison University swan pond, two samples (1 liter each) of surface water from the pond’s edge at 4553’58’’ N, 6422’12’’ W were collected in sanitized plastic bottles. These samples were then transported back to the lab. 
+## Sampling
 
->Preparation of Culture Nutrient
->To satisfy minimal nutrient needs and to sustain the microbial community present in pond water samples, nitrate and phosphate solution was prepared. Ingredients included, 2mM disodium phosphate (144L) and 149.6g/L sodium nitrate (12.8mL). Final concentrations of 100M nitrate and 10M phosphate result in the final mixed solution of pond water and nutrient media. Each trial tube contained 80mL of pond water and 0.4mL of nutrient solution.
+At the Mount Allison University swan pond, two samples (1 liter each) of surface water from the pond’s edge at 4553’58’’ N, 6422’12’’ W were collected in sanitized plastic bottles. These samples were then transported back to the lab. 
 
->Pre-trial Treatment and Weighing of Bioplastic Pieces
->A Define Planet Veggie Based Compostable Poobag (SKU: 28946971) was cut into pieces of uniform composition and similar mass. Three holes were then poked through each fragment of plastic. Fragments were then washed in 70% ethanol for 5-10 seconds each to remove any extraneous material. Following ~30 minutes of drying, individual pieces were weighed in an aluminum boat on a Mettler Toledo MX5 microbalance to obtain pre-trial weights of each fragment. At this point fragments were numbered based on the Multi-Cultivator MC 1000-OD photobioreactor (Photon Systems Instruments) tube which they would end up in. Tubes and the plastic fragments they were to contain (if applicable) were labeled 1-16.
+## Preparation of Culture Nutrient
 
->Photobioreactor Trials
->Prior to the addition of nutrient mix or pond water, bag fragments were fastened to glass oxygen delivery tubes within each of the two photobioreactors’ larger tubes. This was done by sliding the folded fragment up the oxygen tube via the holes poked beforehand. Next, 80mL of pond water and 0.4mL of nitrate-phosphate mix were dispensed into each photobioreactor tube (where applicable). Plastic fragments were adjusted to ensure that there was no immediate threat of fragments interfering with the sensors aligned with each tube. The glass housing in which the tubes were located was then filled with distilled water to the point where each reactor’s floating bob was about 1 inch from the low water sensor 
+To satisfy minimal nutrient needs and to sustain the microbial community present in pond water samples, nitrate and phosphate solution was prepared. Ingredients included, 2mM disodium phosphate (144L) and 149.6g/L sodium nitrate (12.8mL). Final concentrations of 100M nitrate and 10M phosphate result in the final mixed solution of pond water and nutrient media. Each trial tube contained 80mL of pond water and 0.4mL of nutrient solution.
+
+## Pre-trial Treatment and Weighing of Bioplastic Pieces
+
+A Define Planet Veggie Based Compostable Poobag (SKU: 28946971) was cut into pieces of uniform composition and similar mass. Three holes were then poked through each fragment of plastic. Fragments were then washed in 70% ethanol for 5-10 seconds each to remove any extraneous material. Following ~30 minutes of drying, individual pieces were weighed in an aluminum boat on a Mettler Toledo MX5 microbalance to obtain pre-trial weights of each fragment. At this point fragments were numbered based on the Multi-Cultivator MC 1000-OD photobioreactor (Photon Systems Instruments) tube which they would end up in. Tubes and the plastic fragments they were to contain (if applicable) were labeled 1-16.
+
+## Photobioreactor Trials
+
+Prior to the addition of nutrient mix or pond water, bag fragments were fastened to glass oxygen delivery tubes within each of the two photobioreactors’ larger tubes. This was done by sliding the folded fragment up the oxygen tube via the holes poked beforehand. Next, 80mL of pond water and 0.4mL of nitrate-phosphate mix were dispensed into each photobioreactor tube (where applicable). Plastic fragments were adjusted to ensure that there was no immediate threat of fragments interfering with the sensors aligned with each tube. The glass housing in which the tubes were located was then filled with distilled water to the point where each reactor’s floating bob was about 1 inch from the low water sensor.
+
 The settings used in photobioreactor 1 and photobioreactor 2 were identical apart from water temperature, which was 15C in photobioreactor 1 and 25C in photobioreactor 2 (meant to mimic water temperature in vivo in summer and fall), . Both bioreactors were set to 12 hours of white light (equal intensity)/12 hours of dark daily, equal oxygen bubbling, and to take measurements at 720nm (optical density) and 680nm (chlorophyll a & b) every 5 minutes. Once these settings had been input into the bioreactor’s software, the photobioreactor was turned on and trials began. 
+
 Beginning the first day of incubation, the contents of each photobioreactor were suspended once weekly. During the trial period, multiple measurements were skewed due to interference of plastic or oxygen delivery tubes with sensors. Such interference issues were fixed as they were noticed by positioning the central oxygen delivery tube and/or the plastic away from sensors. 
 
->Post-trial Mass Measurement of Bioplastic Pieces
->Following a 6-week trial period, the photobioreactors were shut down and plastic fragments were removed from their respective tubes and washed with water to remove any loosely connected mass. Fragments were then left to dry in open air for 24 hours. Post-trial masses of each fragment were taken with the Mettler Toledo MX5 microbalance and an aluminum boat. 
+## Post-trial Mass Measurement of Bioplastic Pieces
 
->Chlorophyll Assays
->To measure wall growth and suspension growth of pond microbes during the trial period, non-acidified chlorophyll assays were performed on the contents of each tube. A total of 32 assays were performed: 16 for suspension growth and 16 for wall growth. Each wall growth assay used 5mL 90% 3:2 acetone: dimethyl sulfoxide solvent to detach microbes from tube walls by swirling. Approximately 2-3mL of solvent/microbe mix was transferred from each tube to its associated assay cuvette. Suspension growth pond water samples were pipetted into assay cuvettes following transfer to a new container and resuspension. Using glass pipettes, 2mL of solvent was distributed to each assay cuvette. Chlorophyll fluorescence readings were taken at excitation wavelength 43610nm and emission wavelength 68510nm using the Turner Trilogy fluorometer.  
+Following a 6-week trial period, the photobioreactors were shut down and plastic fragments were removed from their respective tubes and washed with water to remove any loosely connected mass. Fragments were then left to dry in open air for 24 hours. Post-trial masses of each fragment were taken with the Mettler Toledo MX5 microbalance and an aluminum boat. 
+
+## Chlorophyll Assays
+
+To measure wall growth and suspension growth of pond microbes during the trial period, non-acidified chlorophyll assays were performed on the contents of each tube. A total of 32 assays were performed: 16 for suspension growth and 16 for wall growth. Each wall growth assay used 5mL 90% 3:2 acetone: dimethyl sulfoxide solvent to detach microbes from tube walls by swirling. Approximately 2-3mL of solvent/microbe mix was transferred from each tube to its associated assay cuvette. Suspension growth pond water samples were pipetted into assay cuvettes following transfer to a new container and resuspension. Using glass pipettes, 2mL of solvent was distributed to each assay cuvette. Chlorophyll fluorescence readings were taken at excitation wavelength 43610nm and emission wavelength 68510nm using the Turner Trilogy fluorometer.  
 
 YET TO BE WRITTEN: DATA HANDLING/ANALYSES
 
