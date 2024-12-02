@@ -26,6 +26,7 @@ editor_options:
 ---
 
 XXX what should the knit output be? XXX
+XXX need to update references + read mesXXX
 
 
 # Acknowledgement
