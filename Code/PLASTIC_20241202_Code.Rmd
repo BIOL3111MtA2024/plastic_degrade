@@ -19,7 +19,7 @@ output:
     toc_float: TRUE
     toc_depth: 6
     fig_caption: yes
-bibliography: ../Docs/PBAT degradation.bib
+bibliography: ../Docs/PBATDegradationCitations.bib
 csl:  ../Docs/apa-with-abstract.csl
 editor_options: 
   markdown: 
@@ -38,7 +38,7 @@ XXX need to update references + read mesXXX
 
 
 # Acknowledgement {-}
-This R markdown file is adapted from the `Import_MCData` file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell for the Plastic Degredation project by Heather MacTavish, Andrew Forrest, and Yvanna Tchatchoua in BIOL3111.
+This R markdown file is adapted from the `Import_MCData` file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell [@genge_import_mcdata_2024] for the Plastic Degradation project by Heather MacTavish, Andrew Forrest, and Yvanna Tchatchoua in BIOL3111.
 
 Dr. Campbell was supported by the Canada Research Chairs.
 
@@ -111,8 +111,9 @@ To measure wall growth and suspension growth of pond microbes during the trial p
 
 YET TO BE WRITTEN: DATA HANDLING/ANALYSES
 
+## Data Handling
 
-# Load Libraries
+### Load Libraries
 ```{r load libraries, echo = FALSE, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(lubridate)
@@ -123,10 +124,12 @@ library(zoo)
 #library(multcomp) #XXX
 ```
 
-# Set Project Variables
+This report was generated in `R version 4.3.2` [@r_core_team_r_2023], with the packages: `tidyverse`[@wickham_welcome_2019], `lubridate` [@grolemund_dates_2011], `knitr` [@xie_knitr_2023; @xie_dynamic_2015; @stodden_knitr_2014], `broom` [@robinson_broom_2024],`data.table` [@barrett_datatable_2024], and `zoo` [@zeileis_zoo_2005].
+
+
+### Set Project Variables
 ```{r set project variables}
 Project <- "Plastic"
-
 
 # Multicultivator data files are too large to upload in a single .zip therefore 3 .zipped folders are uploaded. 
 
@@ -140,17 +143,8 @@ Skip <- 20
 
 
 ```{r read locally stored metadata from rds}
-
 CultureCatalog <- readRDS(file = file.path("..", "Data",  "RawData","CultureCatalog.Rds"))
-
 ```
-
-
-# List previously imported MultiCulti files
-```{r previously imported files}
-list.files(path = DataOut, pattern = Project, full.names = TRUE)
-```
-# BioReactor Data
 
 ### List MultiCulti files for Project that are saved in DataIn
 ```{r MultiCulti files}
@@ -161,8 +155,8 @@ MCFiles <- MCFiles[grepl(".csv$", MCFiles$Name), "Name"]
 print(MCFiles)
 
 ```
-## MCMIX004
-### Set Target File and read in csv
+### MCMIX004 File
+#### Set Target File and read in csv
 ```{r set TargetFile and read csv MCMIX004}
 
 TargetFile <- "20240927_Plastic_MCMIX004.csv"
@@ -179,7 +173,7 @@ TargetFileName <- str_remove(string = TargetFile, pattern = ".csv")
 TargetFileName
 ```
 
-### Filter superfluous rows, Add ToD column, extract ExpDate, extract MC, 
+#### Filter superfluous rows, Add ToD column, extract ExpDate, extract MC, 
 ```{r tidy MultiDataTarget MCMIX004}
 #filter superfluous rows to simplify later pivot
 TargetData <- TargetData %>%
@@ -218,8 +212,8 @@ TargetData <- TargetData %>%
            MC = str_remove(MC, pattern = "\\_.*"))
 ```
 
-## Create preliminary plot for TargetData (MCMIX004)
-### Plots all OD values. True detection is OD680 and false detection is OD720.
+#### Create preliminary plot for TargetData (MCMIX004)
+##### Plots all OD values. True detection is OD680 and false detection is OD720.
 ```{r prelim plot MCMIX004}
 
   TargetData %>%
@@ -248,7 +242,7 @@ TargetData <- TargetData %>%
 
 ```
 
-### Generate par_ue column with rows aligned with OD measures
+##### Generate par_ue column with rows aligned with OD measures
 >Pivot_wider to get actinic-lights data aligned with relevant sensor data. Need to include arrange(Filename, time, Tube) to keep things aligned! Need to group_by and/or reorder rows appropriately; Be Careful
 
 ```{r pivot_wider MCMIX004}
@@ -311,7 +305,7 @@ TargetDataWide[1:10,]
 
 ```
 
-## Merge Data with meta data
+#### Merge Data with meta data
 ```{r metadata merge MCMIX004}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
@@ -320,7 +314,8 @@ TargetDataMeta
 
 rm(TargetDataWide)
 ```
-## Prelim plot with culture meta (MCMIX004)
+
+#### Prelim plot with culture meta (MCMIX004)
 ```{r second prelim plot MCMIX004}
 
   TargetDataMeta %>% ggplot() +
@@ -339,8 +334,8 @@ rm(TargetDataWide)
 ```
 
 
-## MCMIX006
-### Set Target File and read in csv
+### MCMIX006
+#### Set Target File and read in csv
 ```{r set TargetFile and read csv MCMIX006}
 
 TargetFile <- "20240927_Plastic_MCMIX006.csv"
@@ -358,7 +353,7 @@ TargetFileName
 
 ```
 
-### Filter superfluous rows, Add ToD column, extract ExpDate, extract MC,
+#### Filter superfluous rows, Add ToD column, extract ExpDate, extract MC,
 ```{r tidy MultiDataTarget MCMIX006}
 #filter superfluous rows to simplify later pivot
 TargetData <- TargetData %>%
@@ -401,8 +396,8 @@ TargetData <- TargetData %>%
 
 ```
 
-## Create preliminary plot for TargetData MCMIX006
-### Plots all OD values. True detection is OD680 and false detection is OD720.
+#### Create preliminary plot for TargetData MCMIX006
+##### Plots all OD values. True detection is OD680 and false detection is OD720.
 ```{r prelim plot MCMIX006}
 
   TargetData %>%
@@ -432,7 +427,7 @@ TargetData <- TargetData %>%
 ```
 
 
-### Generate par_ue column with rows aligned with OD measures
+##### Generate par_ue column with rows aligned with OD measures
 ```{r pivot_wider MCMIX006}
 #possible issue with data structure; there are multiple values for some of the rows of actinic light columns, so the column becomes a list.
 #Can add  values_fn = 
@@ -482,7 +477,7 @@ TargetDataWide[1:10,]
 
 ```
 
-## Merge Data with meta data
+#### Merge Data with meta data
 
 ```{r metadata merge MCMIX006}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
@@ -492,7 +487,7 @@ TargetDataMeta
 
 rm(TargetDataWide)
 ```
-# Prelim plot with culture meta data (MCMIX006)
+#### Prelim plot with culture meta data (MCMIX006)
 ```{r second prelim plot MCMIX006}
 
   TargetDataMeta %>% ggplot() +
