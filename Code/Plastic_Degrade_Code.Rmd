@@ -91,6 +91,8 @@ library(lubridate)
 library(broom)
 library(data.table)
 library(zoo)
+library(lme4) #XXX
+library(multcomp) #XXX
 ```
 
 # Set Project Variables
@@ -522,8 +524,84 @@ remove extra columns from meta
 
 
 # Plastic Analyses
-# Suspension Analyses
-# Wall Growth Analyses
+```{r plastic percent change}
+# make a new data set to not mess up the original
+plastic <- CultureCatalog
+
+
+# Calculate percentage change
+plastic$perc_change <- (plastic$Final_Plastic_Weight_mg - plastic$Initial_Plastic_Weight_mg) / plastic$Initial_Plastic_Weight_mg * 100
+
+plastic
+```
+```{r plastic percent change graph}
+ggplot(plastic, aes(x = as.factor(Culture_Present), y = perc_change, fill = as.factor(Nutrient_Present))) +
+  geom_boxplot() +
+  labs(title = "Plastic Degradation Across Conditions", x = "Culture Present", y = "Percentage Change (%)") +
+  theme_minimal()
+```
+
+
+# Microbial Suspension and Wall Growth Analyses
+
+```{r}
+# Scatter plot: microbial growth vs plastic degradation
+ggplot(plastic, aes(x = perc_change, y = Wall_Growth_RFU, color = as.factor(Nutrient_Present))) +
+  geom_point() +
+  labs(title = "Plastic Degradation vs Microbial Growth", x = "Percentage Plastic Change (%)", y = "Wall Growth RFU") +
+  theme_minimal()
+```
+
+```{r}
+# ANOVA model
+anova_model <- aov(perc_change ~ Culture_Present * Nutrient_Present * Temperature_C, data = plastic)
+summary(anova_model)
+
+# plot of the interactions
+interaction.plot(plastic$Temperature_C, plastic$Culture_Present, plastic$perc_change,
+                 col = 1:2, xlab = "Temperature", ylab = "Plastic Degradation (%)",
+                 main = "Interaction Between Temperature and Culture")
+
+```
+
+XXX
+```{r}
+# Correlation matrix
+library(reshape2)
+cor_data <- cor(plastic[, c("perc_change", "Wall_Growth_RFU", "Suspension_RFU")], use = "complete.obs")
+cor_melt <- melt(cor_data)
+
+# Heatmap
+ggplot(cor_melt, aes(Var1, Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0) +
+  labs(title = "Correlation Heatmap", fill = "Correlation") +
+  theme_minimal()
+
+```
+
+
+
+
+## converting the variables to factor type
+```{r making variables factors}
+# Convert grouping variables to factors 
+plastic$Plastic_Present <- as.factor(plastic$Plastic_Present)
+plastic$Nutrient_Present <- as.factor(plastic$Nutrient_Present)
+plastic$Culture_Present <- as.factor(plastic$Culture_Present)
+```
+
+
+
+
+```{r}
+# Run ANOVA to test if degradation differs by plastic, nutrient, and culture presence
+anova_result <- aov(perc_change ~ Plastic_Present * Nutrient_Present * Culture_Present, data = plastic_clean)
+summary(anova_result)
+
+```
+
+
 # Extra analyses
 ```{r percent loss or gain plastic}
 graph_data <- CultureCatalog %>%
@@ -536,14 +614,33 @@ head(graph_data)
 
 
 ```
+
+# Yvanna
 ```{r}
 data_long<-CultureCatalog%>%
   pivot_longer(cols=c(Initial_Plastic_Weight_mg,Final_Plastic_Weight_mg),names_to = "Weight_Type",values_to = "Weight")
-head(data_long)
+data_long
+
+#putting them in the right order
+data_long$Weight_Type <- factor(data_long$Weight_Type, levels = c("Initial_Plastic_Weight_mg", "Final_Plastic_Weight_mg"))
 ```
 ```{r}
-ggplot(data_long,aes(x=Tube,y=Weight,fill=Weight_Type))+geom_bar(stat="identity",position="dodge")+scale_fill_manual(values=c("Initial_Plastic_Weight_mg"="blue","Final_Plastic_Weight_mg"="red"))+labs(x="Tube",y="Weight(mg)",fill="Weight Type")+theme_minimal()
+ggplot(data_long,
+       aes(x=Tube,y=Weight,fill=Weight_Type))+
+  geom_bar(stat="identity",position="dodge")+
+  scale_fill_manual(
+    values=c("Initial_Plastic_Weight_mg"="lightblue",
+             "Final_Plastic_Weight_mg"="red2"))+
+  labs(x="Tube",y="Weight(mg)",fill="Weight Type")+
+  facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray", color = "black"), 
+    strip.text = element_text(size = 9, face = "bold"), 
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8)) 
+  
 ```
+
 
 
 ```{r}
@@ -566,7 +663,7 @@ ggplot(graph_data, aes(x = Temperature_C, y = Suspension_RFU, colour = Culture_P
 
 
 
-
+# Andrew
 I will be running an ANOVA (one way) on change in plastic mass data (initial - end) for experimental groups
 (5 tubes each) in 15 and 25 degrees celsius.
 
@@ -599,6 +696,156 @@ summary(factorialanova_rfuwall)
 factorialanova_rfususpension<-aov(CultureCatalog$Suspension_RFU~CultureCatalog$Temperature_C*CultureCatalog$Culture_Present*CultureCatalog$Nutrient_Present*CultureCatalog$Plastic_Present)
 summary(factorialanova_rfususpension)
 ```
+
+
+
+
+
+
+
+
+
+
+# more analyses 
+XXX fix these
+```{r}
+# Summary statistics for Final_Plastic_Weight_mg
+plastic %>%
+  group_by(Culture_Present, Nutrient_Present, Plastic_Present, Temperature_C) %>%
+  summarise(
+    mean_wall_rfu = mean(Wall_Growth_RFU, na.rm = TRUE),
+    mean_susp_rfu = mean(Suspension_RFU, na.rm = TRUE)
+  )
+
+```
+
+```{r}
+# Add a column for Percent Weight Loss
+plastic <- plastic %>%
+  mutate(
+    Percent_Weight_Loss = ((Initial_Plastic_Weight_mg - Final_Plastic_Weight_mg) / Initial_Plastic_Weight_mg) * 100
+  )
+plastic <- plastic %>%
+  mutate(
+    Temperature_C = as.factor(Temperature_C),
+    Culture_Present = as.factor(Culture_Present),
+    Nutrient_Present = as.factor(Nutrient_Present)
+  )
+
+
+# Two-way ANOVA for Percent Weight Loss
+weight_loss_anova <- aov(Percent_Weight_Loss ~ Temperature_C * Culture_Present * Nutrient_Present, data = plastic)
+summary(weight_loss_anova)
+
+# Tukey HSD for pairwise comparisons
+TukeyHSD(weight_loss_anova)
+
+```
+
+```{r}
+# Two-way ANOVA for Wall_Growth_RFU
+rfu_anova <- aov(Wall_Growth_RFU ~ Temperature_C * Culture_Present * Nutrient_Present, data = plastic)
+summary(rfu_anova)
+
+# Linear regression for RFU vs Percent Weight Loss
+rfu_regression <- lm(Percent_Weight_Loss ~ Wall_Growth_RFU + Suspension_RFU, data = plastic)
+summary(rfu_regression)
+
+# Scatterplot of RFU vs Percent Weight Loss
+ggplot(plastic, aes(x = Wall_Growth_RFU, y = Percent_Weight_Loss, color = Temperature_C)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(x = "Wall Growth RFU", y = "Percent Weight Loss")
+
+```
+
+```{r}
+# T-test for weight loss by temperature
+t.test(Percent_Weight_Loss ~ Temperature_C, data = plastic)
+
+# Boxplot for Percent Weight Loss by Temperature
+ggplot(plastic, aes(x = factor(Temperature_C), y = Percent_Weight_Loss)) +
+  geom_boxplot() +
+  labs(x = "Temperature (°C)", y = "Percent Weight Loss")
+
+```
+
+
+
+
+```{r}
+# Calculate Summary Statistics
+summary_stats <- plastic %>%
+  group_by(Temperature_C, Culture_Present, Nutrient_Present) %>%
+  summarise(
+    mean_loss = mean(Percent_Weight_Loss, na.rm = TRUE),
+    se_loss = sd(Percent_Weight_Loss, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop")
+
+# Bar Plot of Average Percent Weight Loss
+ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Culture_Present)) +
+  geom_bar(stat = "identity", position = position_dodge(0.9)) +
+  geom_errorbar(aes(ymin = mean_loss - se_loss, ymax = mean_loss + se_loss),
+                position = position_dodge(0.9), width = 0.2) +
+  labs(x = "Temperature (°C)", y = "Mean Percent Weight Loss", fill = "Culture Present") +
+  theme_minimal()
+
+# mean loss having negative means that it actually grew
+
+# Interaction Plot
+interaction.plot(plastic$Temperature_C, plastic$Nutrient_Present, plastic$Percent_Weight_Loss)
+
+```
+
+```{r}
+ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Culture_Present)) +
+  geom_bar(stat = "identity", position = position_dodge(0.9)) +
+  geom_errorbar(aes(ymin = mean_loss - se_loss, ymax = mean_loss + se_loss),
+                position = position_dodge(0.9), width = 0.2) +
+  labs(x = "Temperature (°C)", y = "Mean Percent Weight Loss", fill = "Culture Present") +
+  facet_wrap(~ Nutrient_Present) +
+  theme_minimal()
+
+```
+
+```{r}
+# Bar Plot with Facet Labels and Borders
+ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Culture_Present)) +
+  geom_bar(stat = "identity", position = position_dodge(0.9)) +
+  geom_errorbar(aes(ymin = mean_loss - se_loss, ymax = mean_loss + se_loss),
+                position = position_dodge(0.9), width = 0.2) +
+  labs(
+    x = "Temperature (°C)",
+    y = "Mean Percent Weight Loss",
+    fill = "Culture Present"
+  ) +
+  facet_wrap(~ Nutrient_Present, labeller = labeller(Nutrient_Present = label_both)) +
+  theme_minimal() +
+  theme(
+    strip.background = element_rect(fill = "lightgray", color = "black"), 
+    strip.text = element_text(size = 12, face = "bold"), # Style facet labels
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8) 
+  )
+
+
+```
+
+
+
+
+### looking at the negative loss (gain) category
+```{r negative loss (gain)}
+# Filter the dataset for the negative mean category
+negative_mean_data <- plastic %>%
+  filter(Percent_Weight_Loss < 0)
+negative_mean_data
+```
+
+
+
+
+
+
 
 
 
