@@ -3,6 +3,7 @@ title: "Import_MetaData"
 author:
 - Mireille Savoie
 - Douglas A. Campbell
+- Heather MacTavish
 date: "`r format(Sys.Date())`"
 output:
 bookdown::html_document2:
@@ -18,6 +19,10 @@ editor_options:
   markdown: 
     wrap: 72
 ---
+
+# Acknowledgement
+This R markdown file was created by Mireille Savoie and Douglas A. Campbell, and was adapted to meet the requirements of the Plastic Degredation term project for BIOL3111 in 2024.
+
 
 # Set Options
 
@@ -39,7 +44,7 @@ knitr::opts_chunk$set(fig.path='Figs/')
 
 # Introduction
 
-This RMD imports meta data for MultiCultivator experiments from a google sheet.
+This RMD imports meta data for MultiCultivator experiments from an excel sheet.
 
 
 # Load Libraries and set Project Variables
@@ -67,32 +72,18 @@ DataOut <- file.path("..","Data", "RawData")
 
 
 ```{r load Catalog direct from googlesheet, results = "hide"}
-# load CSV instead of googlesheet for plastic project
+# load CSV for plastic project
 CultureCatalog <- read.csv("../Data/RawData/meta_plastic.csv")
 
-
-
-# #implement read with googlesheet name instead of full url
-
-# gs4_deauth()
-
-# this is the URL or ID of a Sheet readable by anyone (with a link)
-
-
-# CultureCatalog <- read_sheet("https://docs.google.com/spreadsheets/d/1ZXpwR7Gfto-uRzVdXzMpQF4frbrvMLH_IyLqonFZRSw/edit#gid=0") %>% 
-   
-  # read_sheet has an annoying "feature" to set the type of columns it can't parse to a list.
-  # ggplot/dplyr doesn't like working with a dataframe of lists.
-  # In this case WL is set to a list since some values are numbers, some are strings, some are blank.
+  # When using read_sheets()  WL is set to a list since some values are numbers, some are strings, some are blank.
   # To fix this, first drop all rows missing WL, then unlist.
   # Must first drop NA rows since unlist will collapse NULL lists, then the unlisted WL is a shorter length than original WL column, which mutate doesn't like.
+
 CultureCatalog <- CultureCatalog %>% 
  drop_na(WL) %>%
   mutate(WL = unlist(WL)) %>%
    mutate(ExpStartDate = ymd(ExpStartDate),
-           ExpEndDate = ymd_hms(`ExpEndDate`))# %>% 
-  # filter(str_detect(SampleID)) %>% 
-  # select(all_of(ProjectCols))
+           ExpEndDate = ymd_hms(`ExpEndDate`))
 head(CultureCatalog)
 
 saveRDS(object = CultureCatalog, file = file.path(DataOut, "CultureCatalog.Rds"), compress = "xz")
