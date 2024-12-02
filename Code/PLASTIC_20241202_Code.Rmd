@@ -219,18 +219,9 @@ TargetData <- TargetData %>%
 
 #### Create preliminary plot for TargetData (MCMIX004)
 ##### Plots all OD values. True detection is OD680 and false detection is OD720.
-```{r prelim plot MCMIX004}
 
-  TargetData %>%
-  filter(grepl("od-", key)) %>%
-  ggplot(data = .) +
-  geom_point(aes(x = time, y = value, colour = as.factor(str_detect(key, "680"))), size = 0.5) +
-  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
-  scale_colour_manual(values = c("black", "red")) +
-  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes") +
-  facet_grid(cols = vars(as.factor(Tube))) +
-  theme_bw()
+XXX do this one
+```{r prelim plot MCMIX004}
 
  TargetData %>%
   filter(grepl("od-", key)) %>%
@@ -368,42 +359,36 @@ TargetDataMeta %>%
   theme( axis.text.x = element_text(angle = 45, hjust = 1), 
          strip.text = element_text(size = 10, face = "bold") )
 ```
-
-## Suspensions
 ```{r}
-start_time <- as.POSIXct("2024-09-27 06:00:00") 
-end_time <- as.POSIXct("2024-10-29 10:00:00") 
-suspension_times <- seq(from = start_time, to = end_time, by = "week") + 
-  days(2) + hours(13) 
-suspension_intervals <- data.frame( start = suspension_times, end = suspension_times + hours(5)) # 5 hour suspension window )
-```
-
-```{r}
-# Convert suspension intervals to match plot's time scale 
-suspension_intervals$start_elapsed <- as.numeric(difftime(suspension_intervals$start, start_time, units = "hours")) 
-suspension_intervals$end_elapsed <- as.numeric(difftime(suspension_intervals$end, start_time, units = "hours")) 
-
-time_manipulated <- TargetDataMeta
-
-time_manipulated %>% 
-  ggplot(aes(x = elapsed_time, y = OD680, 
-             colour = as.factor(WL))) +
-  geom_point(size = 0.5) + 
-  geom_rect(data = suspension_intervals, inherit.aes = FALSE, 
-            aes(xmin = start_elapsed, 
-                xmax = end_elapsed, 
-                ymin = -Inf, ymax = Inf), 
-            fill = "grey", 
-            alpha = 0.2) + # Shaded areas for suspension 
-  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 21 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 28 * 24), linetype = "dashed") + 
-  labs( title = "Microbial Growth with Suspension Periods Highlighted", 
-        subtitle = "Shaded regions indicate data suspension (Tuesdays, 1-4 PM)", 
-        x = "Elapsed Time (hours)", y = "Optical Density (OD at 680 nm)", 
-        colour = "Wavelength (WL)" ) + theme_bw() + 
-  theme( axis.text.x = element_text(angle = 45, hjust = 1), 
+TargetDataMeta %>% 
+  ggplot(aes(x = time, 
+             y = OD680,
+             colour = as.factor(Tube))) + 
+  geom_point(size = 1, alpha = 0.5) + 
+  geom_vline(aes(xintercept = 4 * 24), 
+             linetype = "dashed") +
+  geom_vline(aes(xintercept = 11 * 24), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 18 * 24), 
+             linetype =  "dashed") + 
+  geom_vline(aes(xintercept = 25 * 24), 
+             linetype =  "dashed") +
+  geom_vline(aes(xintercept = 32 * 24), 
+             linetype = "dashed") +
+  
+  labs( title = "Microbial Growth Under Different Environmental Conditions", 
+        subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
+        y = "Optical Density (OD at 680 nm)", 
+        colour = "Tube Number", 
+        caption = "Dashed lines indicate key time points." ) + 
+  facet_wrap(~ Plastic_Present + 
+               Nutrient_Present + 
+               Culture_Present, 
+             ncol = 2) + 
+  scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
+  scale_y_continuous(limits = c(0, 0.1)) +
+  theme_bw() + 
+  theme( axis.text.x = element_text(size = 9, angle = 90), 
          strip.text = element_text(size = 10, face = "bold") )
 ```
 
@@ -414,17 +399,6 @@ time_manipulated %>%
 
 
 
-
-
-
-
-
-
-
-
-```{r}
-
-```
 
 
 ### MCMIX006
@@ -491,6 +465,9 @@ TargetData <- TargetData %>%
 
 #### Create preliminary plot for TargetData MCMIX006
 ##### Plots all OD values. True detection is OD680 and false detection is OD720.
+
+
+XXX do this one
 ```{r prelim plot MCMIX006}
 
   TargetData %>%
@@ -581,6 +558,8 @@ TargetDataMeta
 rm(TargetDataWide)
 ```
 #### Prelim plot with culture meta data (MCMIX006)
+
+XXX do this one
 ```{r second prelim plot MCMIX006}
 
   TargetDataMeta %>% ggplot() +
