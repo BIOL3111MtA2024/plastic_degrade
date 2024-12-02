@@ -18,8 +18,8 @@ output:
     toc_float: TRUE
     toc_depth: 6
     fig_caption: yes
-bibliography: ../References/reference_plastic.bib
-csl:  ../References/apa-with-abstract.csl
+bibliography: ../Docs/reference_plastic.bib
+csl:  ../Docs/apa-with-abstract.csl
 editor_options: 
   markdown: 
     wrap: 72
@@ -843,7 +843,7 @@ negative_mean_data
 XXX references
 
 
-
+XXX need to do every single read me in every single folder
 
 
 
