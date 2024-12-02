@@ -4,11 +4,12 @@ author:
 - Heather MacTavish^1^*
 - Andrew Forrest^1^*
 - Yvanna Tchatchoua^1^*
+- Douglas A. Campbell^1^*
+- Mireille Savoie^1^*
 - Laurel Genge^1^
 - Carlie Barnhill^1^
 - Max Berthold^1^
-- Mireille Savoie^1^*
-- Douglas A. Campbell^1^*
+
 date: "`r format(Sys.Date())`"
 output:
   bookdown::html_document2:
