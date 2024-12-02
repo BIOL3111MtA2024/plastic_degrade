@@ -999,6 +999,9 @@ negative_mean_data
 ## Pictures 
 XXX make sure that yvanna cites herself for photos and adds photo captions
 
+#![Caption for the picture.](../Docs/Photos/image.png)
+
+
 # Discussion
 
 
