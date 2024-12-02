@@ -32,7 +32,7 @@ p.caption {
 *corresponding author
 
 # Acknowledgements {-}
-This R markdown file was created by Mireille Savoie and Douglas A. Campbell, and was adapted to meet the requirements of the Plastic Degradation term project for BIOL3111 in 2024, using the `FileImportFunctions.Rmd` file created by Douglas Campbell and Carlie Barnhill.
+This R markdown file was created by Mireille Savoie and Douglas A. Campbell [@savoie_import_metadata_2024], and was adapted to meet the requirements of the Plastic Degradation term project for BIOL3111 in 2024, using the `FileImportFunctions.Rmd` file created by Douglas Campbell and Carlie Barnhill [@campbell_douglas_fileimportfunctions_2024].
 
 Brackets minus after heading excludes heading from numbering.
 DAC was supported by the Canada Research Chairs.
