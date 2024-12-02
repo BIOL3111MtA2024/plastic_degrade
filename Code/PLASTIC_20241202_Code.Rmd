@@ -1,14 +1,14 @@
 ---
 title: "Plastic Degredation Term Project"
 author:
-- Heather MacTavish
-- Andrew Forrest
-- Yvanna Tchatchoua
-- Laurel Genge
-- Carlie Barnhill
-- Max Berthold
-- Mireille Savoie
-- Douglas A. Campbell
+- Heather MacTavish^1^*
+- Andrew Forrest^1^*
+- Yvanna Tchatchoua^1^*
+- Laurel Genge^1^
+- Carlie Barnhill^1^
+- Max Berthold^1^
+- Mireille Savoie^1^*
+- Douglas A. Campbell^1^*
 date: "`r format(Sys.Date())`"
 output:
   bookdown::html_document2:
@@ -18,19 +18,26 @@ output:
     toc_float: TRUE
     toc_depth: 6
     fig_caption: yes
-bibliography: ../Docs/reference_plastic.bib
+bibliography: ../Docs/PBAT degradation.bib
 csl:  ../Docs/apa-with-abstract.csl
 editor_options: 
   markdown: 
     wrap: 72
 ---
 
+
+# Affiliations {-}
+^1^Mount Allison University, New Brunswick, Canada  
+
+*corresponding author 
+
+
 XXX what should the knit output be? XXX
 XXX need to update references + read mesXXX
 
 
-# Acknowledgement
-This R markdown file is adapted from the "Import_MCData" file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell for the Plastic Degredation project by Heather MacTavish, Andrew Forrest, and Yvanna Tchatchoua in BIOL3111.
+# Acknowledgement {-}
+This R markdown file is adapted from the `Import_MCData` file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell for the Plastic Degredation project by Heather MacTavish, Andrew Forrest, and Yvanna Tchatchoua in BIOL3111.
 
 Dr. Campbell was supported by the Canada Research Chairs.
 
