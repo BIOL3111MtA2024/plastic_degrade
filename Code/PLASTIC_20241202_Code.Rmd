@@ -39,7 +39,7 @@ p.caption {
 
 XXX what should the knit output be? XXX
 XXX need to update references + read mesXXX
-
+XXX add data dictionary in tabular form
 
 # Acknowledgement {-}
 This R markdown file is adapted from the `Import_MCData` file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell [@genge_import_mcdata_2024] for the Plastic Degradation project by Heather MacTavish, Andrew Forrest, and Yvanna Tchatchoua in BIOL3111.
