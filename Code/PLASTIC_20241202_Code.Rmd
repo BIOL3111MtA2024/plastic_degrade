@@ -49,9 +49,12 @@ p.caption {
   font-size: 18px;
 }
 ```
+  
 ## Set Chunk Options {-}
-```{r setup2, include = FALSE}
-knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+Formatted display of content from .md file on GitHub site.
+Upon knitr figures will be saved to 'Figs/'
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, error = FALSE, message = FALSE)
 knitr::opts_chunk$set(fig.path='Figs/')
 ```
 
