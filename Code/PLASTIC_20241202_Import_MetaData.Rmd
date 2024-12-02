@@ -14,7 +14,7 @@ bookdown::html_document2:
     toc_float: TRUE
     toc_depth: 6
     fig_caption: yes
-bibliography: ../Docs/RPackageCitations.bib
+bibliography: ../Docs/PBATDegradationCitations.bib
 csl: ../Docs/apa-with-abstract.csl
 editor_options: 
   markdown: 
