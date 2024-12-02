@@ -672,7 +672,7 @@ TargetDataMeta %>%
          strip.text = element_text(size = 10, face = "bold") )
 ```
 
-```{r focusing on the replicates MCMIX004}
+```{r focusing on the replicates MCMIX006}
 
 subset_data <- TargetDataMeta %>%
   filter(Plastic_Present == 1, Nutrient_Present == 1, Culture_Present == 1)
