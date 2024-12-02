@@ -298,10 +298,6 @@ TargetDataWide[1:10,]
 ```
 
 # Merge Data with meta data
-
-
-XXX having issues with the left join, need to fix it later XXX
-
 ```{r metadata merge}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
@@ -557,15 +553,13 @@ rm(TargetDataWide)
 
 ```
 
-
-
 I will be running an ANOVA (one way) on change in plastic mass data (initial - end) for experimental groups
 (5 tubes each) in 15 and 25 degrees celsius.
 
 This will tell us whether the mean '% change in plastic weight' is significantly different between the 15 and 25 degree groups
 
 ```{r}
-onewayanova_mass<-aov((filtered_data$Initial_Plastic_Weight_mg-filtered_data$Final_Plastic_Weight_mg)~filtered_data$Temperature_C)
+onewayanova_mass<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C)
 summary(onewayanova_mass)
 ```
 
