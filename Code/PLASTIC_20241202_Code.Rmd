@@ -841,12 +841,20 @@ negative_mean_data <- plastic %>%
 negative_mean_data
 ```
 
-XXX references
+# Results
+
+
+## Pictures 
+XXX make sure that yvanna cites herself
+
+# Discussion
+
+
 
 
 XXX need to do every single read me in every single folder
 
 
-
+# References
 
 
