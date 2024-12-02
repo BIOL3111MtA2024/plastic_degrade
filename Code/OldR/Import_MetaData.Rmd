@@ -1,0 +1,91 @@
+---
+title: "Import_MetaData"
+author:
+- Mireille Savoie
+- Douglas A. Campbell
+date: "`r format(Sys.Date())`"
+output:
+bookdown::html_document2:
+    code_folding: show
+    keep_md: yes
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 6
+    fig_caption: yes
+bibliography: Manuscript_O2.bib
+csl: plos-one.csl
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Set Options
+
+## Set figure caption font size
+
+```{css, echo=FALSE}
+p.caption {
+  font-size: 18px;
+}
+```
+
+## Set Chunk Options
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+knitr::opts_chunk$set(fig.path='Figs/')
+```
+
+
+# Introduction
+
+This RMD imports meta data for MultiCultivator experiments from a google sheet.
+
+
+# Load Libraries and set Project Variables
+
+```{r load libraries}
+
+library(tidyverse)
+library(lubridate)
+library(knitr)
+library(data.table)
+library(googlesheets4)
+
+```
+
+```{r set project variables}
+#"..", takes up a level in the directory path
+Project <- "PICO"
+DataOut <- file.path("..","Data", "RawData")
+ProjectRows <- c("MiSa|JuNa|SaAr|MaBe|LaGe")
+ProjectCols <- c("PrimaryOperator", "SampleID", "Run", "Strain", "ExpCul", "ExpDate", "ExpStartTime", "Par_ue", "Photoperiod", "Temp_c", "MC", "Tube","O2", "O2_Category", "WL","LightShape", "Optode","OptodeCh","OptodeMeasure", "ExpEndDate")
+
+```
+
+# Import MetaData 
+```{r load Catalog direct from googlesheet, results = "hide"}
+# #implement read with googlesheet name instead of full url
+
+gs4_deauth()
+
+# this is the URL or ID of a Sheet readable by anyone (with a link)
+
+
+CultureCatalog <- read_sheet("https://docs.google.com/spreadsheets/d/1ZXpwR7Gfto-uRzVdXzMpQF4frbrvMLH_IyLqonFZRSw/edit#gid=0") %>% 
+   
+  # read_sheet has an annoying "feature" to set the type of columns it can't parse to a list.
+  # ggplot/dplyr doesn't like working with a dataframe of lists.
+  # In this case WL is set to a list since some values are numbers, some are strings, some are blank.
+  # To fix this, first drop all rows missing WL, then unlist.
+  # Must first drop NA rows since unlist will collapse NULL lists, then the unlisted WL is a shorter length than original WL column, which mutate doesn't like.
+  drop_na(WL) %>%
+  mutate(WL = unlist(WL)) %>%
+   mutate(ExpDate = ymd(ExpDate),
+          ExpEndDate = ymd_hms(`ExpEndDate`)) %>% 
+  filter(str_detect(SampleID,  ProjectRows)) %>% 
+  select(all_of(ProjectCols))
+
+saveRDS(object = CultureCatalog, file = file.path(DataOut, "CultureCatalog.Rds"), compress = "xz")
+
+```
