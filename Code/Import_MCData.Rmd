@@ -1,5 +1,5 @@
 ---
-title: "Import_MCData"
+title: "Plastic Degredation Term Project"
 author:
 - Laurel Genge
 - Carlie Barnhill
@@ -13,6 +13,10 @@ editor_options:
   markdown: 
     wrap: 72
 ---
+
+# Acknowledgement
+This R markdown file is adapted from the "Import_MCData" file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell for the Plastic Degredation project in BIOL3111.
+
 
 # Set Options
 
