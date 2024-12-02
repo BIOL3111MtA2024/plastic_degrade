@@ -55,8 +55,6 @@ library(tidyverse)
 library(lubridate)
 library(knitr)
 library(data.table)
-#library(googlesheets4)
-
 ```
 
 ```{r set project variables}
@@ -73,7 +71,7 @@ DataOut <- file.path("..","Data", "RawData")
 
 ```{r load Catalog direct from googlesheet, results = "hide"}
 # load CSV for plastic project
-CultureCatalog <- read.csv("../Data/RawData/meta_plastic.csv")
+CultureCatalog <- read.csv("../Data/RawData/PLASTIC_20241202_MetaData_CSV.csv")
 
   # When using read_sheets()  WL is set to a list since some values are numbers, some are strings, some are blank.
   # To fix this, first drop all rows missing WL, then unlist.
