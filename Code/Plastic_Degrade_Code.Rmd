@@ -18,8 +18,8 @@ output:
     toc_float: TRUE
     toc_depth: 6
     fig_caption: yes
-bibliography: Manuscript_O2.bib
-csl: plos-one.csl
+bibliography: ../References/reference_plastic.bib
+csl:  ../References/apa-with-abstract.csl
 editor_options: 
   markdown: 
     wrap: 72
@@ -41,7 +41,7 @@ p.caption {
 }
 ```
 ## Set Chunk Options {-}
-```{r setup, include = FALSE}
+```{r setup2, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 knitr::opts_chunk$set(fig.path='Figs/')
 ```
@@ -91,8 +91,8 @@ library(lubridate)
 library(broom)
 library(data.table)
 library(zoo)
-library(lme4) #XXX
-library(multcomp) #XXX
+#library(lme4) #XXX
+#library(multcomp) #XXX
 ```
 
 # Set Project Variables
@@ -114,12 +114,12 @@ Skip <- 20
 ```{r set colours}
 # Set colour codes for each WL of the Multicultivator. These colours are matched to WL using the Photobiology package. Colour codes used for visualization of spectral settings used in Muticulti run.
 
-#MyWavelengths = c(405, 450, 470, 530, 620, 660, 730, "WW")
-#MCMIXColours = c(c("purple", "blue", "skyblue", "green2",           "yellow", "red", "darkred", "black"))
+MyWavelengths = c(405, 450, 470, 530, 620, 660, 730, "WW")
+MCMIXColours = c(c("purple", "blue", "skyblue", "green2",           "yellow", "red", "darkred", "black"))
 
 
-#names(MCMIXColours) <- MyWavelengths
-#MCMIXColours
+names(MCMIXColours) <- MyWavelengths
+MCMIXColours
 
 ```
 
@@ -152,7 +152,11 @@ print(MCFiles)
 TargetFile <- "20240927_Plastic_MCMIX004.csv"
 
 # This opens a compressed file without decompressing.
-TargetData <- read_csv(unz(DataIn, TargetFile),  skip = Skip, id = "Path", col_names = c("key", "time", "abs-time", "value")) %>% 
+TargetData <- read_csv(unz(DataIn, TargetFile),  
+                       skip = Skip, 
+                       id = "Path", 
+                       col_names = c("key", "time", 
+                                     "abs-time", "value")) %>% 
   separate(col =Path, into = c("Path", "Filename"), sep = ":") 
 
 TargetFileName <- str_remove(string = TargetFile, pattern = ".csv")
@@ -163,16 +167,14 @@ TargetFileName
 ```{r tidy MultiDataTarget MCMIX004}
 #filter superfluous rows to simplify later pivot
 TargetData <- TargetData %>%
-  filter(str_detect(key, "od-720|od-680|actinic-lights.light"))
-#head(TargetData)
+  filter(str_detect(key, "od-720|od-680|actinic-lights.light")) %>%
+  dplyr::select(key, time, `abs-time`, value, Filename) %>% 
+  mutate(abs_time = mdy_hms(`abs-time`),
+    Tube = str_extract(key, "-[:digit:]"),
+         Tube = as.numeric(str_extract(Tube, "[:digit:]"))
+         ) %>%
+  dplyr::select(-`abs-time`)
 
-# some files have "V5"  instead of "value" column
-TargetData <- TargetData %>%
-  select(key, time, `abs-time`, value, Filename) %>% #, CDateTime
-  mutate(Tube = str_extract(key, "-[:digit:]"),
-         Tube = as.numeric(str_extract(Tube, "[:digit:]")),
-         abs_time = mdy_hms(`abs-time`)) %>%
-  select(-`abs-time`)
 
 #extract StartHour dynamically from first row of abs_time and display for cross check
 StartHour <- as.numeric(format(TargetData$abs_time[1], format = "%H"))
@@ -281,7 +283,7 @@ TargetDataWide <- TargetDataWide %>%
   ungroup() %>%
   mutate(Actinic_par = rowSums(.[grep("actinic-lights.light", names(.))], na.rm = TRUE)) %>%
   filter(!is.na(Actinic_par)) %>%
-   select(!contains("actinic-lights.light"))
+   dplyr::select(!contains("actinic-lights.light"))
 
 
 TargetDataWide[1:10,]
@@ -297,7 +299,7 @@ measures to actinic light colours.
 TargetDataWide <- TargetDataWide  %>%
    mutate(OD680 = rowSums(.[grep("od-680", names(.))], na.rm = TRUE),
           OD720 = rowSums(.[grep("od-720", names(.))], na.rm = TRUE)) %>%
-   select(!contains("od-sensors"))
+   dplyr::select(!contains("od-sensors"))
 
 TargetDataWide[1:10,]
 
@@ -359,11 +361,11 @@ TargetData <- TargetData %>%
 
 # some files have "V5"  instead of "value" column
 TargetData <- TargetData %>%
-  select(key, time, `abs-time`, value, Filename) %>% #, CDateTime
+  dplyr::select(key, time, `abs-time`, value, Filename) %>% #, CDateTime
   mutate(Tube = str_extract(key, "-[:digit:]"),
          Tube = as.numeric(str_extract(Tube, "[:digit:]")),
          abs_time = mdy_hms(`abs-time`)) %>%
-  select(-`abs-time`)
+  dplyr::select(-`abs-time`)
 
 
 #extract StartHour dynamically from first row of abs_time and display for cross check
@@ -463,7 +465,7 @@ TargetDataWide <- TargetDataWide %>%
   ungroup() %>%
   mutate(Actinic_par = rowSums(.[grep("actinic-lights.light", names(.))], na.rm = TRUE)) %>%
   filter(!is.na(Actinic_par)) %>%
-   select(!contains("actinic-lights.light"))
+   dplyr::select(!contains("actinic-lights.light"))
 
 
 TargetDataWide[1:10,]
@@ -473,7 +475,7 @@ TargetDataWide[1:10,]
 TargetDataWide <- TargetDataWide  %>%
    mutate(OD680 = rowSums(.[grep("od-680", names(.))], na.rm = TRUE),
           OD720 = rowSums(.[grep("od-720", names(.))], na.rm = TRUE)) %>%
-   select(!contains("od-sensors"))
+   dplyr::select(!contains("od-sensors"))
 
 TargetDataWide[1:10,]
 
@@ -594,14 +596,6 @@ plastic$Culture_Present <- as.factor(plastic$Culture_Present)
 
 
 
-```{r}
-# Run ANOVA to test if degradation differs by plastic, nutrient, and culture presence
-anova_result <- aov(perc_change ~ Plastic_Present * Nutrient_Present * Culture_Present, data = plastic_clean)
-summary(anova_result)
-
-```
-
-
 # Extra analyses
 ```{r percent loss or gain plastic}
 graph_data <- CultureCatalog %>%
@@ -669,6 +663,12 @@ I will be running an ANOVA (one way) on change in plastic mass data (initial - e
 
 This will tell us whether the mean '% change in plastic weight' is significantly different between the 15 and 25 degree groups
 
+
+```{r}
+filtered_dataplasticpresent<-CultureCatalog[CultureCatalog$Plastic_Present != 0,]
+```
+
+
 ```{r}
 onewayanova_mass<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C)
 summary(onewayanova_mass)
@@ -677,7 +677,6 @@ summary(onewayanova_mass)
 Factorial ANOVA using temperature, culture presence, and nutrient presence as independent variables.
 This will tell us whether any one of these variables or some combination have a statistically significant effect on change in plastic mass.
 ```{r}
-filtered_dataplasticpresent<-CultureCatalog[CultureCatalog$Plastic_Present != 0,]
 factorialanova_mass<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C*filtered_dataplasticpresent$Culture_Present*filtered_dataplasticpresent$Nutrient_Present)
 summary(factorialanova_mass)
 ```
@@ -841,10 +840,7 @@ negative_mean_data <- plastic %>%
 negative_mean_data
 ```
 
-
-
-
-
+XXX references
 
 
 
