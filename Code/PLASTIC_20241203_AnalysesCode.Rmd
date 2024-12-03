@@ -171,12 +171,10 @@ CultureCatalog <- readRDS(file = file.path("..", "Data",  "RawData","CultureCata
 #List files in the extracted folder with a ".asc" extension
 MCFiles <- unzip(DataIn, list = TRUE)
 MCFiles <- MCFiles[grepl(".csv$", MCFiles$Name), "Name"]
-print(MCFiles)
-
 ```
 ### MCMIX004 File
 #### Set Target File and read in csv
-```{r set TargetFile and read csv MCMIX004}
+```{r set TargetFile and read csv MCMIX004, warning = FALSE, message = FALSE}
 
 TargetFile <- "20240927_Plastic_MCMIX004.csv"
 
@@ -189,7 +187,6 @@ TargetData <- read_csv(unz(DataIn, TargetFile),
   separate(col =Path, into = c("Path", "Filename"), sep = ":") 
 
 TargetFileName <- str_remove(string = TargetFile, pattern = ".csv")
-TargetFileName
 ```
 
 #### Filter superfluous rows, Add ToD column, extract ExpDate, extract MC, 
@@ -207,10 +204,10 @@ TargetData <- TargetData %>%
 
 #extract StartHour dynamically from first row of abs_time and display for cross check
 StartHour <- as.numeric(format(TargetData$abs_time[1], format = "%H"))
-StartHour
+
  
 StartDate <- TargetData$abs_time[1]
-StartDate
+
 
 #Generate ToD as mod 24 of time + StartHour
 TargetData <- TargetData %>%
