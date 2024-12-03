@@ -37,9 +37,6 @@ p.caption {
 *corresponding author 
 
 
-
-XXX add data dictionary in tabular form
-
 # Acknowledgement {-}
 This R markdown file is adapted from the `Import_MCData` file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell [@genge_import_mcdata_2024] for the Plastic Degradation project by Heather MacTavish, Andrew Forrest, and Yvanna Tchatchoua in BIOL3111.
 
@@ -135,8 +132,6 @@ library(lubridate)
 library(broom)
 library(data.table)
 library(zoo)
-#library(lme4) #XXX
-#library(multcomp) #XXX
 ```
 
 This report was generated in `R version 4.3.2` [@r_core_team_r_2023], with the packages: `tidyverse`[@wickham_welcome_2019], `lubridate` [@grolemund_dates_2011], `knitr` [@xie_knitr_2023; @xie_dynamic_2015; @stodden_knitr_2014], `broom` [@robinson_broom_2024],`data.table` [@barrett_datatable_2024], and `zoo` [@zeileis_zoo_2005].
