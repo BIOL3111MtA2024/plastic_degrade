@@ -76,6 +76,12 @@ According to Genge et al. (2024):
 
 >The PSI Multicultivator is used to grow 8 x 80 ml of phytoplankton culture under a common temperature regime, with individual control of bubbling, light level, light spectral quality and photoperiod for each of the 8 culture tubes.
 
+**Research Questions**:
+
+- Are compostable plastics truly degradable in natural environments?
+- What factors affect the degradation of the plastic?
+
+
 
 
 # Materials and Methods
