@@ -4,8 +4,6 @@
 
 Producers of bioplastics often claim that their polymers are biodegradable, but that claim is seldom true excluding under industrial composting conditions. In our investigation of the microbial degradation of bioplastics, we secured fragments of vegetable starch-based dog poop bags in tubes across 2 photobioreactors set to 15 and 25C respectively. In each photobioreactor were 3 controls: one containing plastic but omitting nutrient and pond microbes, another containing plastic and nutrient but omitting pond microbes, and a third containing pond microbes and nutrient but no plastic. Following a 4-week trial period, we observed no statistically significant relationship between microbe presence, nutrient presence, or temperature and percent mass decrease in bioplastics. This result comes as no surprise, given that studies such as ours ordinarily cover far longer periods of time. 
 
-Provide a brief description of the project - 150 words.
-
 ## Highly Qualified Personnel
 
 - Andrew Forrest, ahforrest@mta.ca, Mount Allison University
