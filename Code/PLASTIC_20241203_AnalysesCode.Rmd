@@ -166,7 +166,7 @@ CultureCatalog <- readRDS(file = file.path("..", "Data",  "RawData","CultureCata
 MCFiles <- unzip(DataIn, list = TRUE)
 MCFiles <- MCFiles[grepl(".csv$", MCFiles$Name), "Name"]
 ```
-### MCMIX004 File
+
 ```{r set TargetFile and read csv MCMIX004, warning = FALSE, message = FALSE}
 
 TargetFile <- "20240927_Plastic_MCMIX004.csv"
@@ -182,7 +182,6 @@ TargetData <- read_csv(unz(DataIn, TargetFile),
 TargetFileName <- str_remove(string = TargetFile, pattern = ".csv")
 ```
 
-Filter superfluous rows, Add ToD column, extract ExpDate, extract MC, 
 ```{r tidy MultiDataTarget MCMIX004}
 #filter superfluous rows to simplify later pivot
 TargetData <- TargetData %>%
@@ -422,9 +421,6 @@ ggplot(subset_data, aes(x = time,
 
 ```
 
-
-
-### MCMIX006
 ```{r set TargetFile and read csv MCMIX006}
 
 TargetFile <- "20240927_Plastic_MCMIX006.csv"
@@ -842,18 +838,17 @@ Overall, none of the factors or their interactions significantly affect the perc
 
 ## Limitations
 
--Duration
--Bioreactor maintenance
+- Duration
+- Bioreactor maintenance
 
 ## Future directions
 
--extend experiment duration
--Use Oxygen sensors
--Nutrient supplementation
--Convert controls into replicates 
--Investigate microbial inhibition
-
--Testing bioplastic toxicity: A future study to investigate the potential toxicity of vegetable based bioplastics could use multiple bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of vegetable starch based plastics.
+- extend experiment duration
+- Use Oxygen sensors
+- Nutrient supplementation
+- Convert controls into replicates 
+- Investigate microbial inhibition
+- Testing bioplastic toxicity: A future study to investigate the potential toxicity of vegetable based bioplastics could use multiple bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of vegetable starch based plastics.
 
 # References
 
