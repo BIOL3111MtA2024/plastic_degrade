@@ -839,16 +839,15 @@ Overall, none of the factors or their interactions significantly affect the perc
 ## Limitations
 
 - Duration
-- Bioreactor maintenance
+- Bioreactor issues and inability to correct them
 
-## Future directions
+## Future Direction
 
-- extend experiment duration
-- Use Oxygen sensors
-- Nutrient supplementation
-- Convert controls into replicates 
-- Investigate microbial inhibition
-- Testing bioplastic toxicity: A future study to investigate the potential toxicity of vegetable based bioplastics could use multiple bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of vegetable starch based plastics.
+- Extend experiment duration
+- Use oxygen sensors to ensure equal exposure
+- Discover and use community's optimal nutrient quantities
+- Add replicates for control tube conditions
+- Testing bioplastic microbial growth inhibition: A future study to investigate the potential role of growth inhibition by vegetable based bioplastics and/or their breakdown products could use multiple identical bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of gradually increasing masses of vegetable starch based plastic fragments. With an accurate way to periodically measure total biomass in each tube, it's possible that a conclusion could be provided regarding whether or not these bioplastics' presence inhibit the growth of various microbial communities.
 
 # References
 
