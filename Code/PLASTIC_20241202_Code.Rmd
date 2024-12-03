@@ -1046,6 +1046,21 @@ Possible explanation for more growth in 15 degrees: Samples were taken from the 
 
 XXX need to do every single read me in every single folder
 
+#Limitations
+-Duration
+-Bioreactor maintenance
+-
+
+#Future directions
+-extend experiment duration
+-Use Oxygen sensors
+-Nutrient supplementation
+-Convert controls into replicates 
+-Investigate microbial inhibition
+
+
+
+
 
 # References
 
