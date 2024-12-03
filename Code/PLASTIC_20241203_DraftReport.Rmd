@@ -92,6 +92,8 @@ According to Genge et al. (2024):
 
 At the Mount Allison University swan pond, two samples (1 liter each) of surface water from the pond’s edge at 4553’58’’ N, 6422’12’’ W were collected in sanitized plastic bottles. These samples were then transported back to the lab. 
 
+[Figure 1. Image of the exact location from which all sampled pond water and microbes within them came from at the Mount Allison swan pond (45°53'58" N 64°22'12" W). Photograph taken by Andrew Forrest using a standard iPhone 11 camera on September 24th, 2024.](../Docs/Photos/location_photo.png)
+
 ## Preparation of Culture Nutrient
 
 To satisfy minimal nutrient needs and to sustain the microbial community present in pond water samples, nitrate and phosphate solution was prepared. Ingredients included, 2mM disodium phosphate (144L) and 149.6g/L sodium nitrate (12.8mL). Final concentrations of 100M nitrate and 10M phosphate result in the final mixed solution of pond water and nutrient media. Each trial tube contained 80mL of pond water and 0.4mL of nutrient solution.
@@ -100,6 +102,8 @@ To satisfy minimal nutrient needs and to sustain the microbial community present
 
 A Define Planet Veggie Based Compostable Poobag (SKU: 28946971) was cut into pieces of uniform composition and similar mass. Three holes were then poked through each fragment of plastic. Fragments were then washed in 70% ethanol for 5-10 seconds each to remove any extraneous material. Following ~30 minutes of drying, individual pieces were weighed in an aluminum boat on a Mettler Toledo MX5 microbalance to obtain pre-trial weights of each fragment. At this point fragments were numbered based on the Multi-Cultivator MC 1000-OD photobioreactor (Photon Systems Instruments) tube which they would end up in. Tubes and the plastic fragments they were to contain (if applicable) were labeled 1-16.
 
+[Figure 2. Image of bioplastic fragments with holes punched through. Photograph taken by Andrew Forrest using a standard iPhone 11 camera on November 20th, 2024 (after the trial period had ended). ](../Docs/Photos/plastic_photo.png)
+ 
 ## Photobioreactor Trials
 
 Prior to the addition of nutrient mix or pond water, bag fragments were fastened to glass oxygen delivery tubes within each of the two photobioreactors’ larger tubes. This was done by sliding the folded fragment up the oxygen tube via the holes poked beforehand. Next, 80mL of pond water and 0.4mL of nitrate-phosphate mix were dispensed into each photobioreactor tube (where applicable). Plastic fragments were adjusted to ensure that there was no immediate threat of fragments interfering with the sensors aligned with each tube. The glass housing in which the tubes were located was then filled with distilled water to the point where each reactor’s floating bob was about 1 inch from the low water sensor.
@@ -110,11 +114,16 @@ Beginning the first day of incubation, the contents of each photobioreactor were
 
 ## Post-trial Mass Measurement of Bioplastic Pieces
 
-Following a 6-week trial period, the photobioreactors were shut down and plastic fragments were removed from their respective tubes and washed with water to remove any loosely connected mass. Fragments were then left to dry in open air for 24 hours. Post-trial masses of each fragment were taken with the Mettler Toledo MX5 microbalance and an aluminum boat. 
+Following a 4-week trial period, the photobioreactors were shut down and plastic fragments were removed from their respective tubes and washed with water to remove any loosely connected mass. Fragments were then left to dry in open air for 24 hours. Post-trial masses of each fragment were taken with the Mettler Toledo MX5 microbalance and an aluminum boat. 
+
+[Figure 3. Image of tray on which plastic fragments were laid out to air dry for 24 hours before post-trial mass measurements were taken and following the end of the trial period. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](../Docs/Photos/weighing_plastic_photo.png)
+
 
 ## Chlorophyll Assays
 
 To measure wall growth and suspension growth of pond microbes during the trial period, non-acidified chlorophyll assays were performed on the contents of each tube. A total of 32 assays were performed: 16 for suspension growth and 16 for wall growth. Each wall growth assay used 5mL 90% 3:2 acetone: dimethyl sulfoxide solvent to detach microbes from tube walls by swirling. Approximately 2-3mL of solvent/microbe mix was transferred from each tube to its associated assay cuvette. Suspension growth pond water samples were pipetted into assay cuvettes following transfer to a new container and resuspension. Using glass pipettes, 2mL of solvent was distributed to each assay cuvette. Chlorophyll fluorescence readings were taken at excitation wavelength 43610nm and emission wavelength 68510nm using the Turner Trilogy fluorometer.  
+
+[Figure 4. Image of samples following the four week trials, in preperation for chlorophyll assays. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](../Docs/Photos/after_bioreact_photo.png)
 
 XXX YET TO BE WRITTEN: DATA HANDLING/ANALYSES
 
@@ -1028,19 +1037,10 @@ XXX make sure that yvanna cites herself for photos and adds photo captions
 
 
 
-#![Caption for the picture.](../Docs/Photos/image.png)
-Andrew's photos
-Figure 1.1. Image of the exact location from which all sampled pond water and microbes within them came from at the Mount Allison swan pond (45°53'58" N 64°22'12" W). Photograph taken by Andrew Forrest using a standard iPhone 11 camera on September 24th, 2024. 
+[Figure 5. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degreea.png)
 
-Figure 1.2. Image of bioplastic fragments with holes punched through. Photograph taken by Andrew Forrest using a standard iPhone 11 camera on November 20th, 2024 (after the trial period had ended). 
+[Figure 6. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
 
-Figure 1.3. Image of a Multi-Cultivator MC 1000-OD photobioreactor (not operating or turned on). Photograph taken by Andrew Forrest on November 21st, 2024 using a standard iPhone 11 camera. 
-
-Figure 1.4. Image of tray on which plastic fragments were laid out to air dry for 24 hours before post-trial mass measurements were taken and following the end of the trial period. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.
-
-Yvanna's pictures
-Figure 1. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.
-Figure 2. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.
 
 # Discussion
 
