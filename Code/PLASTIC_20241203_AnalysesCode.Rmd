@@ -18,6 +18,7 @@ output:
     self_contained: true
     keep_md: yes
     fig_caption: yes
+
 bibliography: ../Docs/PBATDegradationCitations.bib
 csl:  ../Docs/apa-with-abstract.csl
 editor_options: 
@@ -118,11 +119,8 @@ To measure wall growth and suspension growth of pond microbes during the trial p
 
 [Figure 4. Image of samples following the four week trials, in preperation for chlorophyll assays. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](../Docs/Photos/after_bioreact_photo.png)
 
-XXX YET TO BE WRITTEN: DATA HANDLING/ANALYSES
-
 ## Data Handling
 
-## Set Chunk Options {-}
 Formatted display of content from .md file on GitHub site.
 Upon knitr figures will be saved to 'Figs/'
 ```{r setup, include = FALSE}
@@ -143,8 +141,6 @@ library(zoo)
 
 This report was generated in `R version 4.3.2` [@r_core_team_r_2023], with the packages: `tidyverse`[@wickham_welcome_2019], `lubridate` [@grolemund_dates_2011], `knitr` [@xie_knitr_2023; @xie_dynamic_2015; @stodden_knitr_2014], `broom` [@robinson_broom_2024],`data.table` [@barrett_datatable_2024], and `zoo` [@zeileis_zoo_2005].
 
-
-### Set Project Variables
 ```{r set project variables}
 Project <- "Plastic"
 
@@ -163,7 +159,6 @@ Skip <- 20
 CultureCatalog <- readRDS(file = file.path("..", "Data",  "RawData","CultureCatalog.Rds"))
 ```
 
-List MultiCulti files for Project that are saved in DataIn
 ```{r MultiCulti files}
 
 #List files in the extracted folder with a ".asc" extension
@@ -446,7 +441,7 @@ TargetFileName
 
 ```
 
-#### Filter superfluous rows, Add ToD column, extract ExpDate, extract MC,
+
 ```{r tidy MultiDataTarget MCMIX006}
 #filter superfluous rows to simplify later pivot
 TargetData <- TargetData %>%
@@ -489,7 +484,6 @@ TargetData <- TargetData %>%
 
 ```
 
-#### Create preliminary plot for TargetData MCMIX006
 Plots all OD values. True detection is OD680 and false detection is OD720.
 
 ```{r prelim plot MCMIX006}
@@ -770,7 +764,7 @@ ggplot(data_long,
     values=c("Initial_Plastic_Weight_mg"="lightblue",
              "Final_Plastic_Weight_mg"="red2"))+
   labs(x="Tube",y="Weight(mg)",fill="Weight Type",
-    caption = "Figure 14. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions.")+
+    caption = "Figure 13. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions.")+
   facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
   theme_minimal() +
   theme(
@@ -823,7 +817,7 @@ ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Cultu
     x = "Temperature (°C)",
     y = "Mean Percent Weight Loss",
     fill = "Culture Present",
-    caption = "Figure 15. Bar plot showing the mean percent weight loss across different temperature conditions, with error \nbars representing the standard error of the mean.  The plot is grouped by Culture Presence (indicated by colour) \nand faceted by Nutrient Presence. Temperature is shown on the x-axis, and the mean percent weight loss \nis plotted on the y-axis. Facet labels distinguish the presence or absence of nutrients in the experiment."
+    caption = "Figure 14. Bar plot showing the mean percent weight loss across different temperature conditions, with error \nbars representing the standard error of the mean.  The plot is grouped by Culture Presence (indicated by colour) \nand faceted by Nutrient Presence. Temperature is shown on the x-axis, and the mean percent weight loss \nis plotted on the y-axis. Facet labels distinguish the presence or absence of nutrients in the experiment."
   ) +
   facet_wrap(~ Nutrient_Present, labeller = labeller(Nutrient_Present = label_both)) +
   theme_minimal() +
@@ -851,14 +845,9 @@ Overall, none of the factors or their interactions significantly affect the perc
 
 ## Pictures 
 
-[Figure 16. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
+[Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
 
-[Figure 17. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
-
-
-# Discussion
-
-
+[Figure 16. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
 
 
 ## Limitations
