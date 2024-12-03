@@ -226,6 +226,9 @@ TargetData <- TargetData %>%
            MC = str_remove(MC, pattern = "\\_.*"))
 ```
 
+
+# Results and Discussion
+
 Create preliminary plot for TargetData (MCMIX004)
 >Plots all OD values. True detection is OD680 and false detection is OD720 [@genge_import_mcdata_2024].
 
@@ -310,14 +313,12 @@ TargetDataWide <- TargetDataWide  %>%
    dplyr::select(!contains("od-sensors"))
 ```
 
-Merge Data with meta data
 ```{r metadata merge MCMIX004}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
 rm(TargetDataWide)
 ```
 
-Prelim plot with culture meta (MCMIX004)
 ```{r growth different conditions MCMIX004}
 TargetDataMeta %>% 
   ggplot(aes(x = time, 
@@ -519,7 +520,6 @@ Plots all OD values. True detection is OD680 and false detection is OD720.
 ```
 
 
-##### Generate par_ue column with rows aligned with OD measures
 ```{r pivot_wider MCMIX006}
 #possible issue with data structure; there are multiple values for some of the rows of actinic light columns, so the column becomes a list.
 #Can add  values_fn = 
@@ -565,8 +565,6 @@ TargetDataWide <- TargetDataWide  %>%
 
 ```
 
-#### Merge Data with meta data
-
 ```{r metadata merge MCMIX006}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
@@ -574,7 +572,6 @@ TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", 
 
 rm(TargetDataWide)
 ```
- Prelim plot with culture meta data (MCMIX006)
 
 ```{r growth different conditions MCMIX006}
 TargetDataMeta %>% 
@@ -696,39 +693,11 @@ chlorophyll_data <- CultureCatalog %>%
     Chl_a_ug_L = (Wall_Growth_RFU - intercept) / (slope * DF)
   )
 
-chlorophyll_summary <- chlorophyll_data %>%
-  group_by(Condition, Temperature_C) %>%
-  summarise(
-    mean_Chl_a = mean(Chl_a_ug_L, na.rm = TRUE),
-    sd_Chl_a = sd(Chl_a_ug_L, na.rm = TRUE)
-  )
-ggplot(chlorophyll_summary, aes(x = Condition, y = mean_Chl_a, fill = Condition)) +
-  geom_bar(stat = "identity", position = "dodge", show.legend = FALSE) +
-  geom_errorbar(aes(ymin = mean_Chl_a - sd_Chl_a, ymax = mean_Chl_a + sd_Chl_a), width = 0.2) +
-  labs(
-    title = "Effect of Plastic on Chlorophyll a Concentration",
-    x = "Plastic Presence",
-    y = "Chlorophyll a (µg/L)",
-    caption = "Figure 13. Bar plot showing the effect of plastic presence on chlorophyll a concentration across different temperature conditions. \nThe bars represent the mean chlorophyll a concentration (µg/L) for samples with and without plastic, with \nerror bars indicating standard deviation. The plot is faceted by temperature, highlighting potential \nvariations in microbial response to plastic under different environmental conditions."
-  ) +
- 
-  scale_fill_manual(values = c("Plastic" = "pink3", "No Plastic" = "green3")) +
-  facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
-   theme_minimal() +
-               theme(
-    strip.background = element_rect(fill = "lightgray", color = "black"), 
-    strip.text = element_text(size = 12, face = "bold"), # Style facet labels
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8),
-    plot.caption = element_text(size = 8, hjust = 0),
-         plot.margin = margin(10, 10, 50, 10)
-  ) 
-  
 ```
-ANOVA to test significance:
+
+ANOVA to test significance of chlorophyll analysis:
 ```{r}
 anova_RFU <- aov(Chl_a_ug_L ~ Plastic_Present * Temperature_C, data = chlorophyll_data)
-
-
 summary(anova_RFU)
 
 ```
@@ -753,7 +722,7 @@ No statistically significant effect of Plastic Presence, Temperature, or their i
 •	Some microbes thrive by utilizing bio-MPs as a carbon source, promoting their growth [@shi_microplastic_2022].
 •	Other microbes struggle due to nutrient scarcity, potentially leading to inhibited growth or death [@shi_microplastic_2022].
 
-
+Possible explanation for more growth in 15 degrees: Samples were taken from the swan pond near the end of September, when the pond's microbial community had likely adjusted to temperatures near 15 degrees Celsius. 
 
 
 # Plastic Analyses
@@ -889,15 +858,16 @@ Overall, none of the factors or their interactions significantly affect the perc
 
 # Discussion
 
-Possible explanation for more growth in 15 degrees: Samples were taken from the swan pond near the end of September, when the pond's microbial community had likely adjusted to temperatures near 15 degrees Celsius. 
 
 
-#Limitations
+
+## Limitations
+
 -Duration
 -Bioreactor maintenance
--
 
-#Future directions
+## Future directions
+
 -extend experiment duration
 -Use Oxygen sensors
 -Nutrient supplementation
