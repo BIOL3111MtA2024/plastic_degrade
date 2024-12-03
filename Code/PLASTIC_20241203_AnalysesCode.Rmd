@@ -17,8 +17,6 @@ output:
     code_folding: hide
     self_contained: true
     keep_md: yes
-    toc: TRUE  
-    toc_depth: 6
     fig_caption: yes
 bibliography: ../Docs/PBATDegradationCitations.bib
 csl:  ../Docs/apa-with-abstract.csl
@@ -165,7 +163,7 @@ Skip <- 20
 CultureCatalog <- readRDS(file = file.path("..", "Data",  "RawData","CultureCatalog.Rds"))
 ```
 
-### List MultiCulti files for Project that are saved in DataIn
+List MultiCulti files for Project that are saved in DataIn
 ```{r MultiCulti files}
 
 #List files in the extracted folder with a ".asc" extension
@@ -173,7 +171,7 @@ MCFiles <- unzip(DataIn, list = TRUE)
 MCFiles <- MCFiles[grepl(".csv$", MCFiles$Name), "Name"]
 ```
 ### MCMIX004 File
-#### Set Target File and read in csv
+Set Target File and read in csv
 ```{r set TargetFile and read csv MCMIX004, warning = FALSE, message = FALSE}
 
 TargetFile <- "20240927_Plastic_MCMIX004.csv"
@@ -189,7 +187,7 @@ TargetData <- read_csv(unz(DataIn, TargetFile),
 TargetFileName <- str_remove(string = TargetFile, pattern = ".csv")
 ```
 
-#### Filter superfluous rows, Add ToD column, extract ExpDate, extract MC, 
+Filter superfluous rows, Add ToD column, extract ExpDate, extract MC, 
 ```{r tidy MultiDataTarget MCMIX004}
 #filter superfluous rows to simplify later pivot
 TargetData <- TargetData %>%
@@ -228,10 +226,9 @@ TargetData <- TargetData %>%
            MC = str_remove(MC, pattern = "\\_.*"))
 ```
 
-#### Create preliminary plot for TargetData (MCMIX004)
+Create preliminary plot for TargetData (MCMIX004)
 >Plots all OD values. True detection is OD680 and false detection is OD720 [@genge_import_mcdata_2024].
 
-XXX make other one like this
 ```{r prelim plot MCMIX004}
 
  TargetData %>%
@@ -261,7 +258,7 @@ XXX make other one like this
 
 ```
 
-##### Generate par_ue column with rows aligned with OD measures
+Generate par_ue column with rows aligned with OD measures
 
 >Pivot_wider to get actinic-lights data aligned with relevant sensor data. Need to include arrange(Filename, time, Tube) to keep things aligned! Need to group_by and/or reorder rows appropriately; Be Careful [@genge_import_mcdata_2024]
 
@@ -313,15 +310,14 @@ TargetDataWide <- TargetDataWide  %>%
    dplyr::select(!contains("od-sensors"))
 ```
 
-#### Merge Data with meta data
+Merge Data with meta data
 ```{r metadata merge MCMIX004}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
 rm(TargetDataWide)
 ```
 
-#### Prelim plot with culture meta (MCMIX004)
-
+Prelim plot with culture meta (MCMIX004)
 ```{r growth different conditions MCMIX004}
 TargetDataMeta %>% 
   ggplot(aes(x = time, 
@@ -343,7 +339,7 @@ TargetDataMeta %>%
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 6. Microbial growth over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+        caption = "Figure 6. Microbial growth over time under different environmental conditions 25°C. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -392,7 +388,6 @@ ggplot(subset_data, aes(x = time,
 
 ```
 
-XXX copy this
 ```{r focusing on the culture with no plastic MCMIX004}
 
 subset_data <- TargetDataMeta %>%
@@ -432,7 +427,7 @@ ggplot(subset_data, aes(x = time,
 
 
 ### MCMIX006
-#### Set Target File and read in csv
+Set Target File and read in csv
 ```{r set TargetFile and read csv MCMIX006}
 
 TargetFile <- "20240927_Plastic_MCMIX006.csv"
@@ -579,122 +574,7 @@ TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", 
 
 rm(TargetDataWide)
 ```
-#### Prelim plot with culture meta data (MCMIX006)
-
-XXX do this one
-```{r second prelim plot MCMIX006}
-
-  TargetDataMeta %>% ggplot() +
-  geom_point(aes(x = time, y = OD680, colour = as.factor(WL)), size = 0.15) +
-  geom_point(aes(x = time, y = OD720), size = 0.15, colour = "orange") +
-  #geom_point(aes(x = time, y = Actinic_par/1000),  colour = "orange", size = 0.0001) +
-  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
-  #scale_x_continuous(breaks=seq(0, 800, by = 125)) +
-  #coord_cartesian(xlim = c(-10, 800)) +
-  #scale_colour_manual(values = MCMIXColours) +
-  #labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", subtitle = "Growth Light (µE); Strain; SampleID; Tube") +
-  facet_grid(rows = vars(as.factor(Plastic_Present)), cols = vars(as.factor(Tube), Nutrient_Present, Culture_Present)) +
-  theme_bw()
-
-```
-
-```{r}
-TargetDataMeta %>% 
-  ggplot(aes(x = time, 
-             y = OD680,
-             colour = as.factor(Tube))) + 
-  geom_point(size = 0.5) + 
-  geom_vline(aes(xintercept = 7 * 24), 
-             linetype = "dashed") +
-  geom_vline(aes(xintercept = 14 * 24), 
-             linetype = "dashed") + 
-  geom_vline(aes(xintercept = 21 * 24), 
-             linetype =  "dashed") + 
-  geom_vline(aes(xintercept = 28 * 24), 
-             linetype = "dashed") +
-  
-  labs( title = "Microbial Growth Under Different Environmental Conditions", 
-        subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
-        y = "Optical Density (OD at 680 nm)", 
-        colour = "Tube Number", 
-        caption = "Dashed lines indicate key time points." ) + 
-  facet_wrap(~ Plastic_Present + 
-               Nutrient_Present + 
-               Culture_Present, 
-             ncol = 2) + 
-  scale_x_continuous(breaks = seq(0, 788, by = 24)) + 
-  theme_bw() + 
-  theme( axis.text.x = element_text(angle = 45, hjust = 1), 
-         strip.text = element_text(size = 10, face = "bold") )
-```
-
-```{r}
-TargetDataMeta %>% 
-  ggplot(aes(x = time, 
-             y = OD680,
-             colour = as.factor(Tube))) + 
-  geom_point(size = 1, alpha = 0.5) + 
-  geom_vline(aes(xintercept = 4.3 * 24), 
-             linetype = "dashed") +
-  geom_vline(aes(xintercept = 11.3 * 24), 
-             linetype = "dashed") + 
-  geom_vline(aes(xintercept = 18.3 * 24), 
-             linetype =  "dashed") + 
-  geom_vline(aes(xintercept = 25.3 * 24), 
-             linetype =  "dashed") +
-  geom_vline(aes(xintercept = 32.3 * 24), 
-             linetype = "dashed") +
-  
-  labs( title = "Microbial Growth Under Different Environmental Conditions", 
-        subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
-        y = "Optical Density (OD at 680 nm)", 
-        colour = "Tube Number", 
-        caption = "Dashed lines indicate key time points." ) + 
-  facet_wrap(~ Plastic_Present + 
-               Nutrient_Present + 
-               Culture_Present, 
-             ncol = 2) + 
-  scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
-  scale_y_continuous(limits = c(0, 0.1)) +
-  theme_bw() + 
-  theme( axis.text.x = element_text(size = 9, angle = 90), 
-         strip.text = element_text(size = 10, face = "bold") )
-```
-
-```{r focusing on the replicates MCMIX006}
-
-subset_data <- TargetDataMeta %>%
-  filter(Plastic_Present == 1, Nutrient_Present == 1, Culture_Present == 1)
-
-ggplot(subset_data, aes(x = time, 
-                        y = OD680, 
-                        colour = as.factor(Tube))) + 
-  geom_point(size = 3, alpha = 0.5) + 
-  geom_vline(aes(xintercept = 4.3 * 24), 
-             linetype = "dashed") +
-  geom_vline(aes(xintercept = 11.3 * 24), 
-             linetype = "dashed") + 
-  geom_vline(aes(xintercept = 18.3 * 24), 
-             linetype =  "dashed") + 
-  geom_vline(aes(xintercept = 25.3 * 24), 
-             linetype =  "dashed") +
-  geom_vline(aes(xintercept = 32.3 * 24), 
-             linetype = "dashed") +
-  labs( title = "Microbial Growth Under Full Environmental Conditions", 
-        subtitle = "Plastic, Nutrients, and Culture Present", 
-        x = "Elapsed Time (hours)", 
-        y = "Optical Density (OD at 680 nm)", 
-        colour = "Tube Number", 
-        caption = "Dashed lines indicate key time points." ) + 
-  scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
-  scale_y_continuous(limits = c(0, 0.1)) +
-  theme_bw() + 
-  theme( axis.text.x = element_text(size = 9, angle = 90), 
-         strip.text = element_text(size = 10, face = "bold") )
-
-```
-
+ Prelim plot with culture meta data (MCMIX006)
 
 ```{r growth different conditions MCMIX006}
 TargetDataMeta %>% 
@@ -731,7 +611,7 @@ TargetDataMeta %>%
          plot.margin = margin(10, 10, 50, 10) )
 ```
 
-```{r focusing on the replicates MCMIX004}
+```{r replicates MCMIX006}
 
 subset_data <- TargetDataMeta %>%
   filter(Plastic_Present == 1, Nutrient_Present == 1, Culture_Present == 1)
@@ -767,8 +647,7 @@ ggplot(subset_data, aes(x = time,
 
 ```
 
-XXX copy this
-```{r focusing on the culture with no plastic MCMIX004}
+```{r focusing on the culture with no plastic MCMIX006}
 
 subset_data <- TargetDataMeta %>%
   filter(Plastic_Present == 0, Nutrient_Present == 1, Culture_Present == 1)
