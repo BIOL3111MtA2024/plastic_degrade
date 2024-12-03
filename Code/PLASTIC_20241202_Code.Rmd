@@ -712,6 +712,23 @@ ggplot(subset_data, aes(x = time,
 
 ```
 
+**Impact of Bio-Microplastics on Microbial Communities**
+
+**Degradation of Bioplastics Introduces Microplastics**
+•	As bioplastics degrade, they release bio-microplastics (bio-MPs) into the environment, impacting microbial ecosystems.
+
+**Rapid Increase in Carbon and Altered Chemical Diversity**
+
+•	Bio-MPs quickly increase soil dissolved organic carbon (DOC) content due to their degradable nature (Y.Z. Sun et al., 2022).
+•	Bio-MPs provide abundant carbon (C) but are deficient in nitrogen (N) and phosphorus (P), leading to nutrient imbalances (Karamanlioglu & Robson, 2013).
+
+**Nutrient Deficiency Drives Microbial Competition**
+•	The lack of nitrogen and phosphorus causes competition among microbes for these limited resources (Cao et al., 2021).
+
+**Shifts in Microbial Communities**
+•	Some microbes thrive by utilizing bio-MPs as a carbon source, promoting their growth.
+•	Other microbes struggle due to nutrient scarcity, potentially leading to inhibited growth or death (Shi et al., 2022).
+
 XXXLook at what you want for filtering
 Fix meta catalog
 do for both of the files
