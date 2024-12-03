@@ -1024,7 +1024,9 @@ negative_mean_data
 XXX make sure that yvanna cites herself for photos and adds photo captions
 
 #![Caption for the picture.](../Docs/Photos/image.png)
-
+Yvanna's pictures
+Figure 1. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.
+Figure 2. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.
 
 # Discussion
 
