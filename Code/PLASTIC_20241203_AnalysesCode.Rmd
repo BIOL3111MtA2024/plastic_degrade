@@ -12,11 +12,12 @@ author:
 
 date: "`r format(Sys.Date())`"
 output:
-  bookdown::html_document2:
-    code_folding: show
+  rmdformats::readthedown:
+    df_print: paged
+    code_folding: hide
+    self_contained: true
     keep_md: yes
-    toc: TRUE
-    toc_float: TRUE
+    toc: TRUE  
     toc_depth: 6
     fig_caption: yes
 bibliography: ../Docs/PBATDegradationCitations.bib
@@ -37,8 +38,7 @@ p.caption {
 *corresponding author 
 
 
-XXX what should the knit output be? XXX
-XXX need to update references + read mesXXX
+
 XXX add data dictionary in tabular form
 
 # Acknowledgement {-}
@@ -46,11 +46,6 @@ This R markdown file is adapted from the `Import_MCData` file created by Laurel 
 
 Dr. Campbell was supported by the Canada Research Chairs.
 
-
-  
-
-XXX get Yvanna and andrew to add their parts to this file
-XXX cite yvannas sources
 
 # Overview
 
@@ -237,7 +232,7 @@ TargetData <- TargetData %>%
 ```
 
 #### Create preliminary plot for TargetData (MCMIX004)
-##### Plots all OD values. True detection is OD680 and false detection is OD720.
+Plots all OD values. True detection is OD680 and false detection is OD720.
 
 XXX do this one
 ```{r prelim plot MCMIX004}
@@ -246,13 +241,19 @@ XXX do this one
   filter(grepl("od-", key)) %>%
   ggplot(data = .) +
   geom_point(aes(x = time, y = value, colour = as.factor(str_detect(key, "680"))), size = 0.5) +
-   coord_cartesian(ylim = c(-0.1,0.1)) +
+   coord_cartesian(ylim = c(-0.08,0.05)) +
   geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
   geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
+  geom_vline(aes(xintercept = 21 * 24), linetype = "dashed") + 
+  geom_vline(aes(xintercept = 28 * 24), linetype = "dashed") +
   scale_colour_manual(values = c("black", "red")) +
-  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes") +
+  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes",
+       caption = "Figure 5.Optical density (OD) measurements over time at 25°C for tubes with different experimental conditions. Tubes 1–5 \nare replicates containing culture, nutrients, and plastic. Tube 6 contains culture and nutrients but no plastic. Tube 7 \ncontains nutrients and plastic but no culture. Tube 8 contains plastic but no culture or nutrients. True detections (OD680, red) \nand false detections (OD720, black) are shown. Dashed vertical lines represent key milestones at 7 days (168 hours), \n14 days (336 hours), 21 days (504 hours), and 28 days (672 hours). The y-axis is constrained to OD values between -0.1 and \n0.1 for clarity.") +
   facet_grid(cols = vars(as.factor(Tube))) +
-  theme_bw() 
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 7, angle = 90), 
+        plot.caption = element_text(size = 8, hjust = 0),
+        plot.margin = margin(10, 10, 50, 10))
 
 
 ```
@@ -1044,10 +1045,8 @@ XXX renumber these figure captions
 
 # Discussion
 
-Possible explanation for more growth in 15 degrees: Samples were taken from the swan pond near the end of September, when the pond's microbial community had likely adjusted to temperatures near 15 degrees celsius. 
+Possible explanation for more growth in 15 degrees: Samples were taken from the swan pond near the end of September, when the pond's microbial community had likely adjusted to temperatures near 15 degrees Celsius. 
 
-
-XXX need to do every single read me in every single folder
 
 #Limitations
 -Duration
