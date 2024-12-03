@@ -332,11 +332,11 @@ TargetDataMeta %>%
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
   
-  labs( title = "Microbial Growth Under Different Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Different Environmental Conditions", 
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 6. Microbial growth over time under different environmental conditions 25°C. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+        caption = "Figure 6. Optical Density Readings over time under different environmental conditions 25°C. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -369,12 +369,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth Under Full Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Different Environmental Conditions", 
         subtitle = "Plastic, Nutrients, and Culture Present", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 7. Microbial growth over time with the culture, nutrient, and plastic present at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 7. Optical Density Readings over time with the culture, nutrient, and plastic present at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   theme_bw() + 
@@ -404,12 +404,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth with no Plastic", 
+  labs( title = "Optical Density Readings in the Absence of Plastic", 
         subtitle = "Nutrients, and Culture Present, No Plastic", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 8. Microbial growth over time with the culture and nutrient present, but no plastic at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 8. Optical Density Readings over time with the culture and nutrient present, but no plastic at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   scale_colour_manual(values = "#00A9FF") +
@@ -577,11 +577,11 @@ TargetDataMeta %>%
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
   
-  labs( title = "Microbial Growth Under Different Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Different Environmental Conditions", 
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 10. Microbial growth over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions at 15°C, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+        caption = "Figure 10. Optical Density Readings over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions at 15°C, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -614,12 +614,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth Under Full Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Full Environmental Conditions", 
         subtitle = "Plastic, Nutrients, and Culture Present", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 11. Microbial growth over time with the culture, nutrient, and plastic present at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 11. Optical Density Readings over time with the culture, nutrient, and plastic present at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   scale_colour_manual(values = c("#00BE67", "#00BFC4","#00A9FF","#C77CFF","#FF61CC")) +
@@ -650,12 +650,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth with no Plastic", 
+  labs( title = "Optical Density Readings in the Absence of Plastic", 
         subtitle = "Nutrients, and Culture Present, No Plastic", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 12. Microbial growth over time with the culture and nutrient present, but no plastic at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 12. Optical Density Readings over time with the culture and nutrient present, but no plastic at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   scale_colour_manual(values = "#7CAE00") +
