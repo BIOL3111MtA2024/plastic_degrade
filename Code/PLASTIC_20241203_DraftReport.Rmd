@@ -1035,7 +1035,7 @@ negative_mean_data
 ## Pictures 
 XXX make sure that yvanna cites herself for photos and adds photo captions
 
-
+XXX renumber these figure captions
 
 [Figure 5. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degreea.png)
 
