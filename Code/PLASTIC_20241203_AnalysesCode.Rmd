@@ -825,15 +825,15 @@ anova_effects <- aov(perc_change ~ Culture_Present * Nutrient_Present * Temperat
 summary(anova_effects)
 ```
 
-Overall, none of the factors or their interactions significantly affect the percentage change in the dataset. The lack of statistical significance suggests that culture presence, nutrient presence, and temperature do not have a substantial impact on the measured outcome in this experiment.
+Overall, none of the factors or their interactions significantly affect the percentage change in mass for our dataset. The lack of statistical significance suggests that culture presence, nutrient presence, and temperature do not have a substantial impact on the measured outcome in this experiment.
 
 
 
 ## Microbes Present 
 
-[Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
+[Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under a light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
 
-[Figure 16. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
+[Figure 16. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
 
 
 ## Limitations
