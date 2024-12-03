@@ -1,11 +1,14 @@
 # Documents
 
+This folder contains the following files and subfolders:
+
 ## Files
 
 - **apa-with-abstract.csl**: Custom APA citation style file that includes abstracts in bibliographic references.
 - **CampbellSOP28ChlorophyllaTurner.pdf**: Methods for Chlorophyll a Determination Using Turner Trilogy.
 - **INSTRUCTIONS.md**: Instructions for using the project template.
 - **PBATDegradationCitations.bib**: List of citations in BibTeX, exported from Zotero.
+- **docs.md**: This Markdown document providing an overview of the folder structure and file contents.
 
 ## Subfolder: Photos
 

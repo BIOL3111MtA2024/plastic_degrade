@@ -5,8 +5,8 @@ This folder contains the following files and subfolders:
 ## Files
 
 - **PLASTIC_20241202_Import_MetaData.Rmd**: Code used to import the meta data and convert it to an .Rds for analysis.
-
 - **PLASTIC_20241203_AnalysesCode.Rmd**: Code used to read in a plot BioReactor data and generate plots for the report.
+- **code.md**: This Markdown document providing an overview of the folder structure and file contents.
 
 ### Subfolder: OldR
 
