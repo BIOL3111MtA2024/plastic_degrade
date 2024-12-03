@@ -2,45 +2,50 @@
 
 ## Summary
 
+Producers of bioplastics often claim that their polymers are biodegradable, but that claim is seldom true excluding under industrial composting conditions. In our investigation of the microbial degradation of bioplastics, we secured fragments of vegetable starch-based dog poop bags in tubes across 2 photobioreactors set to 15 and 25C respectively. In each photobioreactor were 3 controls: one containing plastic but omitting nutrient and pond microbes, another containing plastic and nutrient but omitting pond microbes, and a third containing pond microbes and nutrient but no plastic. Following a 4-week trial period, we observed no statistically significant relationship between microbe presence, nutrient presence, or temperature and percent mass decrease in bioplastics. This result comes as no surprise, given that studies such as ours ordinarily cover far longer periods of time. 
+
 Provide a brief description of the project - 150 words.
 
 ## Highly Qualified Personnel
+
+Andrew Forrest, ahforrest@mta.ca, Mount Allison University
+Yvanna Tchatchoue, ystchatchoua@mta.ca, Mount Allison University
+Heather MacTavish, hrmactavish@mta.ca, Mount Allison University
+
+XXX ADD OTHER CONTRIBUTORS
 
 - Name, Institution, email, ORCID 0000-0000-0000-0000
 
 ## Principle Investigators
 
 - Douglas A. Campbell, Mount Allison University, dcampbel@mta.ca, ORCID 0000-0001-8996-5463
+- Andrew Forrest, ahforrest@mta.ca, Mount Allison University
+- Yvanna Tchatchoue, ystchatchoua@mta.ca, Mount Allison University
+- Heather MacTavish, hrmactavish@mta.ca, Mount Allison University
 
 ## Primary Contact  
 
 - Douglas A. Campbell, Mount Allison University, dcampbel@mta.ca, ORCID 0000-0001-8996-5463
 
-## Data sources
-
-- Provide links to any data used from external providers .
-
-## Funding sources
-
-- List your funding sources, grant names, and grant numbers as applicable.
-
 ## Keywords
 
-List keywords separated by commas
+- Degradation, bioplastic, community, photobioreactor
 
 ## Additional information and support
 
 - Sensitive Data Flag - Human Participants:  NO
-- Sensitive Data Flag - Indigenous Partnerships: YES or NO
-- Sensitive Data Flag - Government Partnerships: YES or NO
-- Sensitive Data Flag - Industry Partnerships: YES or NO
-- Access Restrictions
+- Sensitive Data Flag - Indigenous Partnerships: NO
+- Sensitive Data Flag - Government Partnerships: NO
+- Sensitive Data Flag - Industry Partnerships: NO
+- Access Restrictions - N/A
 
 ## Software  
 
+XXX HEATHER HELP ME OUT
+
 The software (and version) used to create the dataset.  
 
-## Repo content information
+## Repository content information
 
 Use the space below to summarize the structure of the repository with a decription of each folder, as applicable.
 
