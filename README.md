@@ -8,13 +8,14 @@ Provide a brief description of the project - 150 words.
 
 ## Highly Qualified Personnel
 
-Andrew Forrest, ahforrest@mta.ca, Mount Allison University
-Yvanna Tchatchoue, ystchatchoua@mta.ca, Mount Allison University
-Heather MacTavish, hrmactavish@mta.ca, Mount Allison University
-
-XXX ADD OTHER CONTRIBUTORS
-
-- Name, Institution, email, ORCID 0000-0000-0000-0000
+- Andrew Forrest, ahforrest@mta.ca, Mount Allison University
+- Yvanna Tchatchoue, ystchatchoua@mta.ca, Mount Allison University
+- Heather MacTavish, hrmactavish@mta.ca, Mount Allison University
+- Douglas A. Campbell, Mount Allison University, dcampbel@mta.ca, ORCID 0000-0001-8996-5463
+- Mireille Savoie, msavoie@mta.ca, Mount Allison University, ORCID 0009-0009-9499-6657
+- Laurel Genge, lgenge@mta.ca, Mount Allison University
+- Carlie Barnhill, Mount Allison Univeraity
+- Max Berthold, mberthold@mta.ca, Mount Allison University, ORCID 0000-0003-1985-6426
 
 ## Principle Investigators
 
@@ -41,24 +42,22 @@ XXX ADD OTHER CONTRIBUTORS
 
 ## Software  
 
-XXX HEATHER HELP ME OUT
-
-The software (and version) used to create the dataset.  
+Excel (version 2410) was used to create the dataset.
 
 ## Repository content information
 
 Use the space below to summarize the structure of the repository with a decription of each folder, as applicable.
 
 ### MetaDataCatalog
-URL for MetaDataCatalog, or MetaDataCatalog filename
-example:
-https://docs.google.com/spreadsheets/d/1rlj03Q_wq83qlyiY7mXq8BK6C-L0Ko799JsyhfA1TGI/edit#gid=0
-Use standard variable names for MetaDataCatalog
+
+Link to the MetaDataCatalog:
+https://mountallison-my.sharepoint.com/:x:/r/personal/hrmactavish_mta_ca/Documents/24_micro/plastic_degrade/Data/RawData/PLASTIC_20241202_MetaData_Excel.xlsx?d=wff05c511c7764a3a920e24a2d4a47c85&csf=1&web=1&e=UJartG
+
 
 ### Data Dictionary
-URL for Data Dictionary, or Data Dictionary filename
-example:
-https://docs.google.com/spreadsheets/d/1KzHZETwASnt4XW69HYufHwlWaE_E-yHkLDqetiOYqBg/edit#gid=671854404
+
+Link to the Daya Dictionary:
+https://mountallison-my.sharepoint.com/:x:/r/personal/hrmactavish_mta_ca/Documents/24_micro/plastic_degrade/Data/RawData/PLASTIC_20241202_DataDictionary.xlsx?d=w20eb27f218e142a68474f50dc79ab2cd&csf=1&web=1&e=MsUk22
 
 ### Data/RawData
 
@@ -77,12 +76,20 @@ Processed data in formats for long-term storage.
 ### Code
 
 Scripts for processing raw data into cleaned data, outside derived code, and user derived code.
-A folder OldR is used to store outdated code.
+
 Typically organize .Rmd in modules; Import; Tidy; Process saving .Rds out of each step.
+
+### Code/OldR
+
+Stores outdated code.
 
 ### Docs
 
 Project notes, other documentation, etc.
+
+### Docs/Photos
+
+Photos taken related to the project.
 
 ### Output
 
