@@ -18,8 +18,7 @@ output:
     self_contained: true
     keep_md: yes
     fig_caption: yes
-knitr:
-  root.dir: !expr dirname(rstudioapi::getActiveDocumentContext()$path)
+
 bibliography: ../Docs/PBATDegradationCitations.bib
 csl:  ../Docs/apa-with-abstract.csl
 editor_options: 
@@ -37,9 +36,6 @@ p.caption {
 
 *corresponding author 
 
-
-
-XXX add data dictionary in tabular form
 
 # Acknowledgement {-}
 This R markdown file is adapted from the `Import_MCData` file created by Laurel Genge, Carlie Barnhill, Max Berthold, Mireille Savoie, and Douglas A. Campbell [@genge_import_mcdata_2024] for the Plastic Degradation project by Heather MacTavish, Andrew Forrest, and Yvanna Tchatchoua in BIOL3111.
@@ -79,6 +75,12 @@ This study investigates the degradation of PBAT, sourced from dog poop bags, und
 According to Genge et al. (2024):
 
 >The PSI Multicultivator is used to grow 8 x 80 ml of phytoplankton culture under a common temperature regime, with individual control of bubbling, light level, light spectral quality and photoperiod for each of the 8 culture tubes.
+
+**Research Questions**:
+
+- Are compostable plastics truly degradable in natural environments?
+- What factors affect the degradation of the plastic?
+
 
 
 
@@ -157,8 +159,7 @@ CultureCatalog <- readRDS(file = file.path("..", "Data",  "RawData","CultureCata
 MCFiles <- unzip(DataIn, list = TRUE)
 MCFiles <- MCFiles[grepl(".csv$", MCFiles$Name), "Name"]
 ```
-### MCMIX004 File
-Set Target File and read in csv
+
 
 ``` r
 TargetFile <- "20240927_Plastic_MCMIX004.csv"
@@ -174,7 +175,6 @@ TargetData <- read_csv(unz(DataIn, TargetFile),
 TargetFileName <- str_remove(string = TargetFile, pattern = ".csv")
 ```
 
-Filter superfluous rows, Add ToD column, extract ExpDate, extract MC, 
 
 ``` r
 #filter superfluous rows to simplify later pivot
@@ -217,7 +217,8 @@ TargetData <- TargetData %>%
 
 # Results and Discussion
 
-Create preliminary plot for TargetData (MCMIX004)
+## Suprise Results! Does this plastic inhibit microbial growth?
+
 >Plots all OD values. True detection is OD680 and false detection is OD720 [@genge_import_mcdata_2024].
 
 
@@ -249,7 +250,7 @@ Create preliminary plot for TargetData (MCMIX004)
 
 ![](Figs/prelim plot MCMIX004-1.png)<!-- -->
 
-Generate par_ue column with rows aligned with OD measures
+>Generate par_ue column with rows aligned with OD measures [@genge_import_mcdata_2024]
 
 >Pivot_wider to get actinic-lights data aligned with relevant sensor data. Need to include arrange(Filename, time, Tube) to keep things aligned! Need to group_by and/or reorder rows appropriately; Be Careful [@genge_import_mcdata_2024]
 
@@ -310,6 +311,7 @@ TargetDataWide <- TargetDataWide  %>%
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
 rm(TargetDataWide)
 ```
+
 
 
 ``` r
@@ -404,8 +406,8 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth Under Full Environmental Conditions", 
-        subtitle = "Plastic, Nutrients, and Culture Present", 
+  labs( title = "Microbial Growth with no Plastic", 
+        subtitle = "Nutrients, and Culture Present, No Plastic", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
@@ -423,10 +425,6 @@ ggplot(subset_data, aes(x = time,
 ![](Figs/focusing on the culture with no plastic MCMIX004-1.png)<!-- -->
 
 
-
-### MCMIX006
-Set Target File and read in csv
-
 ``` r
 TargetFile <- "20240927_Plastic_MCMIX006.csv"
 
@@ -438,12 +436,6 @@ TargetData <- read_csv(unz(DataIn, TargetFile),  skip = Skip, id = "Path", col_n
 
 
 TargetFileName <- str_remove(string = TargetFile, pattern = ".csv")
-
-TargetFileName
-```
-
-```
-## [1] "20240927_Plastic_MCMIX006"
 ```
 
 
@@ -465,23 +457,10 @@ TargetData <- TargetData %>%
 
 #extract StartHour dynamically from first row of abs_time and display for cross check
 StartHour <- as.numeric(format(TargetData$abs_time[1], format = "%H"))
-StartHour
-```
 
-```
-## [1] 6
-```
-
-``` r
+ 
 StartDate <- TargetData$abs_time[1]
-StartDate
-```
 
-```
-## [1] "2024-09-27 06:00:00 UTC"
-```
-
-``` r
 #Generate ToD as mod 24 of time + StartHour
 TargetData <- TargetData %>%
   mutate(ToD = (time + StartHour) %% 24,
@@ -501,7 +480,7 @@ TargetData <- TargetData %>%
            MC = str_remove(MC, pattern = "\\_.*"))
 ```
 
-Plots all OD values. True detection is OD680 and false detection is OD720.
+>Plots all OD values. True detection is OD680 and false detection is OD720 [@genge_import_mcdata_2024].
 
 
 ``` r
@@ -680,8 +659,8 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth Under Full Environmental Conditions", 
-        subtitle = "Plastic, Nutrients, and Culture Present", 
+  labs( title = "Microbial Growth with no Plastic", 
+        subtitle = "Nutrients, and Culture Present, No Plastic", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
@@ -700,57 +679,73 @@ ggplot(subset_data, aes(x = time,
 
 
 
-
-ANOVA to test significance of chlorophyll analysis:
+ANOVA to test significance of RFU analysis on wall growth microbes.
 
 ``` r
-anova_RFU <- aov(Chl_a_ug_L ~ Plastic_Present * Temperature_C, data = chlorophyll_data)
-summary(anova_RFU)
+anova_RFU_wall <- aov(Wall_Growth_RFU ~ Plastic_Present * Temperature_C, data = CultureCatalog)
+summary(anova_RFU_wall)
+```
+
+```
+##                               Df  Sum Sq Mean Sq F value Pr(>F)
+## Plastic_Present                1  155484  155484   0.245  0.629
+## Temperature_C                  1  128169  128169   0.202  0.661
+## Plastic_Present:Temperature_C  1  961909  961909   1.517  0.242
+## Residuals                     12 7607700  633975
+```
+ANOVA to test significance of RFU analysis on suspended microbes.
+
+``` r
+anova_RFU_suspension <- aov(Suspension_RFU ~ Plastic_Present * Temperature_C, data = CultureCatalog)
+summary(anova_RFU_suspension)
 ```
 
 ```
 ##                               Df Sum Sq Mean Sq F value Pr(>F)
-## Plastic_Present                1   3145    3145   0.245  0.629
-## Temperature_C                  1   2592    2592   0.202  0.661
-## Plastic_Present:Temperature_C  1  19456   19456   1.517  0.242
-## Residuals                     12 153876   12823
+## Plastic_Present                1    138   138.2   0.109  0.747
+## Temperature_C                  1    948   947.7   0.746  0.405
+## Plastic_Present:Temperature_C  1     60    59.7   0.047  0.832
+## Residuals                     12  15246  1270.5
 ```
 
-No statistically significant effect of Plastic Presence, Temperature, or their interaction on chlorophyll a concentration in data (p>0.05).
+No statistically significant effect of Plastic Presence, Temperature, or their interaction on RFU measurement in data (p>0.05).
 
 
 **Impact of Bio-Microplastics on Microbial Communities**
 
 **Degradation of Bioplastics Introduces Microplastics**
-•	As bioplastics degrade, they release bio-microplastics (bio-MPs) into the environment, impacting microbial ecosystems [@piyathilake_exploring_2024].
+
+- As bioplastics degrade, they release bio-microplastics (bio-MPs) into the environment, impacting microbial ecosystems [@piyathilake_exploring_2024].
 
 **Rapid Increase in Carbon and Altered Chemical Diversity**
 
-•	Bio-MPs quickly increase soil dissolved organic carbon (DOC) content due to their degradable nature [@sun_biodegradable_2022].
-•	Bio-MPs provide abundant carbon (C) but are deficient in nitrogen (N) and phosphorus (P), leading to nutrient imbalances [@karamanlioglu_abiotic_2017].
+- Bio-MPs quickly increase soil dissolved organic carbon (DOC) content due to their degradable nature [@sun_biodegradable_2022].
+- Bio-MPs provide abundant carbon (C) but are deficient in nitrogen (N) and phosphorus (P), leading to nutrient imbalances [@karamanlioglu_abiotic_2017].
 
 **Nutrient Deficiency Drives Microbial Competition**
-•	The lack of nitrogen and phosphorus causes competition among microbes for these limited resources [@cao_organic-c_2021].
+
+- The lack of nitrogen and phosphorus causes competition among microbes for these limited resources [@cao_organic-c_2021].
 
 **Shifts in Microbial Communities**
-•	Some microbes thrive by utilizing bio-MPs as a carbon source, promoting their growth [@shi_microplastic_2022].
-•	Other microbes struggle due to nutrient scarcity, potentially leading to inhibited growth or death [@shi_microplastic_2022].
+
+- Some microbes thrive by utilizing bio-MPs as a carbon source, promoting their growth [@shi_microplastic_2022].
+- Other microbes struggle due to nutrient scarcity, potentially leading to inhibited growth or death [@shi_microplastic_2022].
 
 Possible explanation for more growth in 15 degrees: Samples were taken from the swan pond near the end of September, when the pond's microbial community had likely adjusted to temperatures near 15 degrees Celsius. 
 
 
-# Plastic Analyses
 
 ``` r
 # make a new data set to not mess up the original
 plastic <- CultureCatalog
 
 
-# Calculate percentage change
+# calculate percentage change
 plastic$perc_change <- (plastic$Final_Plastic_Weight_mg - plastic$Initial_Plastic_Weight_mg) / plastic$Initial_Plastic_Weight_mg * 100
 ```
 
-## converting the variables to factor type
+## Did the plastic lose weight after four weeks?
+
 
 ``` r
 # Convert grouping variables to factors 
@@ -759,7 +754,6 @@ plastic$Nutrient_Present <- as.factor(plastic$Nutrient_Present)
 plastic$Culture_Present <- as.factor(plastic$Culture_Present)
 ```
 
-# Plastic Percent Loss or Gain
 
 ``` r
 graph_data <- CultureCatalog %>%
@@ -767,7 +761,6 @@ graph_data <- CultureCatalog %>%
 
 graph_data$Culture_Present <- as.factor(graph_data$Culture_Present)
 ```
-
 
 
 ``` r
@@ -779,6 +772,7 @@ data_long<-CultureCatalog%>%
 data_long$Weight_Type <- factor(data_long$Weight_Type, levels = c("Initial_Plastic_Weight_mg", "Final_Plastic_Weight_mg"))
 ```
 
+
 ``` r
 ggplot(data_long,
        aes(x=Tube,y=Weight,fill=Weight_Type))+
@@ -787,7 +781,8 @@ ggplot(data_long,
     values=c("Initial_Plastic_Weight_mg"="lightblue",
              "Final_Plastic_Weight_mg"="red2"))+
   labs(x="Tube",y="Weight(mg)",fill="Weight Type",
-    caption = "Figure 13. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions.")+
+    title = "Overall plastic weights (mg) before and after 4 week trial in BioReactors",
+       caption = "Figure 13. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions.")+
   facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
   theme_minimal() +
   theme(
@@ -802,9 +797,7 @@ ggplot(data_long,
 
 
 
-
-
-# What factors influence the change in plastic weight?
+## What factors influence the change in plastic weight?
 
 
 ``` r
@@ -844,6 +837,7 @@ ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Cultu
     x = "Temperature (°C)",
     y = "Mean Percent Weight Loss",
     fill = "Culture Present",
+    title = "Average percent weight loss of plastic",
     caption = "Figure 14. Bar plot showing the mean percent weight loss across different temperature conditions, with error \nbars representing the standard error of the mean.  The plot is grouped by Culture Presence (indicated by colour) \nand faceted by Nutrient Presence. Temperature is shown on the x-axis, and the mean percent weight loss \nis plotted on the y-axis. Facet labels distinguish the presence or absence of nutrients in the experiment."
   ) +
   facet_wrap(~ Nutrient_Present, labeller = labeller(Nutrient_Present = label_both)) +
@@ -857,7 +851,7 @@ ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Cultu
   )
 ```
 
-![](Figs/unnamed-chunk-3-1.png)<!-- -->
+![](Figs/unnamed-chunk-4-1.png)<!-- -->
 
 ANOVA testing the effects of Culture Presence, Nutrient Presence, and Temperature on the percentage change in the outcome variable as well as their interactions.
 
@@ -882,7 +876,7 @@ Overall, none of the factors or their interactions significantly affect the perc
 
 
 
-## Pictures 
+## Microbes Present 
 
 [Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
 
@@ -891,20 +885,17 @@ Overall, none of the factors or their interactions significantly affect the perc
 
 ## Limitations
 
--Duration
--Bioreactor maintenance
+- Duration
+- Bioreactor maintenance
 
 ## Future directions
 
--extend experiment duration
--Use Oxygen sensors
--Nutrient supplementation
--Convert controls into replicates 
--Investigate microbial inhibition
-
-
-
-
+- extend experiment duration
+- Use Oxygen sensors
+- Nutrient supplementation
+- Convert controls into replicates 
+- Investigate microbial inhibition
+- Testing bioplastic toxicity: A future study to investigate the potential toxicity of vegetable based bioplastics could use multiple bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of vegetable starch based plastics.
 
 # References
 
