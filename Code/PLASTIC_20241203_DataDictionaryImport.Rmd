@@ -1,0 +1,40 @@
+---
+title: "Coverting Data Dictionary to MD file"
+
+author:
+- Heather MacTavish^1^*
+date: "`r format(Sys.Date())`"
+output: html_notebook
+bibliography: ../Docs/PBATDegradationCitations.bib
+csl:  ../Docs/apa-with-abstract.csl
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+# Affiliations {-}
+^1^Mount Allison University, New Brunswick, Canada  
+
+*corresponding author 
+
+
+```{r read in package}
+library(knitr)
+```
+
+Using the `knitr` package [@xie_knitr_2023; @xie_dynamic_2015; @stodden_knitr_2014] to convert CSV file to an MD file.
+
+```{r read in data dictionary}
+data_dictionary  <- read.csv("../Data/RawData/PLASTIC_20241202_DataDictionary_CSV.csv") %>%
+  select(c("Variable", "Description", "Units"))
+head(data_dictionary)
+```
+```{r making a markdown file}
+md_table <- kable(data_dictionary, format = "markdown")
+cat(md_table)
+```
+
+```{r}
+writeLines(md_table, "../Docs/Data_Dictionary.md")
+```
+
+
