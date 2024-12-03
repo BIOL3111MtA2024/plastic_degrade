@@ -232,9 +232,9 @@ TargetData <- TargetData %>%
 ```
 
 #### Create preliminary plot for TargetData (MCMIX004)
-Plots all OD values. True detection is OD680 and false detection is OD720.
+>Plots all OD values. True detection is OD680 and false detection is OD720 [@genge_import_mcdata_2024].
 
-XXX do this one
+XXX make other one like this
 ```{r prelim plot MCMIX004}
 
  TargetData %>%
@@ -242,13 +242,19 @@ XXX do this one
   ggplot(data = .) +
   geom_point(aes(x = time, y = value, colour = as.factor(str_detect(key, "680"))), size = 0.5) +
    coord_cartesian(ylim = c(-0.08,0.05)) +
-  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 21 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 28 * 24), linetype = "dashed") +
+  geom_vline(aes(xintercept = 4.3 * 24), 
+             linetype = "dashed") +
+  geom_vline(aes(xintercept = 11.3 * 24), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 18.3 * 24), 
+             linetype =  "dashed") + 
+  geom_vline(aes(xintercept = 25.3 * 24), 
+             linetype =  "dashed") +
+  geom_vline(aes(xintercept = 32.3 * 24), 
+             linetype = "dashed") +
   scale_colour_manual(values = c("black", "red")) +
   labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes",
-       caption = "Figure 5.Optical density (OD) measurements over time at 25°C for tubes with different experimental conditions. Tubes 1–5 \nare replicates containing culture, nutrients, and plastic. Tube 6 contains culture and nutrients but no plastic. Tube 7 \ncontains nutrients and plastic but no culture. Tube 8 contains plastic but no culture or nutrients. True detections (OD680, red) \nand false detections (OD720, black) are shown. Dashed vertical lines represent key milestones at 7 days (168 hours), \n14 days (336 hours), 21 days (504 hours), and 28 days (672 hours). The y-axis is constrained to OD values between -0.1 and \n0.1 for clarity.") +
+       caption = "Figure 5. Optical density (OD) measurements over time at 25°C for tubes with different experimental conditions. Tubes 1–5 \nare replicates containing culture, nutrients, and plastic. Tube 6 contains culture and nutrients but no plastic. Tube 7 \ncontains nutrients and plastic but no culture. Tube 8 contains plastic but no culture or nutrients. True detections (OD680, red) \nand false detections (OD720, black) are shown. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days. The y-axis is constrained to OD values between -0.1 and \n0.1 for clarity.") +
   facet_grid(cols = vars(as.factor(Tube))) +
   theme_bw() +
   theme(axis.text.x = element_text(size = 7, angle = 90), 
@@ -270,9 +276,6 @@ XXX do this one
 TargetDataWide <- TargetData %>%
   pivot_wider(names_from = key, values_from = value, values_fn = list(value = max)) %>%
   arrange(Filename, MC, Tube, time)
-
-TargetDataWide[1:10,]
-
 rm(TargetData)
 ```
 
@@ -302,9 +305,6 @@ TargetDataWide <- TargetDataWide %>%
   mutate(Actinic_par = rowSums(.[grep("actinic-lights.light", names(.))], na.rm = TRUE)) %>%
   filter(!is.na(Actinic_par)) %>%
    dplyr::select(!contains("actinic-lights.light"))
-
-
-TargetDataWide[1:10,]
 ```
 
 >Now that Actinic_par is aligned with each row, coalesce od-sensors-X.od-720 and od-sensors-X.od-680 into 2 columns, b/c 'Tube'is already a column, so no need to identify tube X in od-sensors-X.od-680 columns. This might cause problems later matching OD measures to actinic light colours [@genge_import_mcdata_2024].
@@ -314,72 +314,18 @@ TargetDataWide <- TargetDataWide  %>%
    mutate(OD680 = rowSums(.[grep("od-680", names(.))], na.rm = TRUE),
           OD720 = rowSums(.[grep("od-720", names(.))], na.rm = TRUE)) %>%
    dplyr::select(!contains("od-sensors"))
-
-TargetDataWide[1:10,]
-
 ```
 
 #### Merge Data with meta data
 ```{r metadata merge MCMIX004}
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
-
-TargetDataMeta
-
 rm(TargetDataWide)
 ```
 
 #### Prelim plot with culture meta (MCMIX004)
-```{r second prelim plot MCMIX004}
 
-  TargetDataMeta %>% ggplot() +
-  geom_point(aes(x = time, y = OD680, colour = as.factor(WL)), size = 0.15) +
-  geom_point(aes(x = time, y = OD720), size = 0.15, colour = "orange") +
-  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 21 * 24), linetype =  "dashed") + 
-  geom_vline(aes(xintercept = 28 * 24), linetype = "dashed") +
-  labs(y = "Optical Density (OD)", 
-       x = "Elapsed Time (h)", 
-       subtitle = "Growth Conditions: Plastic, Nutrients, and Culture Presence",
-       colour = "Wavelength (WL)") +
-  facet_grid(rows = vars(as.factor(Plastic_Present)), cols = vars(as.factor(Tube), Nutrient_Present, Culture_Present)) +
-  theme_bw()
-
-```
-
-
-XXX trying to make this graph easier to read
-```{r}
-TargetDataMeta %>% 
-  ggplot(aes(x = time, 
-             y = OD680,
-             colour = as.factor(Tube))) + 
-  geom_point(size = 0.5) + 
-  geom_vline(aes(xintercept = 7 * 24), 
-             linetype = "dashed") +
-  geom_vline(aes(xintercept = 14 * 24), 
-             linetype = "dashed") + 
-  geom_vline(aes(xintercept = 21 * 24), 
-             linetype =  "dashed") + 
-  geom_vline(aes(xintercept = 28 * 24), 
-             linetype = "dashed") +
-  
-  labs( title = "Microbial Growth Under Different Environmental Conditions", 
-        subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
-        y = "Optical Density (OD at 680 nm)", 
-        colour = "Tube Number", 
-        caption = "Dashed lines indicate key time points." ) + 
-  facet_wrap(~ Plastic_Present + 
-               Nutrient_Present + 
-               Culture_Present, 
-             ncol = 2) + 
-  scale_x_continuous(breaks = seq(0, 788, by = 24)) + 
-  theme_bw() + 
-  theme( axis.text.x = element_text(angle = 45, hjust = 1), 
-         strip.text = element_text(size = 10, face = "bold") )
-```
-```{r}
+```{r growth different conditions MCMIX004}
 TargetDataMeta %>% 
   ggplot(aes(x = time, 
              y = OD680,
@@ -400,7 +346,7 @@ TargetDataMeta %>%
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Dashed lines indicate key time points." ) + 
+        caption = "Figure 6. Microbial growth over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -409,7 +355,9 @@ TargetDataMeta %>%
   scale_y_continuous(limits = c(0, 0.1)) +
   theme_bw() + 
   theme( axis.text.x = element_text(size = 9, angle = 90), 
-         strip.text = element_text(size = 10, face = "bold") )
+         strip.text = element_text(size = 10, face = "bold"),
+         plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10) )
 ```
 
 ```{r focusing on the replicates MCMIX004}
@@ -436,20 +384,53 @@ ggplot(subset_data, aes(x = time,
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Dashed lines indicate key time points." ) + 
+        caption = "Figure 7. Microbial growth over time with the culture, nutrient, and plastic present at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   theme_bw() + 
   theme( axis.text.x = element_text(size = 9, angle = 90), 
-         strip.text = element_text(size = 10, face = "bold") )
+         strip.text = element_text(size = 10, face = "bold"),
+         plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10))
 
 ```
 
+XXX copy this
+```{r focusing on the culture with no plastic MCMIX004}
 
+subset_data <- TargetDataMeta %>%
+  filter(Plastic_Present == 0, Nutrient_Present == 1, Culture_Present == 1)
 
+ggplot(subset_data, aes(x = time, 
+                        y = OD680, 
+                        colour = as.factor(Tube))) + 
+  geom_point(size = 3, alpha = 0.5) + 
+  geom_vline(aes(xintercept = 4.3 * 24), 
+             linetype = "dashed") +
+  geom_vline(aes(xintercept = 11.3 * 24), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 18.3 * 24), 
+             linetype =  "dashed") + 
+  geom_vline(aes(xintercept = 25.3 * 24), 
+             linetype =  "dashed") +
+  geom_vline(aes(xintercept = 32.3 * 24), 
+             linetype = "dashed") +
+  labs( title = "Microbial Growth Under Full Environmental Conditions", 
+        subtitle = "Plastic, Nutrients, and Culture Present", 
+        x = "Elapsed Time (hours)", 
+        y = "Optical Density (OD at 680 nm)", 
+        colour = "Tube Number", 
+        caption = "Figure 8. Microbial growth over time with the culture and nutrient present, but no plastic at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+  scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
+  scale_y_continuous(limits = c(0, 0.1)) +
+  scale_colour_manual(values = "#00A9FF") +
+  theme_bw() + 
+  theme( axis.text.x = element_text(size = 9, angle = 90), 
+         strip.text = element_text(size = 10, face = "bold"),
+         plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10))
 
-
-
+```
 
 
 
@@ -516,35 +497,32 @@ TargetData <- TargetData %>%
 ```
 
 #### Create preliminary plot for TargetData MCMIX006
-##### Plots all OD values. True detection is OD680 and false detection is OD720.
+Plots all OD values. True detection is OD680 and false detection is OD720.
 
-
-XXX do this one
 ```{r prelim plot MCMIX006}
-
   TargetData %>%
   filter(grepl("od-", key)) %>%
   ggplot(data = .) +
   geom_point(aes(x = time, y = value, colour = as.factor(str_detect(key, "680"))), size = 0.5) +
-  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
+   coord_cartesian(ylim = c(-0.08,0.05)) +
+  geom_vline(aes(xintercept = 4.3 * 24), 
+             linetype = "dashed") +
+  geom_vline(aes(xintercept = 11.3 * 24), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 18.3 * 24), 
+             linetype =  "dashed") + 
+  geom_vline(aes(xintercept = 25.3 * 24), 
+             linetype =  "dashed") +
+  geom_vline(aes(xintercept = 32.3 * 24), 
+             linetype = "dashed") +
   scale_colour_manual(values = c("black", "red")) +
-  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes") +
+  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes",
+       caption = "Figure 9. Optical density (OD) measurements over time at 15°C for tubes with different experimental conditions. Tubes 1–5 \nare replicates containing culture, nutrients, and plastic. Tube 6 contains culture and nutrients but no plastic. Tube 7 \ncontains nutrients and plastic but no culture. Tube 8 contains plastic but no culture or nutrients. True detections (OD680, red) \nand false detections (OD720, black) are shown. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days. The y-axis is constrained to OD values between -0.1 and \n0.1 for clarity.") +
   facet_grid(cols = vars(as.factor(Tube))) +
-  theme_bw()
-
- TargetData %>%
-  filter(grepl("od-", key)) %>%
-  ggplot(data = .) +
-  geom_point(aes(x = time, y = value, colour = as.factor(str_detect(key, "680"))), size = 0.5) +
-   coord_cartesian(ylim = c(-0.1,0.1)) +
-  geom_vline(aes(xintercept = 7 * 24), linetype = "dashed") + 
-  geom_vline(aes(xintercept = 14 * 24), linetype = "dashed") + 
-  scale_colour_manual(values = c("black", "red")) +
-  labs(y = "Optical Density (OD)", x = "Elapsed Time (h)", title = "Tubes") +
-  facet_grid(cols = vars(as.factor(Tube))) +
-  theme_bw() 
-
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 7, angle = 90), 
+        plot.caption = element_text(size = 8, hjust = 0),
+        plot.margin = margin(10, 10, 50, 10))
 
 ```
 
@@ -558,8 +536,6 @@ XXX do this one
 TargetDataWide <- TargetData %>%
   pivot_wider(names_from = key, values_from = value, values_fn = list(value = max)) %>%
   arrange(Filename, MC, Tube, time)
-
-TargetDataWide[1:10,]
 
 rm(TargetData)
 ```
@@ -586,7 +562,6 @@ TargetDataWide <- TargetDataWide %>%
    dplyr::select(!contains("actinic-lights.light"))
 
 
-TargetDataWide[1:10,]
 ```
 
 ```{r consolidate OD MCMIX006}
@@ -595,7 +570,6 @@ TargetDataWide <- TargetDataWide  %>%
           OD720 = rowSums(.[grep("od-720", names(.))], na.rm = TRUE)) %>%
    dplyr::select(!contains("od-sensors"))
 
-TargetDataWide[1:10,]
 
 ```
 
@@ -605,7 +579,6 @@ TargetDataWide[1:10,]
 #This generates 'NA' values for ~1,000,000 rows of 'O2'; possibly the temperature rows?
 TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", "Tube"))
 
-TargetDataMeta
 
 rm(TargetDataWide)
 ```
@@ -725,6 +698,168 @@ ggplot(subset_data, aes(x = time,
 
 ```
 
+
+```{r growth different conditions MCMIX006}
+TargetDataMeta %>% 
+  ggplot(aes(x = time, 
+             y = OD680,
+             colour = as.factor(Tube))) + 
+  geom_point(size = 1, alpha = 0.5) + 
+  geom_vline(aes(xintercept = 4.3 * 24), 
+             linetype = "dashed") +
+  geom_vline(aes(xintercept = 11.3 * 24), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 18.3 * 24), 
+             linetype =  "dashed") + 
+  geom_vline(aes(xintercept = 25.3 * 24), 
+             linetype =  "dashed") +
+  geom_vline(aes(xintercept = 32.3 * 24), 
+             linetype = "dashed") +
+  
+  labs( title = "Microbial Growth Under Different Environmental Conditions", 
+        subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
+        y = "Optical Density (OD at 680 nm)", 
+        colour = "Tube Number", 
+        caption = "Figure 10. Microbial growth over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions at 15°C, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+  facet_wrap(~ Plastic_Present + 
+               Nutrient_Present + 
+               Culture_Present, 
+             ncol = 2) + 
+  scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
+  scale_y_continuous(limits = c(0, 0.1)) +
+  theme_bw() + 
+  theme( axis.text.x = element_text(size = 9, angle = 90), 
+         strip.text = element_text(size = 10, face = "bold"),
+         plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10) )
+```
+
+```{r focusing on the replicates MCMIX004}
+
+subset_data <- TargetDataMeta %>%
+  filter(Plastic_Present == 1, Nutrient_Present == 1, Culture_Present == 1)
+
+ggplot(subset_data, aes(x = time, 
+                        y = OD680, 
+                        colour = as.factor(Tube))) + 
+  geom_point(size = 3, alpha = 0.5) + 
+  geom_vline(aes(xintercept = 4.3 * 24), 
+             linetype = "dashed") +
+  geom_vline(aes(xintercept = 11.3 * 24), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 18.3 * 24), 
+             linetype =  "dashed") + 
+  geom_vline(aes(xintercept = 25.3 * 24), 
+             linetype =  "dashed") +
+  geom_vline(aes(xintercept = 32.3 * 24), 
+             linetype = "dashed") +
+  labs( title = "Microbial Growth Under Full Environmental Conditions", 
+        subtitle = "Plastic, Nutrients, and Culture Present", 
+        x = "Elapsed Time (hours)", 
+        y = "Optical Density (OD at 680 nm)", 
+        colour = "Tube Number", 
+        caption = "Figure 11. Microbial growth over time with the culture, nutrient, and plastic present at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+  scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
+  scale_y_continuous(limits = c(0, 0.1)) +
+  scale_colour_manual(values = c("#00BE67", "#00BFC4","#00A9FF","#C77CFF","#FF61CC")) +
+  theme_bw() + 
+  theme( axis.text.x = element_text(size = 9, angle = 90), 
+         strip.text = element_text(size = 10, face = "bold"),
+         plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10))
+
+```
+
+XXX copy this
+```{r focusing on the culture with no plastic MCMIX004}
+
+subset_data <- TargetDataMeta %>%
+  filter(Plastic_Present == 0, Nutrient_Present == 1, Culture_Present == 1)
+
+ggplot(subset_data, aes(x = time, 
+                        y = OD680, 
+                        colour = as.factor(Tube))) + 
+  geom_point(size = 3, alpha = 0.5) + 
+  geom_vline(aes(xintercept = 4.3 * 24), 
+             linetype = "dashed") +
+  geom_vline(aes(xintercept = 11.3 * 24), 
+             linetype = "dashed") + 
+  geom_vline(aes(xintercept = 18.3 * 24), 
+             linetype =  "dashed") + 
+  geom_vline(aes(xintercept = 25.3 * 24), 
+             linetype =  "dashed") +
+  geom_vline(aes(xintercept = 32.3 * 24), 
+             linetype = "dashed") +
+  labs( title = "Microbial Growth Under Full Environmental Conditions", 
+        subtitle = "Plastic, Nutrients, and Culture Present", 
+        x = "Elapsed Time (hours)", 
+        y = "Optical Density (OD at 680 nm)", 
+        colour = "Tube Number", 
+        caption = "Figure 12. Microbial growth over time with the culture and nutrient present, but no plastic at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+  scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
+  scale_y_continuous(limits = c(0, 0.1)) +
+  scale_colour_manual(values = "#7CAE00") +
+  theme_bw() + 
+  theme( axis.text.x = element_text(size = 9, angle = 90), 
+         strip.text = element_text(size = 10, face = "bold"),
+         plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10))
+
+```
+
+
+```{r RFU data, warning = FALSE, message = FALSE, echo = FALSE}
+# Constants from instructions
+slope <- 7.0314
+intercept <- 0.9791
+
+chlorophyll_data <- CultureCatalog %>%
+ mutate(
+    Condition = ifelse(Plastic_Present == 1, "Plastic", "No Plastic"),
+    DF = 1, 
+    Chl_a_ug_L = (Wall_Growth_RFU - intercept) / (slope * DF)
+  )
+
+chlorophyll_summary <- chlorophyll_data %>%
+  group_by(Condition, Temperature_C) %>%
+  summarise(
+    mean_Chl_a = mean(Chl_a_ug_L, na.rm = TRUE),
+    sd_Chl_a = sd(Chl_a_ug_L, na.rm = TRUE)
+  )
+ggplot(chlorophyll_summary, aes(x = Condition, y = mean_Chl_a, fill = Condition)) +
+  geom_bar(stat = "identity", position = "dodge", show.legend = FALSE) +
+  geom_errorbar(aes(ymin = mean_Chl_a - sd_Chl_a, ymax = mean_Chl_a + sd_Chl_a), width = 0.2) +
+  labs(
+    title = "Effect of Plastic on Chlorophyll a Concentration",
+    x = "Plastic Presence",
+    y = "Chlorophyll a (µg/L)",
+    caption = "Figure 13. Bar plot showing the effect of plastic presence on chlorophyll a concentration across different temperature conditions. \nThe bars represent the mean chlorophyll a concentration (µg/L) for samples with and without plastic, with \nerror bars indicating standard deviation. The plot is faceted by temperature, highlighting potential \nvariations in microbial response to plastic under different environmental conditions."
+  ) +
+ 
+  scale_fill_manual(values = c("Plastic" = "pink3", "No Plastic" = "green3")) +
+  facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
+   theme_minimal() +
+               theme(
+    strip.background = element_rect(fill = "lightgray", color = "black"), 
+    strip.text = element_text(size = 12, face = "bold"), # Style facet labels
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8),
+    plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10)
+  ) 
+  
+```
+ANOVA to test significance:
+```{r}
+anova_RFU <- aov(Chl_a_ug_L ~ Plastic_Present * Temperature_C, data = chlorophyll_data)
+
+
+summary(anova_RFU)
+
+```
+
+No statistically significant effect of Plastic Presence, Temperature, or their interaction on chlorophyll a concentration in data (p>0.05).
+
+
 **Impact of Bio-Microplastics on Microbial Communities**
 
 **Degradation of Bioplastics Introduces Microplastics**
@@ -742,14 +877,6 @@ ggplot(subset_data, aes(x = time,
 •	Some microbes thrive by utilizing bio-MPs as a carbon source, promoting their growth [@shi_microplastic_2022].
 •	Other microbes struggle due to nutrient scarcity, potentially leading to inhibited growth or death [@shi_microplastic_2022].
 
-XXXLook at what you want for filtering
-Fix meta catalog
-do for both of the files
-fix labels
-as a formal practice segregate plastic (but fine for this project)
-remove extra columns from meta
-
-
 
 
 
@@ -762,39 +889,7 @@ plastic <- CultureCatalog
 # Calculate percentage change
 plastic$perc_change <- (plastic$Final_Plastic_Weight_mg - plastic$Initial_Plastic_Weight_mg) / plastic$Initial_Plastic_Weight_mg * 100
 
-plastic
 ```
-```{r plastic percent change graph}
-ggplot(plastic, aes(x = as.factor(Culture_Present), y = perc_change, fill = as.factor(Nutrient_Present))) +
-  geom_boxplot() +
-  labs(title = "Plastic Degradation Across Conditions", x = "Culture Present", y = "Percentage Change (%)") +
-  theme_minimal()
-```
-
-
-# Microbial Suspension and Wall Growth Analyses
-
-```{r}
-# Scatter plot: microbial growth vs plastic degradation
-ggplot(plastic, aes(x = perc_change, y = Wall_Growth_RFU, color = as.factor(Nutrient_Present))) +
-  geom_point() +
-  labs(title = "Plastic Degradation vs Microbial Growth", x = "Percentage Plastic Change (%)", y = "Wall Growth RFU") +
-  theme_minimal()
-```
-
-```{r}
-# ANOVA model
-anova_model <- aov(perc_change ~ Culture_Present * Nutrient_Present * Temperature_C, data = plastic)
-summary(anova_model)
-
-# plot of the interactions
-interaction.plot(plastic$Temperature_C, plastic$Culture_Present, plastic$perc_change,
-                 col = 1:2, xlab = "Temperature", ylab = "Plastic Degradation (%)",
-                 main = "Interaction Between Temperature and Culture")
-
-```
-
-
 
 ## converting the variables to factor type
 ```{r making variables factors}
@@ -804,132 +899,51 @@ plastic$Nutrient_Present <- as.factor(plastic$Nutrient_Present)
 plastic$Culture_Present <- as.factor(plastic$Culture_Present)
 ```
 
-
-
-
-# Extra analyses
+# Plastic Percent Loss or Gain
 ```{r percent loss or gain plastic}
 graph_data <- CultureCatalog %>%
   mutate(Weight_Loss_Percent = ((Initial_Plastic_Weight_mg - Final_Plastic_Weight_mg) / Initial_Plastic_Weight_mg) * 100)
 
 graph_data$Culture_Present <- as.factor(graph_data$Culture_Present)
 
-head(graph_data)
-
-
-
 ```
 
-# Yvanna
-```{r}
+
+```{r pivoting long to make a double bar graph of before and after}
 data_long<-CultureCatalog%>%
-  pivot_longer(cols=c(Initial_Plastic_Weight_mg,Final_Plastic_Weight_mg),names_to = "Weight_Type",values_to = "Weight")
-data_long
+  pivot_longer(cols=c(Initial_Plastic_Weight_mg,Final_Plastic_Weight_mg),names_to = "Weight_Type",values_to = "Weight") %>%
+  left_join(plastic %>% select(Tube, perc_change), by = "Tube")
 
 #putting them in the right order
 data_long$Weight_Type <- factor(data_long$Weight_Type, levels = c("Initial_Plastic_Weight_mg", "Final_Plastic_Weight_mg"))
 ```
-```{r}
+```{r plotting before and after plastic}
 ggplot(data_long,
        aes(x=Tube,y=Weight,fill=Weight_Type))+
   geom_bar(stat="identity",position="dodge")+
   scale_fill_manual(
     values=c("Initial_Plastic_Weight_mg"="lightblue",
              "Final_Plastic_Weight_mg"="red2"))+
-  labs(x="Tube",y="Weight(mg)",fill="Weight Type")+
+  labs(x="Tube",y="Weight(mg)",fill="Weight Type",
+    caption = "Figure 14. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions.")+
   facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
   theme_minimal() +
   theme(
     strip.background = element_rect(fill = "lightgray", color = "black"), 
     strip.text = element_text(size = 9, face = "bold"), 
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8)) 
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8), 
+    plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10)) 
   
 ```
 
 
 
-```{r}
 
 
-ggplot(graph_data, aes(x = Temperature_C, y = Wall_Growth_RFU, colour = Culture_Present)) +
-  geom_point(size = 3, alpha = 0.7) +
-  labs(x = "Temperature (°C)", y = "Wall Growth RFU", 
-       title = "Scatter Plot of Wall Growth RFU vs Temperature") +
-  theme_minimal()
-ggplot(graph_data, aes(x = Temperature_C, y = Suspension_RFU, colour = Culture_Present)) +
-  geom_point(size = 3, alpha = 0.7) +
-  labs(x = "Temperature (°C)", y = "Suspension RFU", 
-       title = "Scatter Plot of Suspension RFU vs Temperature") +
-  theme_minimal()
+# What factors influence the change in plastic weight?
 
-
-
-```
-
-
-
-# Andrew
-I will be running an ANOVA (one way) on change in plastic mass data (initial - end) for experimental groups
-(5 tubes each) in 15 and 25 degrees celsius.
-
-This will tell us whether the mean '% change in plastic weight' is significantly different between the 15 and 25 degree groups
-
-
-```{r}
-filtered_dataplasticpresent<-CultureCatalog[CultureCatalog$Plastic_Present != 0,]
-```
-
-
-```{r}
-onewayanova_mass<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C)
-summary(onewayanova_mass)
-```
-
-Factorial ANOVA using temperature, culture presence, and nutrient presence as independent variables.
-This will tell us whether any one of these variables or some combination have a statistically significant effect on change in plastic mass.
-```{r}
-factorialanova_mass<-aov((filtered_dataplasticpresent$Initial_Plastic_Weight_mg-filtered_dataplasticpresent$Final_Plastic_Weight_mg)~filtered_dataplasticpresent$Temperature_C*filtered_dataplasticpresent$Culture_Present*filtered_dataplasticpresent$Nutrient_Present)
-summary(factorialanova_mass)
-```
-
-One way ANOVAs for chlorophyll assay readings using temp as independent variable (one ANOVA for wall growth and another for suspension)...
-```{r}
-onewayanova_rfuwall<-aov(CultureCatalog$Wall_Growth_RFU~CultureCatalog$Temperature_C)
-summary(onewayanova_rfuwall)
-onewayanova_rfususpension<-aov(CultureCatalog$Suspension_RFU~CultureCatalog$Temperature_C)
-summary(onewayanova_rfususpension)
-```
-Factorial ANOVAs for chlorophyll assay readings using temp, nutrient presence, plastic presence and culture presence as independent variables...
-```{r}
-factorialanova_rfuwall<-aov(CultureCatalog$Wall_Growth_RFU~CultureCatalog$Temperature_C*CultureCatalog$Culture_Present*CultureCatalog$Nutrient_Present*CultureCatalog$Plastic_Present)
-summary(factorialanova_rfuwall)
-factorialanova_rfususpension<-aov(CultureCatalog$Suspension_RFU~CultureCatalog$Temperature_C*CultureCatalog$Culture_Present*CultureCatalog$Nutrient_Present*CultureCatalog$Plastic_Present)
-summary(factorialanova_rfususpension)
-```
-
-
-
-
-
-
-
-
-
-
-# more analyses 
-XXX fix these
-```{r}
-# Summary statistics for Final_Plastic_Weight_mg
-plastic %>%
-  group_by(Culture_Present, Nutrient_Present, Plastic_Present, Temperature_C) %>%
-  summarise(
-    mean_wall_rfu = mean(Wall_Growth_RFU, na.rm = TRUE),
-    mean_susp_rfu = mean(Suspension_RFU, na.rm = TRUE)
-  )
-
-```
-
-```{r}
+```{r percent weight LOST}
 # Add a column for Percent Weight Loss
 plastic <- plastic %>%
   mutate(
@@ -941,40 +955,9 @@ plastic <- plastic %>%
     Culture_Present = as.factor(Culture_Present),
     Nutrient_Present = as.factor(Nutrient_Present)
   )
-
-
-# Two-way ANOVA for Percent Weight Loss
-weight_loss_anova <- aov(Percent_Weight_Loss ~ Temperature_C * Culture_Present * Nutrient_Present, data = plastic)
-summary(weight_loss_anova)
-
-# Tukey HSD for pairwise comparisons
-TukeyHSD(weight_loss_anova)
-
 ```
 
-```{r}
-#Two-way ANOVA for Wall_Growth_RFU
-rfu_anova <- aov(Wall_Growth_RFU ~ Temperature_C * Culture_Present * Nutrient_Present, data = plastic)
-summary(rfu_anova)
-
-# Linear regression for RFU vs Percent Weight Loss
-rfu_regression <- lm(Percent_Weight_Loss ~ Wall_Growth_RFU + Suspension_RFU, data = plastic)
-summary(rfu_regression)
-# 
-```
-
-```{r}
-# T-test for weight loss by temperature
-t.test(Percent_Weight_Loss ~ Temperature_C, data = plastic)
-
-
-```
-
-
-
-
-```{r}
-# Calculate Summary Statistics
+```{r summary statistic percent loss}
 summary_stats <- plastic %>%
   group_by(Temperature_C, Culture_Present, Nutrient_Present) %>%
   summarise(
@@ -982,19 +965,7 @@ summary_stats <- plastic %>%
     se_loss = sd(Percent_Weight_Loss, na.rm = TRUE) / sqrt(n()),
     .groups = "drop")
 
-# Bar Plot of Average Percent Weight Loss
-ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Culture_Present)) +
-  geom_bar(stat = "identity", position = position_dodge(0.9)) +
-  geom_errorbar(aes(ymin = mean_loss - se_loss, ymax = mean_loss + se_loss),
-                position = position_dodge(0.9), width = 0.2) +
-  labs(x = "Temperature (°C)", y = "Mean Percent Weight Loss", fill = "Culture Present") +
-  theme_minimal()
-
 # mean loss having negative means that it actually grew
-
-# Interaction Plot
-interaction.plot(plastic$Temperature_C, plastic$Nutrient_Present, plastic$Percent_Weight_Loss)
-
 ```
 
 ```{r}
@@ -1006,41 +977,38 @@ ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Cultu
   labs(
     x = "Temperature (°C)",
     y = "Mean Percent Weight Loss",
-    fill = "Culture Present"
+    fill = "Culture Present",
+    caption = "Figure 15. Bar plot showing the mean percent weight loss across different temperature conditions, with error \nbars representing the standard error of the mean.  The plot is grouped by Culture Presence (indicated by colour) \nand faceted by Nutrient Presence. Temperature is shown on the x-axis, and the mean percent weight loss \nis plotted on the y-axis. Facet labels distinguish the presence or absence of nutrients in the experiment."
   ) +
   facet_wrap(~ Nutrient_Present, labeller = labeller(Nutrient_Present = label_both)) +
   theme_minimal() +
   theme(
     strip.background = element_rect(fill = "lightgray", color = "black"), 
     strip.text = element_text(size = 12, face = "bold"), # Style facet labels
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8) 
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 0.8), , 
+    plot.caption = element_text(size = 8, hjust = 0),
+         plot.margin = margin(10, 10, 50, 10) 
   )
 
 
 ```
 
+ANOVA testing the effects of Culture Presence, Nutrient Presence, and Temperature on the percentage change in the outcome variable as well as their interactions.
 
-
-
-### looking at the negative loss (gain) category
-```{r negative loss (gain)}
-# Filter the dataset for the negative mean category
-negative_mean_data <- plastic %>%
-  filter(Percent_Weight_Loss < 0)
-negative_mean_data
+```{r percent change anova}
+anova_effects <- aov(perc_change ~ Culture_Present * Nutrient_Present * Temperature_C, data = plastic)
+summary(anova_effects)
 ```
 
-# Results
+Overall, none of the factors or their interactions significantly affect the percentage change in the dataset. The lack of statistical significance suggests that culture presence, nutrient presence, and temperature do not have a substantial impact on the measured outcome in this experiment.
+
 
 
 ## Pictures 
-XXX make sure that yvanna cites herself for photos and adds photo captions
 
-XXX renumber these figure captions
+[Figure 16. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
 
-[Figure 5. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
-
-[Figure 6. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
+[Figure 17. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
 
 
 # Discussion
