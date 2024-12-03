@@ -847,6 +847,7 @@ Overall, none of the factors or their interactions significantly affect the perc
 -Convert controls into replicates 
 -Investigate microbial inhibition
 
+-Testing bioplastic toxicity: A future study to investigate the potential toxicity of vegetable based bioplastics could use multiple bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of vegetable starch based plastics.
 
 # References
 
