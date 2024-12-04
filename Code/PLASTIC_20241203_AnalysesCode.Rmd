@@ -1,5 +1,5 @@
 ---
-title: "Plastic Degredation Term Project"
+title: "Plastic Degradation Term Project"
 author:
 - Heather MacTavish^1^*
 - Andrew Forrest^1^*
@@ -56,7 +56,7 @@ upon shared values for the variables 'MC', 'Tube', and 'Filename' which should u
 
 > This works because the OD680 & OD720 data are only episodically, but widely, aberrant when a bubble interrupts the measurement, and if the Multicultivator is running properly these bubble aberration events are rare [@genge_import_mcdata_2024].
 
-This notebook is also used for data visualizations and statistical analyses related to the degradation of plastic and chlorophyll analyses.
+This notebook is also used for data visualizations and statistical analyses related to the microbial degradation (synonymous with loss of mass in this context) of vegetable-based bioplastics and for associated chlorophyll analyses.
 
 # Introduction 
 
@@ -78,7 +78,7 @@ According to Genge et al. (2024):
 
 **Research Questions**:
 
-- Are compostable plastics truly degradable in natural environments?
+- Are compostable plastics truly degradable in simulations of natural environments?
 - What factors affect the degradation of the plastic?
 
 
@@ -223,7 +223,7 @@ TargetData <- TargetData %>%
 
 # Results and Discussion
 
-## Suprise Results! Does this plastic inhibit microbial growth?
+## Suprise results!? Does this plastic inhibit microbial growth?
 
 >Plots all OD values. True detection is OD680 and false detection is OD720 [@genge_import_mcdata_2024].
 
@@ -716,7 +716,7 @@ plastic$perc_change <- (plastic$Final_Plastic_Weight_mg - plastic$Initial_Plasti
 
 ```
 
-## Did the plastic lose weight after four weeks?
+## Did the bioplastic fragments lose weight after four weeks?
 
 ```{r converting the variables to factor type}
 # Convert grouping variables to factors 
@@ -765,7 +765,7 @@ ggplot(data_long,
 
 
 
-## What factors influence the change in plastic weight?
+## What factors influence the magnitude of change in bioplastic fragment weight?
 
 ```{r percent weight LOST}
 # Add a column for Percent Weight Loss
@@ -825,7 +825,7 @@ anova_effects <- aov(perc_change ~ Culture_Present * Nutrient_Present * Temperat
 summary(anova_effects)
 ```
 
-Overall, none of the factors or their interactions significantly affect the percentage change in mass for our dataset. The lack of statistical significance suggests that culture presence, nutrient presence, and temperature do not have a substantial impact on the measured outcome in this experiment.
+Overall, none of the manipulated factors or their interactions significantly affect the percentage change in mass for our dataset. The lack of statistical significance suggests that culture presence, nutrient presence, and temperature do not have a substantial impact on the measured outcome in this experiment.
 
 
 
@@ -838,15 +838,17 @@ Overall, none of the factors or their interactions significantly affect the perc
 
 ## Limitations
 
-- Duration
-- Bioreactor issues and inability to correct them
+- Duration of the experiment was relatively short. 
+- Photobioreactor issues and inability to correct them.
+- No way to confirm equal provision of oxygen.
+- Lacked a mechanism to control plastic fragment folding and exposure to physical stresses. 
 
 ## Future Direction
 
-- Extend experiment duration
-- Use oxygen sensors to ensure equal exposure
-- Discover and use community's optimal nutrient quantities
-- Add replicates for control tube conditions
+- Extend experiment duration. 
+- Use oxygen sensors to ensure equal exposure.
+- Discover and use community's optimal nutrient quantities.
+- Add replicates for control tube conditions.
 - Testing bioplastic microbial growth inhibition: A future study to investigate the potential role of growth inhibition by vegetable based bioplastics and/or their breakdown products could use multiple identical bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of gradually increasing masses of vegetable starch based plastic fragments. With an accurate way to periodically measure total biomass in each tube, it's possible that a conclusion could be provided regarding whether or not these bioplastics' presence inhibit the growth of various microbial communities.
 
 # References
