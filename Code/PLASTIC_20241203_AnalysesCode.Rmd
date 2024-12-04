@@ -336,7 +336,7 @@ TargetDataMeta %>%
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 6. Optical Density Readings over time under different environmental conditions 25°C. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+        caption = "Figure 6. Optical Density Readings over time under different environmental conditions 25°C. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture (top-bottom order). Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -581,7 +581,7 @@ TargetDataMeta %>%
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 10. Optical Density Readings over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions at 15°C, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+        caption = "Figure 10. Optical Density Readings over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions at 15°C, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture (top-bottom order). Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -703,7 +703,7 @@ No statistically significant effect of Plastic Presence, Temperature, or their i
 - Some microbes thrive by utilizing bio-MPs as a carbon source, promoting their growth [@shi_microplastic_2022].
 - Other microbes struggle due to nutrient scarcity, potentially leading to inhibited growth or death [@shi_microplastic_2022].
 
-Possible explanation for more growth in 15 degrees: Samples were taken from the swan pond near the end of September, when the pond's microbial community had likely adjusted to temperatures near 15 degrees Celsius. 
+Possible explanation for more growth at 15 degrees Celsius: Samples were taken from the swan pond near the end of September, when the pond's microbial community may have adjusted to temperatures near 15 degrees Celsius. 
 
 
 ```{r plastic percent change}
@@ -831,9 +831,9 @@ Overall, none of the manipulated factors or their interactions significantly aff
 
 ## Microbes Present 
 
-[Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under a light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
+[Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from 15 degree celsius bioreactor (MC-Mix-006) control tube 3 (plastic omitted) viewed under a light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
 
-[Figure 16. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
+[Figure 16. Scenedesmus (a, b,c,d) for 25 degree Celsius bioreactor (MC-Mix-004) control tube 6 (plastic omitted) viewed under an light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
 
 
 ## Limitations
@@ -849,7 +849,7 @@ Overall, none of the manipulated factors or their interactions significantly aff
 - Use oxygen sensors to ensure equal exposure.
 - Discover and use community's optimal nutrient quantities.
 - Add replicates for control tube conditions.
-- Testing bioplastic microbial growth inhibition: A future study to investigate the potential role of growth inhibition by vegetable based bioplastics and/or their breakdown products could use multiple identical bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of gradually increasing masses of vegetable starch based plastic fragments. With an accurate way to periodically measure total biomass in each tube, it's possible that a conclusion could be provided regarding whether or not these bioplastics' presence inhibit the growth of various microbial communities.
+- Testing bioplastic microbial growth inhibition: A future study to investigate the potential role of growth inhibition by vegetable-based bioplastics and/or their breakdown products could use multiple identical bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of gradually increasing masses of vegetable starch based plastic fragments. With an accurate way to periodically measure total biomass in each tube, it's possible that a conclusion could be provided regarding whether or not these bioplastics' presence inhibit the growth of various microbial communities.
 
 # References
 
