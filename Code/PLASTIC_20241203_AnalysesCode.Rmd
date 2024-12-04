@@ -89,7 +89,9 @@ According to Genge et al. (2024):
 
 At the Mount Allison University swan pond, two samples (1 liter each) of surface water from the pond’s edge at 4553’58’’ N, 6422’12’’ W were collected in sanitized plastic bottles. These samples were then transported back to the lab. 
 
-[Figure 1. Image of the exact location from which all sampled pond water and microbes within them came from at the Mount Allison swan pond (45°53'58" N 64°22'12" W). Photograph taken by Andrew Forrest using a standard iPhone 11 camera on September 24th, 2024.](../Docs/Photos/location_photo.png)
+https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/location_photo.png
+
+![Figure 1. Image of the exact location from which all sampled pond water and microbes within them came from at the Mount Allison swan pond (45°53'58" N 64°22'12" W). Photograph taken by Andrew Forrest using a standard iPhone 11 camera on September 24th, 2024.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/location_photo.png?raw=true)
 
 ## Preparation of Culture Nutrient
 
@@ -99,7 +101,7 @@ To satisfy minimal nutrient needs and to sustain the microbial community present
 
 A Define Planet Veggie Based Compostable Poobag (SKU: 28946971) was cut into pieces of uniform composition and similar mass. Three holes were then poked through each fragment of plastic. Fragments were then washed in 70% ethanol for 5-10 seconds each to remove any extraneous material. Following ~30 minutes of drying, individual pieces were weighed in an aluminum boat on a Mettler Toledo MX5 microbalance to obtain pre-trial weights of each fragment. At this point fragments were numbered based on the Multi-Cultivator MC 1000-OD photobioreactor (Photon Systems Instruments) tube which they would end up in. Tubes and the plastic fragments they were to contain (if applicable) were labeled 1-16.
 
-[Figure 2. Image of bioplastic fragments with holes punched through. Photograph taken by Andrew Forrest using a standard iPhone 11 camera on November 20th, 2024 (after the trial period had ended). ](../Docs/Photos/plastic_photo.png)
+![Figure 2. Image of bioplastic fragments with holes punched through. Photograph taken by Andrew Forrest using a standard iPhone 11 camera on November 20th, 2024 (after the trial period had ended).](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/plastic_photo.png?raw=true)
  
 ## Photobioreactor Trials
 
@@ -113,14 +115,14 @@ Beginning the first day of incubation, the contents of each photobioreactor were
 
 Following a 4-week trial period, the photobioreactors were shut down and plastic fragments were removed from their respective tubes and washed with water to remove any loosely connected mass. Fragments were then left to dry in open air for 24 hours. Post-trial masses of each fragment were taken with the Mettler Toledo MX5 microbalance and an aluminum boat. 
 
-[Figure 3. Image of tray on which plastic fragments were laid out to air dry for 24 hours before post-trial mass measurements were taken and following the end of the trial period. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](../Docs/Photos/weighing_plastic_photo.png)
+![Figure 3. Image of tray on which plastic fragments were laid out to air dry for 24 hours before post-trial mass measurements were taken and following the end of the trial period. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/weighing_plastic_photo.png?raw=true)
 
 
 ## Chlorophyll Assays
 
 To measure wall growth and suspension growth of pond microbes during the trial period, non-acidified chlorophyll assays were performed on the contents of each tube. A total of 32 assays were performed: 16 for suspension growth and 16 for wall growth. Each wall growth assay used 5mL 90% 3:2 acetone: dimethyl sulfoxide solvent to detach microbes from tube walls by swirling. Approximately 2-3mL of solvent/microbe mix was transferred from each tube to its associated assay cuvette. Suspension growth pond water samples were pipetted into assay cuvettes following transfer to a new container and resuspension. Using glass pipettes, 2mL of solvent was distributed to each assay cuvette. Chlorophyll fluorescence readings were taken at excitation wavelength 43610nm and emission wavelength 68510nm using the Turner Trilogy fluorometer.  
 
-[Figure 4. Image of samples following the four week trials, in preperation for chlorophyll assays. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](../Docs/Photos/after_bioreact_photo.png)
+![Figure 4. Image of samples following the four week trials, in preperation for chlorophyll assays. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/after_bioreact_photo.png?raw=true)
 
 ## Data Handling
 
@@ -831,9 +833,9 @@ Overall, none of the manipulated factors or their interactions significantly aff
 
 ## Microbes Present 
 
-[Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from 15 degree celsius bioreactor (MC-Mix-006) control tube 3 (plastic omitted) viewed under a light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
+![Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from 15 degree celsius bioreactor (MC-Mix-006) control tube 3 (plastic omitted) viewed under a light microscope at 400x magnification.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/Microbes%20bioreactor%2015%20degrees.png?raw=true)
 
-[Figure 16. Scenedesmus (a, b,c,d) for 25 degree Celsius bioreactor (MC-Mix-004) control tube 6 (plastic omitted) viewed under an light microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
+![Figure 16. Scenedesmus (a, b,c,d) for 25 degree Celsius bioreactor (MC-Mix-004) control tube 6 (plastic omitted) viewed under an light microscope at 400x magnification.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/Microbes%20bioreactor%2025%20degrees.png?raw=true)
 
 
 ## Limitations
