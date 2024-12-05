@@ -758,7 +758,7 @@ ggplot(data_long,
              "Final_Plastic_Weight_mg"="red2"))+
   labs(x="Tube",y="Weight(mg)",fill="Weight Type",
     title = "Overall plastic weights (mg) before and after 4 week trial in BioReactors",
-       caption = "Figure 13. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions.")+
+       caption = "Figure 13. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions. For 15°C: \nTube 1 contains plastic but no culture and no nutrient, Tube 2 contains plastic and the nutrient, but no culture, \nTube 3 contains the culture and nutrient, but no plastic, Tubes 4-8 are replicates which contain plastic, nutrient, and \nculture. For 25°C: Tubes 1-5 are replicates which contain plastic, nutrient, and culture, Tube 6 contains the culture \nand nutrient, but no plastic, Tube 7 contains plastic and the nutrient, but no culture, Tube 8 contains plastic \nbut no culture and no nutrient.")+
   facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
   theme_minimal() +
   theme(
