@@ -33,7 +33,7 @@ md_table <- kable(data_dictionary, format = "markdown")
 cat(md_table)
 ```
 
-```{r}
+```{ saving data dictionary in Docs folder}
 writeLines(md_table, "../Docs/Data_Dictionary.md")
 ```
 
