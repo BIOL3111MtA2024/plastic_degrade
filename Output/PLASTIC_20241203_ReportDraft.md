@@ -1,5 +1,5 @@
 ---
-title: "Plastic Degredation Term Project"
+title: "Plastic Degradation Term Project"
 author:
 - Heather MacTavish^1^*
 - Andrew Forrest^1^*
@@ -10,7 +10,7 @@ author:
 - Carlie Barnhill^1^
 - Max Berthold^1^
 
-date: "2024-12-03"
+date: "2024-12-04"
 output:
   rmdformats::readthedown:
     df_print: paged
@@ -56,7 +56,7 @@ upon shared values for the variables 'MC', 'Tube', and 'Filename' which should u
 
 > This works because the OD680 & OD720 data are only episodically, but widely, aberrant when a bubble interrupts the measurement, and if the Multicultivator is running properly these bubble aberration events are rare [@genge_import_mcdata_2024].
 
-This notebook is also used for data visualizations and statistical analyses related to the degradation of plastic and chlorophyll analyses.
+This notebook is also used for data visualizations and statistical analyses related to the microbial degradation (synonymous with loss of mass in this context) of vegetable-based bioplastics and for associated chlorophyll analyses.
 
 # Introduction 
 
@@ -66,11 +66,11 @@ In Canada, plastic pollution remains a pressing environmental concern. Approxima
 
 The natural degradation of plastics by microorganisms provides a potential solution to this crisis [@yang_plastic_2023]. Certain bacteria and fungi produce enzymes such as hydrolases and proteases that can break down polymers into simpler, non-toxic compounds like carbon dioxide, water, or biomass [@munuru_biodegradation_2022]. However, this process is slow and influenced by various factors, including temperature, pH, and oxygen availability, which significantly affect microbial activity and enzyme efficiency [@bacha_biodegradation_2023].
 
-PBAT (Polybutylene Adipate Terephthalate), a biodegradable polymer, is increasingly used in applications like flexible packaging and agricultural films due to its ability to degrade under industrial composting conditions [@jian_overview_2020]. Synthesized from adipic acid, terephthalic acid, and butanediol, PBAT combines the mechanical properties of conventional plastics like Low-density Polyethylene (LDPE) with the added advantage of biodegradability. However, its degradation behavior in natural environments remains poorly understood, as such conditions differ significantly from those in controlled composting facilities.
+Vegetable starch based plastic, a biodegradable polymer, is increasingly used in applications like flexible packaging and agricultural films due to its ability to degrade under industrial composting conditions [@jian_overview_2020]. It combines the mechanical properties of conventional plastics like Low-density Polyethylene (LDPE) with the added advantage of biodegradability. However, its degradation behavior in natural environments remains poorly understood, as such conditions differ significantly from those in controlled composting facilities[@jian_overview_2020].
 
-Despite the promise of PBAT and other compostable plastics, questions remain about their environmental performance and interactions with microbial communities. Evidence suggests that incomplete degradation of these materials can lead to the release of microplastics, which may inhibit both autotrophic and heterotrophic bacterial growth due to toxic additives leaching from the particles [@yang_plastic_2023]. Exploring these inhibitory effects and variations in microbial community responses is critical to assessing the sustainability of compostable plastics
+Despite the promise of this material and other compostable plastics, questions remain about their environmental performance and interactions with microbial communities [@yang_plastic_2023]. Evidence suggests that incomplete degradation of these materials can lead to the release of microplastics, which may inhibit both autotrophic and heterotrophic bacterial growth due to toxic additives leaching from the particles [@yang_plastic_2023]. Exploring these inhibitory effects and variations in microbial community responses is critical to assessing the sustainability of compostable plastics
 
-This study investigates the degradation of PBAT, sourced from dog poop bags, under two temperature conditions: 15°C and 25°C. It evaluates the reduction in PBAT biomass by weight under these conditions and examines the polymer’s potential inhibitory effects on microbial growth and diversity.By addressing these gaps, the research contributes valuable insights into the environmental impact of biodegradable plastic particularly PBAT, guiding improved waste management practices and informing policy decisions aimed at enhancing the sustainability of biodegradable plastics.
+This study investigates the degradation of vegetable starch based plastic, sourced from dog poop bags, under two temperature conditions: 15°C and 25°C. It evaluates the reduction of this material by weight under these conditions and examines the polymer’s potential inhibitory effects on microbial growth and diversity.By addressing these gaps, the research contributes valuable insights into the environmental impact of biodegradable plastic , guiding improved waste management practices and informing policy decisions aimed at enhancing the sustainability of biodegradable plastics.
 
 According to Genge et al. (2024):
 
@@ -78,7 +78,7 @@ According to Genge et al. (2024):
 
 **Research Questions**:
 
-- Are compostable plastics truly degradable in natural environments?
+- Are compostable plastics truly degradable in simulations of natural environments?
 - What factors affect the degradation of the plastic?
 
 
@@ -89,7 +89,9 @@ According to Genge et al. (2024):
 
 At the Mount Allison University swan pond, two samples (1 liter each) of surface water from the pond’s edge at 4553’58’’ N, 6422’12’’ W were collected in sanitized plastic bottles. These samples were then transported back to the lab. 
 
-[Figure 1. Image of the exact location from which all sampled pond water and microbes within them came from at the Mount Allison swan pond (45°53'58" N 64°22'12" W). Photograph taken by Andrew Forrest using a standard iPhone 11 camera on September 24th, 2024.](../Docs/Photos/location_photo.png)
+https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/location_photo.png
+
+![Figure 1. Image of the exact location from which all sampled pond water and microbes within them came from at the Mount Allison swan pond (45°53'58" N 64°22'12" W). Photograph taken by Andrew Forrest using a standard iPhone 11 camera on September 24th, 2024.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/location_photo.png?raw=true)
 
 ## Preparation of Culture Nutrient
 
@@ -99,7 +101,7 @@ To satisfy minimal nutrient needs and to sustain the microbial community present
 
 A Define Planet Veggie Based Compostable Poobag (SKU: 28946971) was cut into pieces of uniform composition and similar mass. Three holes were then poked through each fragment of plastic. Fragments were then washed in 70% ethanol for 5-10 seconds each to remove any extraneous material. Following ~30 minutes of drying, individual pieces were weighed in an aluminum boat on a Mettler Toledo MX5 microbalance to obtain pre-trial weights of each fragment. At this point fragments were numbered based on the Multi-Cultivator MC 1000-OD photobioreactor (Photon Systems Instruments) tube which they would end up in. Tubes and the plastic fragments they were to contain (if applicable) were labeled 1-16.
 
-[Figure 2. Image of bioplastic fragments with holes punched through. Photograph taken by Andrew Forrest using a standard iPhone 11 camera on November 20th, 2024 (after the trial period had ended). ](../Docs/Photos/plastic_photo.png)
+![Figure 2. Image of bioplastic fragments with holes punched through. Photograph taken by Andrew Forrest using a standard iPhone 11 camera on November 20th, 2024 (after the trial period had ended).](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/plastic_photo.png?raw=true)
  
 ## Photobioreactor Trials
 
@@ -113,14 +115,14 @@ Beginning the first day of incubation, the contents of each photobioreactor were
 
 Following a 4-week trial period, the photobioreactors were shut down and plastic fragments were removed from their respective tubes and washed with water to remove any loosely connected mass. Fragments were then left to dry in open air for 24 hours. Post-trial masses of each fragment were taken with the Mettler Toledo MX5 microbalance and an aluminum boat. 
 
-[Figure 3. Image of tray on which plastic fragments were laid out to air dry for 24 hours before post-trial mass measurements were taken and following the end of the trial period. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](../Docs/Photos/weighing_plastic_photo.png)
+![Figure 3. Image of tray on which plastic fragments were laid out to air dry for 24 hours before post-trial mass measurements were taken and following the end of the trial period. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/weighing_plastic_photo.png?raw=true)
 
 
 ## Chlorophyll Assays
 
 To measure wall growth and suspension growth of pond microbes during the trial period, non-acidified chlorophyll assays were performed on the contents of each tube. A total of 32 assays were performed: 16 for suspension growth and 16 for wall growth. Each wall growth assay used 5mL 90% 3:2 acetone: dimethyl sulfoxide solvent to detach microbes from tube walls by swirling. Approximately 2-3mL of solvent/microbe mix was transferred from each tube to its associated assay cuvette. Suspension growth pond water samples were pipetted into assay cuvettes following transfer to a new container and resuspension. Using glass pipettes, 2mL of solvent was distributed to each assay cuvette. Chlorophyll fluorescence readings were taken at excitation wavelength 43610nm and emission wavelength 68510nm using the Turner Trilogy fluorometer.  
 
-[Figure 4. Image of samples following the four week trials, in preperation for chlorophyll assays. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](../Docs/Photos/after_bioreact_photo.png)
+![Figure 4. Image of samples following the four week trials, in preperation for chlorophyll assays. Photograph taken on October 29th, 2024 by Andrew Forrest using a standard iPhone 11 camera.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/after_bioreact_photo.png?raw=true)
 
 ## Data Handling
 
@@ -217,7 +219,7 @@ TargetData <- TargetData %>%
 
 # Results and Discussion
 
-## Suprise Results! Does this plastic inhibit microbial growth?
+## Suprise results!? Does this plastic inhibit microbial growth?
 
 >Plots all OD values. True detection is OD680 and false detection is OD720 [@genge_import_mcdata_2024].
 
@@ -312,6 +314,7 @@ TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", 
 rm(TargetDataWide)
 ```
 
+No statistically significant differences in relative fluorescence units were observed (Tables 1–2). However, slight visual trends in the optical density readings (Figures 6–8, 10–12), suggests the need for further testing. Increasing the number of control replicates and extending the observation period may help determine if these trends are consistent and potentially meaningful.
 
 
 ``` r
@@ -331,11 +334,11 @@ TargetDataMeta %>%
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
   
-  labs( title = "Microbial Growth Under Different Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Different Environmental Conditions", 
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 6. Microbial growth over time under different environmental conditions 25°C. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+        caption = "Figure 6. Optical Density Readings over time under different environmental conditions 25°C. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture (top-bottom order). Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -370,12 +373,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth Under Full Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Full Environmental Conditions", 
         subtitle = "Plastic, Nutrients, and Culture Present", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 7. Microbial growth over time with the culture, nutrient, and plastic present at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 7. Optical Density Readings over time with the culture, nutrient, and plastic present at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   theme_bw() + 
@@ -406,12 +409,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth with no Plastic", 
+  labs( title = "Optical Density Readings in the Absence of Plastic", 
         subtitle = "Nutrients, and Culture Present, No Plastic", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 8. Microbial growth over time with the culture and nutrient present, but no plastic at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 8. Optical Density Readings over time with the culture and nutrient present, but no plastic at 25°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   scale_colour_manual(values = "#00A9FF") +
@@ -566,6 +569,7 @@ rm(TargetDataWide)
 ```
 
 
+
 ``` r
 TargetDataMeta %>% 
   ggplot(aes(x = time, 
@@ -583,11 +587,11 @@ TargetDataMeta %>%
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
   
-  labs( title = "Microbial Growth Under Different Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Different Environmental Conditions", 
         subtitle = "Effect of Plastic, Nutrients, and Culture Presence", x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 10. Microbial growth over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions at 15°C, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture. Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
+        caption = "Figure 10. Optical Density Readings over time under different environmental conditions. The plot shows optical density (OD at 680 nm) \nmeasurements for various tube conditions at 15°C, where 0 indicates the absence and 1 indicates the presence of plastic, \nnutrients, and culture (top-bottom order). Dashed vertical lines represent when resuspension occured at approximately 4, 11, 18, 25, and 32 days. \nThe tubes are grouped by the presence of plastic, nutrients, and culture. Each facet displays different combinations of \nthese factors, with the colour of the points indicating the tube number." ) + 
   facet_wrap(~ Plastic_Present + 
                Nutrient_Present + 
                Culture_Present, 
@@ -622,12 +626,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth Under Full Environmental Conditions", 
+  labs( title = "Optical Density Readings Under Full Environmental Conditions", 
         subtitle = "Plastic, Nutrients, and Culture Present", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 11. Microbial growth over time with the culture, nutrient, and plastic present at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 11. Optical Density Readings over time with the culture, nutrient, and plastic present at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   scale_colour_manual(values = c("#00BE67", "#00BFC4","#00A9FF","#C77CFF","#FF61CC")) +
@@ -659,12 +663,12 @@ ggplot(subset_data, aes(x = time,
              linetype =  "dashed") +
   geom_vline(aes(xintercept = 32.3 * 24), 
              linetype = "dashed") +
-  labs( title = "Microbial Growth with no Plastic", 
+  labs( title = "Optical Density Readings in the Absence of Plastic", 
         subtitle = "Nutrients, and Culture Present, No Plastic", 
         x = "Elapsed Time (hours)", 
         y = "Optical Density (OD at 680 nm)", 
         colour = "Tube Number", 
-        caption = "Figure 12. Microbial growth over time with the culture and nutrient present, but no plastic at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
+        caption = "Figure 12. Optical Density Readings over time with the culture and nutrient present, but no plastic at 15°C. The plot shows optical density \n(OD at 680 nm) measurements for a single tube condition. Dashed vertical lines represent when resuspension occured at \napproximately 4, 11, 18, 25, and 32 days." ) + 
   scale_x_continuous(breaks = seq(0, 800, by = 48)) + 
   scale_y_continuous(limits = c(0, 0.1)) +
   scale_colour_manual(values = "#7CAE00") +
@@ -679,7 +683,7 @@ ggplot(subset_data, aes(x = time,
 
 
 
-ANOVA to test significance of RFU analysis on wall growth microbes.
+Table 1. ANOVA to test significance of temperature and plastic presence on relative fluorescence units of wall growth microbes.
 
 ``` r
 anova_RFU_wall <- aov(Wall_Growth_RFU ~ Plastic_Present * Temperature_C, data = CultureCatalog)
@@ -693,7 +697,7 @@ summary(anova_RFU_wall)
 ## Plastic_Present:Temperature_C  1  961909  961909   1.517  0.242
 ## Residuals                     12 7607700  633975
 ```
-ANOVA to test significance of RFU analysis on suspended microbes.
+Table 2. ANOVA to test significance of temperature and plastic presence on relative fluorescence units of suspended microbes.
 
 ``` r
 anova_RFU_suspension <- aov(Suspension_RFU ~ Plastic_Present * Temperature_C, data = CultureCatalog)
@@ -731,7 +735,7 @@ No statistically significant effect of Plastic Presence, Temperature, or their i
 - Some microbes thrive by utilizing bio-MPs as a carbon source, promoting their growth [@shi_microplastic_2022].
 - Other microbes struggle due to nutrient scarcity, potentially leading to inhibited growth or death [@shi_microplastic_2022].
 
-Possible explanation for more growth in 15 degrees: Samples were taken from the swan pond near the end of September, when the pond's microbial community had likely adjusted to temperatures near 15 degrees Celsius. 
+Possible explanation for more growth at 15 degrees Celsius: Samples were taken from the swan pond near the end of September, when the pond's microbial community may have adjusted to temperatures near 15 degrees Celsius. 
 
 
 
@@ -744,7 +748,7 @@ plastic <- CultureCatalog
 plastic$perc_change <- (plastic$Final_Plastic_Weight_mg - plastic$Initial_Plastic_Weight_mg) / plastic$Initial_Plastic_Weight_mg * 100
 ```
 
-## Did the plastic lose weight after four weeks?
+## Did the bioplastic fragments lose weight after four weeks?
 
 
 ``` r
@@ -773,6 +777,9 @@ data_long$Weight_Type <- factor(data_long$Weight_Type, levels = c("Initial_Plast
 ```
 
 
+Overall, most of the plastic had a loss of weight after the trial period, except two tubes, which saw an increase in weight (Figure 13), possibly due to folding of plastic causing inability to wash microbes off. The difference in weights was not normal (Table 3), so a Wilcoxon signed-rank test was used and the weight difference was determined to be statistically significant (p < 0.05) (Table 4).
+
+
 ``` r
 ggplot(data_long,
        aes(x=Tube,y=Weight,fill=Weight_Type))+
@@ -782,7 +789,7 @@ ggplot(data_long,
              "Final_Plastic_Weight_mg"="red2"))+
   labs(x="Tube",y="Weight(mg)",fill="Weight Type",
     title = "Overall plastic weights (mg) before and after 4 week trial in BioReactors",
-       caption = "Figure 13. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions.")+
+       caption = "Figure 13. Bar plot comparing the initial and final plastic weights (mg) across different tubes and temperature conditions. \nThe bars represent the initial and final weights, with initial weights shown in light blue and final weights in red. The plot is \nfaceted by temperature, allowing for the visualization of weight changes at various temperature conditions. For 15°C: \nTube 1 contains plastic but no culture and no nutrient, Tube 2 contains plastic and the nutrient, but no culture, \nTube 3 contains the culture and nutrient, but no plastic, Tubes 4-8 are replicates which contain plastic, nutrient, and \nculture. For 25°C: Tubes 1-5 are replicates which contain plastic, nutrient, and culture, Tube 6 contains the culture \nand nutrient, but no plastic, Tube 7 contains plastic and the nutrient, but no culture, Tube 8 contains plastic \nbut no culture and no nutrient.")+
   facet_wrap(~ Temperature_C, labeller = labeller(Temperature_C = label_both)) +
   theme_minimal() +
   theme(
@@ -795,9 +802,43 @@ ggplot(data_long,
 
 ![](Figs/plotting before and after plastic-1.png)<!-- -->
 
+Table 3. Normality test for difference in weight before and after the trial period.
+
+``` r
+CultureCatalog$Weight_Difference_mg <- CultureCatalog$Initial_Plastic_Weight_mg - CultureCatalog$Final_Plastic_Weight_mg
+
+# testing if data is normal
+shapiro.test(CultureCatalog$Weight_Difference_mg)
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  CultureCatalog$Weight_Difference_mg
+## W = 0.74785, p-value = 0.001212
+```
+Table 4. Wilcox test to determine if the difference in weight before and after the trial is significant.
+
+``` r
+wilcox.test(CultureCatalog$Initial_Plastic_Weight_mg, CultureCatalog$Final_Plastic_Weight_mg, paired = TRUE)
+```
+
+```
+## 
+## 	Wilcoxon signed rank exact test
+## 
+## data:  CultureCatalog$Initial_Plastic_Weight_mg and CultureCatalog$Final_Plastic_Weight_mg
+## V = 90, p-value = 0.0166
+## alternative hypothesis: true location shift is not equal to 0
+```
 
 
-## What factors influence the change in plastic weight?
+
+
+
+
+## What factors influence the magnitude of change in bioplastic fragment weight?
 
 
 ``` r
@@ -827,6 +868,10 @@ summary_stats <- plastic %>%
 ```
 
 
+
+None of the manipulated factors or their interactions show a statistically significant effect on the percentage change in mass within our dataset (Table 5). This lack of statistical significance indicates that culture presence, nutrient presence, and temperature do not have a measurable impact on the outcome in this experiment. However, slight visual trends (Figure 14) suggest the potential for differences, and further testing with additional replicates of the control tubes, is needed to determine if these visual differences are consistent and potentially meaningful.
+
+
 ``` r
 # Bar Plot with Facet Labels and Borders
 ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Culture_Present)) +
@@ -853,11 +898,11 @@ ggplot(summary_stats, aes(x = factor(Temperature_C), y = mean_loss, fill = Cultu
 
 ![](Figs/unnamed-chunk-4-1.png)<!-- -->
 
-ANOVA testing the effects of Culture Presence, Nutrient Presence, and Temperature on the percentage change in the outcome variable as well as their interactions.
+Table 5. ANOVA testing the effects of Culture Presence, Nutrient Presence, and Temperature on the percentage change in the outcome variable as well as their interactions.
 
 
 ``` r
-anova_effects <- aov(perc_change ~ Culture_Present * Nutrient_Present * Temperature_C, data = plastic)
+anova_effects <- aov(Percent_Weight_Loss ~ Culture_Present * Nutrient_Present * Temperature_C, data = plastic)
 summary(anova_effects)
 ```
 
@@ -872,30 +917,43 @@ summary(anova_effects)
 ## 2 observations deleted due to missingness
 ```
 
-Overall, none of the factors or their interactions significantly affect the percentage change in the dataset. The lack of statistical significance suggests that culture presence, nutrient presence, and temperature do not have a substantial impact on the measured outcome in this experiment.
-
-
-
 ## Microbes Present 
 
-[Figure 15. Scenedesmus (a, b), Euglena (c), and Diatom (d) from  MC mix 006  control tube 3  viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 15 degrees.png)
+The 15°C bioreactor had few microorganisms, contained *Euglena*, diatoms, and *Scenedesmus* (Figure 15). It was dominated by *Euglena*.
 
-[Figure 16. Scenedesmus (a, b,c,d) for MC mix 004 control tube 6 viewed under an electron microscope at 400x magnification.](../Docs/Photos/Microbes bioreactor 25 degrees.png)
+
+
+
+
+![Figure 15. *Scenedesmus* (a, b), *Euglena* (c), and Diatom (d) from 15 degree celsius bioreactor (MC-Mix-006) control tube 3 (plastic omitted) viewed under a light microscope at 400x magnification.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/Microbes%20bioreactor%2015%20degrees.png?raw=true)
+
+The 25°C bioreactor had more organisms than the 15°C bioreactor and was dominated by *Scenedesmus* (Figure 16).
+
+
+
+
+![Figure 16. *Scenedesmus* (a, b,c,d) for 25 degree Celsius bioreactor (MC-Mix-004) control tube 6 (plastic omitted) viewed under an light microscope at 400x magnification.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/Microbes%20bioreactor%2025%20degrees.png?raw=true)
+
 
 
 ## Limitations
 
-- Duration
-- Bioreactor maintenance
+- Duration of the experiment was relatively short. 
+- Photobioreactor issues and inability to correct them.
+- No way to confirm equal provision of oxygen.
+- Lacked a mechanism to control plastic fragment folding and exposure to physical stresses. 
 
-## Future directions
+## Future Direction
 
-- extend experiment duration
-- Use Oxygen sensors
-- Nutrient supplementation
-- Convert controls into replicates 
-- Investigate microbial inhibition
-- Testing bioplastic toxicity: A future study to investigate the potential toxicity of vegetable based bioplastics could use multiple bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of vegetable starch based plastics.
+- Extend experiment duration. 
+- Use oxygen sensors to ensure equal exposure.
+- Discover and use community's optimal nutrient quantities.
+- Add replicates for control tube conditions.
+- Testing bioplastic microbial growth inhibition: A future study to investigate the potential role of growth inhibition by vegetable-based bioplastics and/or their breakdown products could use multiple identical bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of gradually increasing masses of vegetable starch based plastic fragments. With an accurate way to periodically measure total biomass in each tube, it's possible that a conclusion could be provided regarding whether or not these bioplastics' presence inhibit the growth of various microbial communities.
+
+# Conclusion
+
+Overall, although changes in weight were observed before and after the trial, no statistically significant effects were found from the manipulated factors on weight change. Similarly, no significant differences in relative fluorescence units (RFUs) were observed, indicating that the tested factors had no apparent effect on RFU levels. Further investigation is needed to explore these factors in more depth.
 
 # References
 
