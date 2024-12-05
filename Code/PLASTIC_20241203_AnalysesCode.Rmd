@@ -673,12 +673,12 @@ ggplot(subset_data, aes(x = time,
 
 
 
-Table 1. ANOVA to test significance of RFU analysis on wall growth microbes.
+Table 1. ANOVA to test significance of temperature and plastic presence on relative fluorescence units of wall growth microbes.
 ```{r}
 anova_RFU_wall <- aov(Wall_Growth_RFU ~ Plastic_Present * Temperature_C, data = CultureCatalog)
 summary(anova_RFU_wall)
 ```
-Table 2. ANOVA to test significance of RFU analysis on suspended microbes.
+Table 2. ANOVA to test significance of temperature and plastic presence on relative fluorescence units of suspended microbes.
 ```{r}
 anova_RFU_suspension <- aov(Suspension_RFU ~ Plastic_Present * Temperature_C, data = CultureCatalog)
 summary(anova_RFU_suspension)
@@ -745,7 +745,6 @@ data_long<-CultureCatalog%>%
 #putting them in the right order
 data_long$Weight_Type <- factor(data_long$Weight_Type, levels = c("Initial_Plastic_Weight_mg", "Final_Plastic_Weight_mg"))
 ```
-
 
 
 Overall, most of the plastic had a loss of weight after the trial period, except two tubes with saw an increase in weight (Figure 13), possibly due to folding of plastic causing inability to wash microbes off. The difference in weights was not normal (Table 3), so a Wilcoxon signed-rank test was used and the weight difference was determined to be statistically significant (p < 0.05) (Table 4).
@@ -862,6 +861,9 @@ The 25°C bioreactor had more organisms than the 15°C bioreactor and was domina
 
 ![Figure 16. *Scenedesmus* (a, b,c,d) for 25 degree Celsius bioreactor (MC-Mix-004) control tube 6 (plastic omitted) viewed under an light microscope at 400x magnification.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/Microbes%20bioreactor%2025%20degrees.png?raw=true)
 
+# Conclusion
+
+Overall, although changes in weight were observed before and after the trial, no statistically significant effects were found from the manipulated factors on weight change. Similarly, no significant differences in relative fluorescence units (RFUs) were observed, indicating that the tested factors had no apparent effect on RFU levels. Further investigation is needed to explore these factors in more depth.
 
 ## Limitations
 
