@@ -316,7 +316,7 @@ TargetDataMeta <- left_join(x = TargetDataWide, y= CultureCatalog, by = c("MC", 
 rm(TargetDataWide)
 ```
 
-No statistically significant differences in relative fluorescence units were observed (Tables 1–2). However, slight visual trends in the optical density readings (Figures 6–8, 10–12) suggest the need for further testing. Increasing the number of control replicates and extending the observation period may help determine if these trends are consistent and potentially meaningful.
+No statistically significant differences in relative fluorescence units were observed (Tables 1–2). However, slight visual trends in the optical density readings (Figures 6–8, 10–12), suggests the need for further testing. Increasing the number of control replicates and extending the observation period may help determine if these trends are consistent and potentially meaningful.
 
 ```{r growth different conditions MCMIX004}
 TargetDataMeta %>% 
@@ -747,7 +747,7 @@ data_long$Weight_Type <- factor(data_long$Weight_Type, levels = c("Initial_Plast
 ```
 
 
-Overall, most of the plastic had a loss of weight after the trial period, except two tubes with saw an increase in weight (Figure 13), possibly due to folding of plastic causing inability to wash microbes off. The difference in weights was not normal (Table 3), so a Wilcoxon signed-rank test was used and the weight difference was determined to be statistically significant (p < 0.05) (Table 4).
+Overall, most of the plastic had a loss of weight after the trial period, except two tubes, which saw an increase in weight (Figure 13), possibly due to folding of plastic causing inability to wash microbes off. The difference in weights was not normal (Table 3), so a Wilcoxon signed-rank test was used and the weight difference was determined to be statistically significant (p < 0.05) (Table 4).
 
 ```{r plotting before and after plastic}
 ggplot(data_long,
@@ -816,7 +816,7 @@ summary_stats <- plastic %>%
 
 
 
-None of the manipulated factors or their interactions show a statistically significant effect on the percentage change in mass within our dataset (Table 5). This lack of statistical significance indicates that culture presence, nutrient presence, and temperature do not have a measurable impact on the outcome in this experiment. However, slight visual trends (Figure 14) suggest the potential for differences, and further testing with additional replicates of the control tubes is needed to determine if these visual differences are consistent and potentially meaningful.
+None of the manipulated factors or their interactions show a statistically significant effect on the percentage change in mass within our dataset (Table 5). This lack of statistical significance indicates that culture presence, nutrient presence, and temperature do not have a measurable impact on the outcome in this experiment. However, slight visual trends (Figure 14) suggest the potential for differences, and further testing with additional replicates of the control tubes, is needed to determine if these visual differences are consistent and potentially meaningful.
 
 ```{r}
 # Bar Plot with Facet Labels and Borders
@@ -855,15 +855,20 @@ summary(anova_effects)
 
 The 15°C bioreactor had few microorganisms, contained *Euglena*, diatoms, and *Scenedesmus* (Figure 15). It was dominated by *Euglena*.
 
+
+
+
+
 ![Figure 15. *Scenedesmus* (a, b), *Euglena* (c), and Diatom (d) from 15 degree celsius bioreactor (MC-Mix-006) control tube 3 (plastic omitted) viewed under a light microscope at 400x magnification.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/Microbes%20bioreactor%2015%20degrees.png?raw=true)
 
 The 25°C bioreactor had more organisms than the 15°C bioreactor and was dominated by *Scenedesmus* (Figure 16).
 
+
+
+
 ![Figure 16. *Scenedesmus* (a, b,c,d) for 25 degree Celsius bioreactor (MC-Mix-004) control tube 6 (plastic omitted) viewed under an light microscope at 400x magnification.](https://github.com/BIOL3111MtA2024/plastic_degrade/blob/main/Docs/Photos/Microbes%20bioreactor%2025%20degrees.png?raw=true)
 
-# Conclusion
 
-Overall, although changes in weight were observed before and after the trial, no statistically significant effects were found from the manipulated factors on weight change. Similarly, no significant differences in relative fluorescence units (RFUs) were observed, indicating that the tested factors had no apparent effect on RFU levels. Further investigation is needed to explore these factors in more depth.
 
 ## Limitations
 
@@ -879,6 +884,10 @@ Overall, although changes in weight were observed before and after the trial, no
 - Discover and use community's optimal nutrient quantities.
 - Add replicates for control tube conditions.
 - Testing bioplastic microbial growth inhibition: A future study to investigate the potential role of growth inhibition by vegetable-based bioplastics and/or their breakdown products could use multiple identical bioreactors to test the ability of a variety of naturally occurring microbial communities to grow in the presence of gradually increasing masses of vegetable starch based plastic fragments. With an accurate way to periodically measure total biomass in each tube, it's possible that a conclusion could be provided regarding whether or not these bioplastics' presence inhibit the growth of various microbial communities.
+
+# Conclusion
+
+Overall, although changes in weight were observed before and after the trial, no statistically significant effects were found from the manipulated factors on weight change. Similarly, no significant differences in relative fluorescence units (RFUs) were observed, indicating that the tested factors had no apparent effect on RFU levels. Further investigation is needed to explore these factors in more depth.
 
 # References
 
